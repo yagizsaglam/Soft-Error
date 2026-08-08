@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1 — Research in Soft Error</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <script src="js/lenis.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./js/three/three.module.js",
+      "three/addons/": "./js/three/"
+    }
+  }
+  </script>
+</head>
+<body class="chapter-page">
+
+  <section class="chapter-hero"></section>
+
+  <div class="chapter-content">
+
+    <aside class="chapter-sidebar">
+      <div class="sidebar-top-group">
+        <div class="sidebar-top">
+          <a href="index.html#phase1" class="sidebar-logo">SOFT ERROR</a>
+          <span class="sidebar-chap">Chapter 1</span>
+        </div>
+        <h1 class="chapter-title">research<br>in<br>soft error</h1>
+      </div>
+      <div class="view-toggle" id="viewToggle">
+        <button class="view-btn active" data-view="stacked">STACKED VIEW</button>
+        <button class="view-btn" data-view="traditional">TRADITIONAL VIEW</button>
+        <button class="view-btn scroll-top-btn" id="scrollTopBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 11 L8 5 L13 11"/></svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <span class="nav-arrow disabled">
+          <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M8 1 L1 8 L8 15"/></svg>
+        </span>
+        <a href="chapter2.html" class="nav-arrow">
+          <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M24 1 L31 8 L24 15"/></svg>
+        </a>
+      </nav>
+    </aside>
+
+    <div class="chapter-main">
+      <div class="card-reference" id="cardReference" style="display:none;">
+        <span class="ref-label">Reference Research</span>
+        <p class="ref-text">AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY</p>
+      </div>
+      <div class="image-stack" id="imageStack">
+        <img src="webpics/C1d1.png" alt="Research image 1" class="stack-card" data-index="0">
+        <img src="webpics/C1d2.png" alt="Research image 2" class="stack-card" data-index="1">
+        <img src="webpics/C1d3.png" alt="Research image 3" class="stack-card" data-index="2">
+        <img src="webpics/C1d4.png" alt="Research image 4" class="stack-card" data-index="3">
+        <img src="webpics/C1d5.png" alt="Research image 5" class="stack-card" data-index="4">
+        <img src="webpics/C1d6.png" alt="Research image 6" class="stack-card" data-index="5">
+      </div>
+    </div><!-- .chapter-main -->
+  </div><!-- .chapter-content -->
+
+  <div class="model-section" id="modelSection" style="display:none;">
+    <div class="model-viewer" id="modelViewer">
+      <div id="modelStatus" style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;">Loading 3D model...</div>
+    </div>
+    <div class="model-panel">
+      <p>Calculating the deformation factor begins with measuring local geometric deviation, defined as the magnitude of the displacement vector between the reference mesh and the target mesh at each point. These local deviations are then aggregated to produce a global value, representing the average displacement across the entire mesh.</p>
+      <p>To visualise this dynamically, the VEX code applies the calculated deformation factor iteratively to each point along its normal vector. The system is further refined to compute distinct error vectors between models, differentiating between scan error and print error. These are accumulated across successive generations, producing a continuous cycle of distortion and approximation.</p>
+      <p>Geometric error is reinterpreted as a spatial and generative condition rather than a static imperfection. By translating error into spatial configurations with architectural qualities, it becomes an active driver of form, capable of producing differentiated typologies and informing new modes of design.</p>
+    </div>
+  </div>
+
+  <script>
+    // Lenis smooth scroll
+    const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // --- Scroll to Top ---
+    document.getElementById('scrollTopBtn').addEventListener('click', function() {
+      lenis.scrollTo(0);
+    });
+
+    // --- View Toggle (with FLIP animation) ---
+    (function() {
+      const toggle = document.getElementById('viewToggle');
+      const buttons = toggle.querySelectorAll('.view-btn:not(.scroll-top-btn)');
+      const stack = document.getElementById('imageStack');
+      const cards = stack.querySelectorAll('.stack-card');
+
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          // --- FLIP: First — record current positions ---
+          var first = [];
+          cards.forEach(function(card) {
+            var rect = card.getBoundingClientRect();
+            first.push(rect);
+          });
+
+          // Disable CSS transitions during FLIP to prevent conflicts
+          cards.forEach(function(c) { c.style.transition = 'none'; });
+
+          // Update active button
+          buttons.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          // Switch view class (LAST — layout engine switches here)
+          var view = btn.getAttribute('data-view');
+          var main = document.querySelector('.chapter-main');
+          if (view === 'traditional') {
+            stack.classList.add('traditional');
+            main.classList.add('view-traditional');
+          } else {
+            stack.classList.remove('traditional');
+            main.classList.remove('view-traditional');
+          }
+
+          // --- FLIP: Invert + Play — animate delta to zero ---
+          cards.forEach(function(card, i) {
+            var last = card.getBoundingClientRect();
+            var dx = first[i].left - last.left;
+            var dy = first[i].top - last.top;
+
+            // Re-enable CSS transitions
+            card.style.transition = '';
+
+            if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+              card.animate([
+                { transform: 'translate(' + dx + 'px, ' + dy + 'px)' },
+                { transform: 'translate(0, 0)' }
+              ], {
+                duration: 800,
+                easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+                composite: 'add'
+              });
+            }
+          });
+        });
+      });
+    })();
+
+    // --- Image Stack Interaction ---
+    (function() {
+      const stack = document.getElementById('imageStack');
+      const cards = stack.querySelectorAll('.stack-card');
+      const refBox = document.getElementById('cardReference');
+      const modelSection = document.getElementById('modelSection');
+      const modelViewer = document.getElementById('modelViewer');
+      const modelStatus = document.getElementById('modelStatus');
+      let activeIndex = -1;
+      let threeInitialized = false;
+
+      function hideModel() {
+        modelSection.style.display = 'none';
+      }
+
+      function showModel() {
+        modelSection.style.display = 'flex';
+        if (!threeInitialized) {
+          threeInitialized = true;
+          initThreeJS(modelViewer, modelStatus);
+        }
+        // Auto-scroll to model section after a short delay to let layout settle
+        setTimeout(function() {
+          lenis.scrollTo(modelSection, { offset: -100 });
+        }, 200);
+      }
+
+      function deselect() {
+        activeIndex = -1;
+        stack.classList.remove('selected');
+        cards.forEach(function(c) { c.classList.remove('active'); });
+        refBox.style.display = 'none';
+        hideModel();
+      }
+
+      cards.forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          var idx = parseInt(card.getAttribute('data-index'));
+
+          if (activeIndex === idx) {
+            deselect();
+          } else {
+            activeIndex = idx;
+            stack.classList.add('selected');
+            cards.forEach(function(c) { c.classList.remove('active'); });
+            card.classList.add('active');
+            // Show reference text per card
+            var refs = [
+              { label: 'Reference Research', text: 'AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY' },
+              { label: 'Research In Point Cloud Model', text: 'Understanding the working principle of Gaussian point clouds' },
+              { label: 'Workflow of Process', text: 'Design of the feedback control loop for scanning and printing systems' },
+              { label: 'Material Selection', text: 'Using Controlled Variable Approach to Achieve More Diverse and Trustworthy Data' },
+              { label: 'Data Analysis', text: 'Variance Analysis of Iterative Printing for Different Materials' },
+              { label: 'Computer Simulation', text: 'Iterative Simulation in Houdini Based on Feedback-Loop Data' }
+            ];
+            var ref = refs[idx];
+            refBox.querySelector('.ref-label').textContent = ref.label;
+            refBox.querySelector('.ref-text').textContent = ref.text;
+            refBox.style.display = 'block';
+
+            // Show 3D model for card 6 (index 5), hide for others
+            if (idx === 5) {
+              showModel();
+            } else {
+              hideModel();
+            }
+          }
+        });
+      });
+
+      // Click on empty area inside the stack → deselect
+      stack.addEventListener('click', function(e) {
+        deselect();
+      });
+
+      // Click outside the stack → deselect (but not on model viewer)
+      document.addEventListener('click', function(e) {
+        if (!stack.contains(e.target) && !modelSection.contains(e.target)) {
+          deselect();
+        }
+      });
+    })();
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    window.initThreeJS = function(container, statusEl) {
+      // Ensure container has size
+      if (container.clientWidth === 0 || container.clientHeight === 0) {
+        console.error('Model viewer container has zero size');
+        if (statusEl) {
+          statusEl.innerHTML = '<span style="color:#e00000;">Error: Viewer has zero size. Try resizing the window.</span>';
+        }
+        return;
+      }
+
+      const W = container.clientWidth;
+      const H = container.clientHeight;
+      console.log('Init Three.js — container:', W, 'x', H);
+
+      // --- Scene ---
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('#ffffff');
+
+      // --- Camera ---
+      const camera = new THREE.PerspectiveCamera(45, W / H, 0.01, 200);
+      camera.position.set(0, 2, 8);
+      camera.lookAt(0, 0, 0);
+
+      // --- Renderer ---
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(W, H);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      container.appendChild(renderer.domElement);
+
+      // --- Lights ---
+      const ambient = new THREE.AmbientLight('#ffffff', 0.8);
+      scene.add(ambient);
+
+      const key = new THREE.DirectionalLight('#ffffff', 2);
+      key.position.set(5, 10, 5);
+      scene.add(key);
+
+      const fill = new THREE.DirectionalLight('#ffffff', 1);
+      fill.position.set(-5, 2, -5);
+      scene.add(fill);
+
+      // --- Controls ---
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.target.set(0, 0, 0);
+      controls.enableZoom = false;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 1.5;
+      controls.update();
+
+      // --- Raycaster for model-only interaction ---
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      const modelMeshes = [];
+
+      function getIntersections(e) {
+        const rect = renderer.domElement.getBoundingClientRect();
+        pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        return raycaster.intersectObjects(modelMeshes, true);
+      }
+
+      // Only allow OrbitControls rotation when pointer is on the model
+      renderer.domElement.addEventListener('pointerdown', function(e) {
+        if (modelMeshes.length === 0) return;
+        const hits = getIntersections(e);
+        if (hits.length === 0) {
+          e.stopPropagation();
+        }
+      }, true);
+
+      // Update cursor on hover
+      renderer.domElement.addEventListener('pointermove', function(e) {
+        if (modelMeshes.length === 0) return;
+        const hits = getIntersections(e);
+        renderer.domElement.style.cursor = hits.length > 0 ? 'grab' : 'default';
+      });
+
+      // --- Load Model ---
+      const loader = new GLTFLoader();
+      console.log('Loading webpics/oyster.glb ...');
+      loader.load(
+        'webpics/oyster.glb',
+        function(gltf) {
+          const model = gltf.scene;
+          console.log('Model loaded:', model);
+
+          // Remove status element
+          if (statusEl) {
+            statusEl.style.display = 'none';
+          }
+
+          // Compute bounding box
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          console.log('BBox center:', center.toArray(), 'size:', size.toArray());
+
+          const maxDim = Math.max(size.x, size.y, size.z);
+          if (maxDim === 0) {
+            console.warn('Model has zero bounding box — using fallback scale');
+            model.scale.setScalar(1);
+          } else {
+            const targetSize = 8;
+            const s = targetSize / maxDim;
+            model.scale.setScalar(s);
+            model.position.set(-center.x * s, -center.y * s, -center.z * s);
+            console.log('Scale:', s, 'position:', model.position.toArray());
+          }
+
+          // Collect meshes for raycasting + ensure materials render correctly
+          model.traverse(function(child) {
+            if (child.isMesh) {
+              modelMeshes.push(child);
+              child.castShadow = true;
+              child.receiveShadow = true;
+              if (child.material) {
+                child.material.needsUpdate = true;
+                if (child.material.color && child.material.color.getHex() === 0xffffff) {
+                  child.material.color.set('#e0e0e0');
+                }
+              }
+            }
+          });
+
+          scene.add(model);
+
+          // Center model
+          const modelCenter = center.clone().multiplyScalar(model.scale.x).add(model.position);
+          const shift = new THREE.Vector3(0, 0, 0);
+          controls.target.copy(modelCenter).add(shift);
+          camera.position.add(shift);
+          controls.update();
+
+          console.log('Model ready — meshes:', modelMeshes.length);
+        },
+        function(xhr) {
+          if (xhr.total > 0) {
+            var pct = Math.round(xhr.loaded / xhr.total * 100);
+            console.log('Loading progress:', pct + '%');
+            if (statusEl) {
+              statusEl.innerHTML = '<span>Loading 3D model... ' + pct + '%</span>';
+            }
+          }
+        },
+        function(err) {
+          console.error('Failed to load oyster.glb:', err);
+          if (statusEl) {
+            statusEl.innerHTML = '<span style="color:#e00000;">Failed to load 3D model.<br><small>' + err.message + '</small></span>';
+          }
+        }
+      );
+
+      // --- Resize Handler ---
+      const resizeObserver = new ResizeObserver(function() {
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        if (w > 0 && h > 0) {
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+          renderer.setSize(w, h);
+        }
+      });
+      resizeObserver.observe(container);
+
+      // --- Render Loop ---
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+      console.log('Three.js render loop started');
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4 — Production</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <script src="js/lenis.min.js"></script>
+</head>
+<body class="chapter-page">
+
+  <div class="chapter-content">
+
+    <aside class="chapter-sidebar">
+      <div class="sidebar-top-group">
+        <div class="sidebar-top">
+          <a href="index.html#phase1" class="sidebar-logo">SOFT ERROR</a>
+          <span class="sidebar-chap">Chapter 4</span>
+        </div>
+        <h1 class="chapter-title">Production</h1>
+      </div>
+      <div class="view-toggle" id="viewToggle">
+        <button class="view-btn active" data-view="stacked">STACKED VIEW</button>
+        <button class="view-btn" data-view="traditional">TRADITIONAL VIEW</button>
+        <button class="view-btn scroll-top-btn" id="scrollTopBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 11 L8 5 L13 11"/></svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="chapter3.html" class="nav-arrow">
+          <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M8 1 L1 8 L8 15"/></svg>
+        </a>
+        <a href="chapter5.html" class="nav-arrow">
+          <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M24 1 L31 8 L24 15"/></svg>
+        </a>
+      </nav>
+    </aside>
+
+    <div class="chapter-main">
+    </div>
+
+  </div>
+
+  <script>
+    const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    document.getElementById('scrollTopBtn').addEventListener('click', function() {
+      lenis.scrollTo(0);
+    });
+
+    (function() {
+      const toggle = document.getElementById('viewToggle');
+      const buttons = toggle.querySelectorAll('.view-btn:not(.scroll-top-btn)');
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          buttons.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

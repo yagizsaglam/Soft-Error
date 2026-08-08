@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOFT ERROR — UCL Bartlett RC6</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <script src="js/lenis.min.js"></script>
+</head>
+<body>
+
+  <!-- Scroll spacer: 300vh (phase1: 0–0.8vh, phase2: 0.8–1.8vh, rest: buffer) -->
+  <div class="scroll-spacer"></div>
+
+  <!-- Canvas hero: cover.png + lens reveal of coverun.png -->
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+  <!-- Red multiply overlay (scroll-driven) -->
+  <div class="red-overlay" id="redOverlay"></div>
+
+  <!-- Corner labels -->
+  <span class="corner-label corner-tl" id="cornerTL">BSA</span>
+  <span class="corner-label corner-tc" id="cornerTC">SOFT ERROR</span>
+  <span class="corner-label corner-tr" id="cornerTR">RC6</span>
+
+  <!-- Main title -->
+  <h1 class="hero-title" id="heroTitle">SOFT ERROR</h1>
+
+  <!-- Chapter links (scroll-revealed) -->
+  <nav class="chapter-list" id="chapterList">
+    <a href="chapter1.html" class="chapter-link" data-index="0">Chapter 1 &mdash; Research in Soft Error</a>
+    <a href="chapter2.html" class="chapter-link" data-index="1">Chapter 2 &mdash; Point to Point</a>
+    <a href="chapter3.html" class="chapter-link" data-index="2">Chapter 3 &mdash; Scaling + Structural Test</a>
+    <a href="chapter4.html" class="chapter-link" data-index="3">Chapter 4 &mdash; Production</a>
+    <a href="chapter5.html" class="chapter-link" data-index="4">Chapter 5 &mdash; Future Development</a>
+  </nav>
+
+  <!-- Box curtain (scrolls up to reveal hero) -->
+  <img id="boxCurtain" src="webpics/box.png" alt="" class="box-curtain">
+
+  <!-- Credits section (phase 2 — appears after chapter links) -->
+  <section class="credits-panel" id="creditsPanel">
+    <div class="credits-left">
+      <span class="credits-label">Tutors</span>
+      <p>Christopher Fischlein<br>Daniel Widrig<br>Guan Lee</p>
+    </div>
+    <div class="credits-center">
+      <div class="credits-img-wrap">
+        <img src="webpics/homepld.png" alt="SOFT ERROR project" class="credits-img" id="creditsImgBase">
+        <img src="webpics/homepld.png" alt="" class="credits-img credits-img-overlay" id="creditsOverlayA">
+        <img src="webpics/homepld.png" alt="" class="credits-img credits-img-overlay" id="creditsOverlayB">
+      </div>
+    </div>
+    <div class="credits-right">
+      <span class="credits-label">Team</span>
+      <ul class="team-list">
+        <li class="team-member" data-img="1">
+          <span class="team-name">Jiaxuan Zhou</span>
+          <span class="team-email"></span>
+        </li>
+        <li class="team-member" data-img="2">
+          <span class="team-name">Kyle Feuer</span>
+          <span class="team-email"></span>
+        </li>
+        <li class="team-member" data-img="3">
+          <span class="team-name">Xiaoyue Li</span>
+          <span class="team-email">good_eric@163.com</span>
+        </li>
+        <li class="team-member" data-img="4">
+          <span class="team-name">Fiza Salim</span>
+          <span class="team-email"></span>
+        </li>
+        <li class="team-member" data-img="5">
+          <span class="team-name">Yagiz Saglam</span>
+          <span class="team-email"></span>
+        </li>
+      </ul>
+    </div>
+    <a href="#" class="credits-back" id="creditsBack">BACK TO CONTENT</a>
+  </section>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint" id="scrollHint">
+    <span>Scroll</span>
+    <span class="scroll-arrow">&darr;</span>
+  </div>
+
+  <script src="js/home.js"></script>
+</body>
+</html>
