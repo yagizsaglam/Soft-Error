@@ -17,3 +17,6 @@ test-model.html
 
 # Python
 __pycache__/
+
+# Claude Code machine-local settings
+.claude/settings.local.json
