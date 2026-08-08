@@ -1,3 +1,6 @@
+# Image backups (originals)
+webpics-backup/
+
 # macOS
 .DS_Store
 
@@ -7,5 +10,10 @@ Thumbs.db
 # Large source files (not needed for deployment)
 *.psd
 
-# Python test server
+# Temp scripts
+compress-images.py
+deployment-dns-report.txt
+test-model.html
+
+# Python
 __pycache__/

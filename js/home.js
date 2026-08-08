@@ -339,7 +339,7 @@
   const hoverImages = {};
   for (let i = 1; i <= 5; i++) {
     const img = new Image();
-    img.src = `webpics/homepld${i}.png`;
+    img.src = `webpics/homepld${i}.jpg`;
     hoverImages[i] = img;
   }
 
@@ -391,8 +391,8 @@
   async function init() {
     try {
       [imgCover, imgCoverUn] = await Promise.all([
-        loadImage('webpics/cover.png'),
-        loadImage('webpics/coverun.png'),
+        loadImage('webpics/cover.jpg'),
+        loadImage('webpics/coverun.jpg'),
       ]);
 
       sizeCanvas();
