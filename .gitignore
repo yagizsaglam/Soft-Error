@@ -18,5 +18,10 @@ test-model.html
 # Python
 __pycache__/
 
-# Claude Code machine-local settings
-.claude/settings.local.json
+# Claude Code local settings and dev-server config
+.claude/
+
+# Generated: the 16MB single-file offline build of chapter 4. The live site
+# serves chapter4.html + models/ over HTTP, so this is only for opening the
+# sequence locally by double-click. Rebuild it with tools/build_standalone.js
+chapter4_standalone.html

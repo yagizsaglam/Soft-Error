@@ -1,0 +1,11 @@
+# Keep line endings LF in the repo. Without this, editing on Windows rewrites
+# whole files as CRLF and every commit carries thousands of phantom diff lines
+# (the vendored three.js build alone showed 106,000).
+* text=auto eol=lf
+
+*.glb  binary
+*.ttf  binary
+*.png  binary
+*.jpg  binary
+*.psd  binary
+*.webp binary

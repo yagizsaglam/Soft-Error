@@ -7,6 +7,14 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/fonts.css">
   <script src="js/lenis.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./js/three/three.module.js",
+      "three/addons/": "./js/three/"
+    }
+  }
+  </script>
 </head>
 <body class="chapter-page">
 
@@ -21,8 +29,6 @@
         <h1 class="chapter-title">Production</h1>
       </div>
       <div class="view-toggle" id="viewToggle">
-        <button class="view-btn active" data-view="stacked">STACKED VIEW</button>
-        <button class="view-btn" data-view="traditional">TRADITIONAL VIEW</button>
         <button class="view-btn scroll-top-btn" id="scrollTopBtn">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 11 L8 5 L13 11"/></svg>
         </button>
@@ -37,7 +43,31 @@
       </nav>
     </aside>
 
-    <div class="chapter-main">
+    <div class="chapter-main print-page">
+
+      <section class="print-scroll" id="printScroll">
+        <div class="print-sticky">
+          <canvas class="print-canvas" id="printCanvas"></canvas>
+
+          <div class="print-hud">
+            <span class="print-stage-label" id="printStage">Deposition</span>
+            <span class="print-track"><span class="print-bar" id="printBar"></span></span>
+            <span class="print-count" id="printCount"></span>
+          </div>
+
+          <div class="print-loading" id="printLoading">Loading model</div>
+        </div>
+      </section>
+
+      <section class="print-body">
+        <h2>Deposition</h2>
+        <p>
+          The panel is not drawn and then made. It is deposited — the robot lays
+          aggregate into a perforated formwork, layer over layer, and the pattern
+          that results is the record of that motion rather than a drawing of it.
+        </p>
+      </section>
+
     </div>
 
   </div>
@@ -50,17 +80,447 @@
     document.getElementById('scrollTopBtn').addEventListener('click', function() {
       lenis.scrollTo(0);
     });
-
-    (function() {
-      const toggle = document.getElementById('viewToggle');
-      const buttons = toggle.querySelectorAll('.view-btn:not(.scroll-top-btn)');
-      buttons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          buttons.forEach(function(b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-        });
-      });
-    })();
   </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    /* -------------------------------------------------------------------------
+       Scroll-driven build.
+
+       This is the real scene, not a re-model. models/scene_web.glb is the
+       exact geometry + baked arm animation exported out of "main robot" by
+       _bl_export_web.py — the same code path (and the same reach_wrist IK)
+       that _bl_box_diag.py used to render robot_perp_build.gif. The six
+       animation clips are one per joint (ACTIONS export); we play them
+       together off a single mixer and scrub that mixer with the page scroll.
+
+       models/points.glb holds the six scanned deposit morphologies.
+       models/schedule.json holds each of the 470 deposits: its reveal frame
+       (the frame the needle is actually inside the hole), level, face,
+       position, rotation and per-axis scale.
+       models/fun.glb is the finished panel (F.U.N.obj out of Rhino), revealed
+       once the last deposit is down and the formwork swings open.
+
+       The scroll splits in two: 0 -> BUILD_END is the deposition, BUILD_END -> 1
+       is the release. The camera turns a full 360 across both.
+       ---------------------------------------------------------------------- */
+
+    const BUILD_END  = 0.86;                             // deposition ends here
+    const TURN       = 360;                              // degrees of orbit, total
+    const WALL_ALPHA = 0.5;                              // acrylic formwork opacity
+    const OPEN_ANGLE = 78;                               // degrees each wall falls open
+    const FUN_SCALE  = 24.06 / 1442.367;                 // model height -> box interior
+    const FUN_BASE_Y = 0.12;                             // top of the plinth
+
+    const MATERIALS = {
+      'cem-perl-pt': { color: 0xc2bfb5, rough: 0.92 },
+      'cem-perl-ln': { color: 0xb6b3a8, rough: 0.92 },
+      'resin-perl':  { color: 0xf5dfc7, rough: 0.40, transmissive: true },
+      'resin-sand':  { color: 0xd9b385, rough: 0.55 },
+      'resin-tire':  { color: 0x3f3934, rough: 0.70 },
+      'resin-mixed': { color: 0xead6c0, rough: 0.45, transmissive: true }
+    };
+    const DEPOSIT_MAT = 'resin-tire';   // which morphology to pull out of points.glb
+    // the aggregate reads as pale crust on the physical panel, so the deposits
+    // are white — but off-white, with the warm grey cast of the real thing
+    const DEPOSIT_COLOR = 0xd8d4ca;
+    const DEPOSIT_ROUGH = 0.88;
+    const WARM = new THREE.Color(0xe8731f);
+
+    const canvas     = document.getElementById('printCanvas');
+    const scrollEl   = document.getElementById('printScroll');
+    const loadingEl  = document.getElementById('printLoading');
+    const stageEl    = document.getElementById('printStage');
+    const barEl      = document.getElementById('printBar');
+    const countEl    = document.getElementById('printCount');
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setClearColor(0x000000, 0);   // transparent — the page shows through
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+
+    const scene = new THREE.Scene();
+    scene.background = null;               // no backdrop — canvas is transparent
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 1000);
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x9a9a9a, 0.55));
+    scene.add(new THREE.AmbientLight(0xffffff, 0.12));
+    const key = new THREE.DirectionalLight(0xfff3e6, 2.4);
+    key.position.set(22, 40, 30);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    key.shadow.camera.near = 1;
+    key.shadow.camera.far = 200;
+    key.shadow.camera.left = -30; key.shadow.camera.right = 30;
+    key.shadow.camera.top = 30;   key.shadow.camera.bottom = -30;
+    key.shadow.bias = -0.0004;
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0xdfe8ff, 0.8); fill.position.set(-18, 30, -18); scene.add(fill);
+    const rim  = new THREE.DirectionalLight(0xffffff, 0.7); rim.position.set(18, 34, 18);   scene.add(rim);
+
+    // --- state ---------------------------------------------------------------
+    let SCHEDULE = null, N = 0, LASTF = 0, FRESH = 9;
+    let mixer = null, actions = [];
+    let bulk = null; const freshMeshes = [];
+    const dPos = [], dQuat = [], dScl = [], revF = [];
+    let camCenter = new THREE.Vector3(), camDist = 40, boxHalfY = 10;
+    let targetY = 0, targetYGoal = 0, ready = false, visible = true;
+    let lastFrame = -1, lastRevealed = -1;
+    let depMat = null, fun = null, funMat = null;
+    const hinges = [], wallMats = [], ringMats = [];
+
+    const clamp01 = v => v < 0 ? 0 : (v > 1 ? 1 : v);
+    const easeInOut = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    // Quintic smootherstep gives the slow-in / slow-out, but its slope is zero
+    // at both ends, so on its own the arm sits dead still at the start. Blend
+    // it with a linear ramp to put a floor under the speed: at CURVE = 0.7 the
+    // slowest rate is 30% of average and the fastest is 1.61x, so it always
+    // moves but the middle is still ~5x quicker than the ends.
+    const CURVE = 0.7;   // 0 = constant rate, 1 = full S-curve (stalls at the ends)
+    const smoother = t => t * t * t * (t * (t * 6 - 15) + 10);
+    const paced = t => (1 - CURVE) * t + CURVE * smoother(t);
+
+    // how many deposits are down by frame cf — revF is ascending, so binary search
+    function revealedAt(cf) {
+      let lo = 0, hi = N;
+      while (lo < hi) { const m = (lo + hi) >> 1; if (revF[m] <= cf) lo = m + 1; else hi = m; }
+      return lo;
+    }
+
+    // --- load ----------------------------------------------------------------
+    const loader = new GLTFLoader();
+    Promise.all([
+      fetch('models/schedule.json').then(r => {
+        if (!r.ok) throw new Error('schedule.json ' + r.status);
+        return r.json();
+      }),
+      loader.loadAsync('models/points.glb'),
+      loader.loadAsync('models/scene_web.glb'),
+      loader.loadAsync('models/fun.glb')
+    ]).then(function (res) {
+      start(res[0], res[1], res[2], res[3]);
+    }).catch(function (err) {
+      console.error(err);
+      const msg = (err && err.message) ? err.message : String(err);
+      if (location.protocol === 'file:') {
+        // Chrome blocks fetch()/XHR of local files from a file:// page, so the
+        // .glb and .json can never load by double-click. Serve the folder instead.
+        loadingEl.innerHTML =
+          'This page needs a local server.<br><br>' +
+          'Run <code>python -m http.server 5500</code> in the site folder,<br>' +
+          'then open <code>http://localhost:5500/chapter4.html</code>';
+      } else {
+        loadingEl.textContent = 'Could not load the build — ' + msg +
+          ' (' + location.protocol + '//' + location.host + ')';
+      }
+    });
+
+    function start(schedule, pointsGltf, sceneGltf, funGltf) {
+      SCHEDULE = schedule;
+      N     = schedule.count;
+      LASTF = schedule.frameEnd;
+      FRESH = schedule.freshSpan;
+
+      const e = new THREE.Euler();
+      for (const d of schedule.deposits) {
+        dPos.push(new THREE.Vector3(d.pos[0], d.pos[1], d.pos[2]));
+        e.set(d.rot[0], d.rot[1], d.rot[2]);
+        dQuat.push(new THREE.Quaternion().setFromEuler(e));
+        dScl.push(new THREE.Vector3(d.scl[0], d.scl[1], d.scl[2]));
+        revF.push(d.revealFrame);
+      }
+
+      // deposit morphology out of points.glb (named meshes, one per material)
+      let depGeom = null;
+      pointsGltf.scene.traverse(function (o) {
+        if (!o.isMesh) return;
+        const id = (o.name === DEPOSIT_MAT) ? o.name
+                 : (o.parent && o.parent.name === DEPOSIT_MAT ? o.parent.name : null);
+        if (id && !depGeom) depGeom = o.geometry;
+      });
+      if (!depGeom) depGeom = new THREE.IcosahedronGeometry(0.5, 1);
+
+      // opaque for the whole sequence, and it stays on screen at the end —
+      // the pale deposits sitting on the dark panel are the point
+      depMat = new THREE.MeshStandardMaterial({
+        color: DEPOSIT_COLOR, roughness: DEPOSIT_ROUGH, metalness: 0
+      });
+
+      // the scene itself
+      const root = sceneGltf.scene;
+      scene.add(root);
+      root.traverse(function (o) {
+        if (!o.isMesh) return;
+        // the floor becomes shadow-only: it catches the contact shadow but
+        // paints nothing itself, so the robot sits on the page, not on a plane
+        if (o.name === 'Floor') {
+          o.material = new THREE.ShadowMaterial({ opacity: 0.18 });
+          o.receiveShadow = true;
+          o.castShadow = false;
+          return;
+        }
+        // the acrylic formwork comes out of Blender at 0.16 alpha — half is
+        // solid enough to read as a mould, sheer enough to watch the fill
+        if (/^Wall_/.test(o.name)) {
+          o.material = o.material.clone();
+          o.material.transparent = true;
+          o.material.opacity = WALL_ALPHA;
+          o.material.depthWrite = false;
+          o.castShadow = false;
+          wallMats.push(o.material);
+          return;
+        }
+        // rings go transparent up front (at opacity 1 it looks the same) so
+        // they can fade with their wall without a recompile mid-scroll
+        if (/^Rings_/.test(o.name)) {
+          o.material = o.material.clone();
+          o.material.transparent = true;
+          o.material.opacity = 1;
+          o.castShadow = true;
+          ringMats.push(o.material);
+          return;
+        }
+        o.castShadow = true;
+        if (/Plinth/.test(o.name)) o.receiveShadow = true;
+      });
+
+      // --- formwork hinges -------------------------------------------------
+      // each wall (and the ring band drilled through it) gets reparented into
+      // a group sitting on its own bottom edge, so the reveal is one rotation
+      const HINGES = [
+        { wall: 'Wall_Xneg', rings: 'Rings_Xneg', pivot: [-3.51, 0, 0], axis: 'z', sign:  1 },
+        { wall: 'Wall_Xpos', rings: 'Rings_Xpos', pivot: [ 3.51, 0, 0], axis: 'z', sign: -1 },
+        { wall: 'Wall_Yneg', rings: 'Rings_Yneg', pivot: [0, 0,  2.34], axis: 'x', sign:  1 },
+        { wall: 'Wall_Ypos', rings: 'Rings_Ypos', pivot: [0, 0, -2.34], axis: 'x', sign: -1 }
+      ];
+      for (const h of HINGES) {
+        const g = new THREE.Group();
+        g.position.set(h.pivot[0], h.pivot[1], h.pivot[2]);
+        root.add(g);
+        for (const nm of [h.wall, h.rings]) {
+          const m = root.getObjectByName(nm);
+          if (!m) continue;
+          m.position.sub(g.position);   // keep it where it was, now relative to the hinge
+          g.add(m);
+        }
+        hinges.push({ group: g, axis: h.axis, sign: h.sign });
+      }
+
+      // --- the finished panel ----------------------------------------------
+      fun = funGltf.scene;
+      // colour comes from COLOR_0 baked into fun.glb — banded dark rubber and
+      // pale perlite, matching the physical panel rather than a flat black
+      funMat = new THREE.MeshStandardMaterial({
+        vertexColors: true, roughness: 0.86, metalness: 0,
+        transparent: true, opacity: 0
+      });
+      fun.traverse(function (o) {
+        if (!o.isMesh) return;
+        o.material = funMat;
+        o.castShadow = true;
+        o.receiveShadow = true;
+        o.frustumCulled = false;
+      });
+      fun.scale.setScalar(FUN_SCALE);
+      fun.position.set(0, FUN_BASE_Y, 0);
+      fun.visible = false;
+      scene.add(fun);
+
+      // deposits: one instanced mesh, revealed by raising .count in build order,
+      // plus a short trail of individually-lit "fresh" chunks at the build front
+      bulk = new THREE.InstancedMesh(depGeom, depMat, N);
+      bulk.castShadow = true;
+      bulk.frustumCulled = false;
+      bulk.count = 0;
+      const m4 = new THREE.Matrix4();
+      for (let i = 0; i < N; i++) { m4.compose(dPos[i], dQuat[i], dScl[i]); bulk.setMatrixAt(i, m4); }
+      bulk.instanceMatrix.needsUpdate = true;
+      scene.add(bulk);
+
+      for (let k = 0; k < FRESH; k++) {
+        const fm = new THREE.Mesh(depGeom, new THREE.MeshStandardMaterial({
+          color: DEPOSIT_COLOR, roughness: DEPOSIT_ROUGH, metalness: 0,
+          emissive: WARM.clone()
+        }));
+        fm.castShadow = true;
+        fm.visible = false;
+        scene.add(fm);
+        freshMeshes.push(fm);
+      }
+
+      // frame on the box + arm, ignoring the big floor plane
+      const box = new THREE.Box3(), tmp = new THREE.Box3();
+      root.traverse(function (o) {
+        if (o.isMesh && o.name !== 'Floor') { tmp.setFromObject(o); if (!tmp.isEmpty()) box.union(tmp); }
+      });
+      const size = box.getSize(new THREE.Vector3());
+      box.getCenter(camCenter);
+      boxHalfY = size.y * 0.5;
+      const sphereR = 0.5 * size.length();
+      const vfov = THREE.MathUtils.degToRad(camera.fov);
+      camDist = (sphereR / Math.sin(vfov / 2)) * 1.06;
+      camera.near = Math.max(0.1, camDist * 0.02);
+      camera.far  = camDist * 20;
+      targetY = targetYGoal = camCenter.y;
+
+      // baked animation — one clip per joint; hold them all paused and scrub
+      if (sceneGltf.animations && sceneGltf.animations.length) {
+        mixer = new THREE.AnimationMixer(root);
+        actions = sceneGltf.animations.map(function (clip) {
+          const a = mixer.clipAction(clip);
+          a.clampWhenFinished = true;
+          a.loop = THREE.LoopOnce;
+          a.play();
+          a.paused = true;
+          return a;
+        });
+      }
+
+      resize();
+      new ResizeObserver(resize).observe(canvas);
+
+      // don't burn frames while the sticky panel is off screen
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+      }, { rootMargin: '10% 0px' }).observe(scrollEl);
+
+      ready = true;
+      apply(progress(), true);
+      loadingEl.classList.add('is-ready');
+      tick();
+    }
+
+    // --- scroll --------------------------------------------------------------
+    function progress() {
+      const rect = scrollEl.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      if (total <= 0) return 0;
+      return clamp01(-rect.top / total);
+    }
+
+    function setFrame(f) {
+      if (!mixer) return;
+      const t = Math.max(0, Math.min(LASTF, f)) / SCHEDULE.fps;
+      actions.forEach(a => { a.paused = false; });
+      mixer.setTime(t);
+      actions.forEach(a => { a.paused = true; });
+    }
+
+    const _v = new THREE.Vector3();
+    function refreshDeposits(cf) {
+      const revealed = revealedAt(cf);
+      const bulkN = Math.max(0, revealed - FRESH);
+      bulk.count = bulkN;
+      for (let k = 0; k < FRESH; k++) {
+        const idx = revealed - 1 - k, fm = freshMeshes[k];
+        if (idx >= bulkN && idx >= 0 && idx < N) {
+          fm.position.copy(dPos[idx]);
+          fm.quaternion.copy(dQuat[idx]);
+          fm.scale.copy(dScl[idx]);
+          fm.material.emissiveIntensity = (1 - k / FRESH) * 1.6;
+          fm.visible = true;
+        } else {
+          fm.visible = false;
+        }
+      }
+      // let the camera drift up with the build front
+      const head = Math.max(0, Math.min(revealed - 1, N - 1));
+      targetYGoal = camCenter.y + (revealed > 0 ? (dPos[head].y - camCenter.y) * 0.35 : -boxHalfY * 0.3);
+      return revealed;
+    }
+
+    function refreshHud(p, revealed, pr) {
+      barEl.style.width = (p * 100).toFixed(2) + '%';
+      countEl.textContent = revealed + ' / ' + N;
+      if (pr > 0.001) {
+        stageEl.textContent = pr < 0.55 ? 'Formwork released' : 'Finished panel';
+        return;
+      }
+      if (revealed <= 0) { stageEl.textContent = 'Formwork'; return; }
+      const d = SCHEDULE.deposits[Math.min(revealed - 1, N - 1)];
+      stageEl.textContent = 'Level ' + (d.level + 1) + ' · ' + d.face + ' face';
+    }
+
+    // the release: walls fall open on their hinges, the aggregate crossfades
+    // out and the finished panel takes its place in the same volume
+    function refreshReveal(pr) {
+      const e = paced(pr);
+      const a = THREE.MathUtils.degToRad(OPEN_ANGLE) * e;
+      for (const h of hinges) h.group.rotation[h.axis] = h.sign * a;
+
+      // the formwork thins out as it falls, so the panel is what's left
+      const fade = 1 - 0.82 * e;
+      for (const m of wallMats) m.opacity = WALL_ALPHA * fade;
+      for (const m of ringMats) m.opacity = fade;
+
+      // The panel fades in behind and through the deposits, which stay put and
+      // fully opaque — nothing crossfades, so the page never shows through.
+      const ef = clamp01(e / 0.6);
+      funMat.opacity = ef;
+      fun.visible = ef > 0.004;
+
+      // once the build is done the whole stack goes into the instanced mesh:
+      // the nine "fresh" chunks are a build-front effect and have no business
+      // still glowing at the end
+      if (e > 0) {
+        if (bulk) bulk.count = N;
+        for (const fm of freshMeshes) fm.visible = false;
+      }
+
+      return e;
+    }
+
+    function updateCamera(p, e) {
+      // one full turn across the whole scroll, starting and ending on the
+      // front-of-box view the GIF was rendered from, lifting as the stack rises
+      const az = THREE.MathUtils.degToRad(-8 + TURN * paced(p));
+      const el = THREE.MathUtils.degToRad(5 + 15 * p);
+      // pull back during the release so the opened walls stay in frame
+      const r  = camDist * (1.0 - 0.07 * Math.sin(Math.PI * p)) * (1 + 0.28 * e);
+      const cy = targetY;
+      camera.position.set(
+        camCenter.x + r * Math.cos(el) * Math.sin(az),
+        cy + r * Math.sin(el),
+        camCenter.z + r * Math.cos(el) * Math.cos(az)
+      );
+      camera.lookAt(camCenter.x, cy, camCenter.z);
+    }
+
+    function apply(p, force) {
+      const pb = clamp01(p / BUILD_END);                       // deposition
+      const pr = clamp01((p - BUILD_END) / (1 - BUILD_END));   // release
+      // the arm and the deposits both ride this curve, so they stay in step
+      const f = paced(pb) * LASTF;
+      if (force || Math.abs(f - lastFrame) > 0.01) { setFrame(f); lastFrame = f; }
+      const revealed = refreshDeposits(f);
+      if (force || revealed !== lastRevealed) { lastRevealed = revealed; }
+      const e = refreshReveal(pr);
+      refreshHud(p, revealed, pr);
+      return e;
+    }
+
+    function resize() {
+      const w = canvas.clientWidth || 1, h = canvas.clientHeight || 1;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+
+    function tick() {
+      requestAnimationFrame(tick);
+      if (!ready || !visible) return;
+      const p = progress();
+      const e = apply(p, false);
+      targetY += (targetYGoal - targetY) * 0.08;   // smooth the vertical follow
+      updateCamera(p, e);
+      renderer.render(scene, camera);
+    }
+  </script>
+
 </body>
 </html>
