@@ -343,7 +343,8 @@ img { display: block; max-width: 100%; height: auto; }
 /* Email slide-out */
 .team-email {
   position: absolute;
-  left: calc(100% + 14px);
+  left: 100%;
+  padding-left: 14px;
   top: 50%;
   transform: translateY(-50%) translateX(-10px);
   white-space: nowrap;
