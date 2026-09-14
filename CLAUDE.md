@@ -3,26 +3,33 @@
 Multi-page architecture portfolio website for UCL Bartlett RC6 Material Architecture Lab.
 
 ## Quick Start
-- Open `home.html` directly in browser (no server needed, fully offline)
+- Open `index.html` directly in browser (no server needed for static pages, fully offline)
+- Chapter 4's 3D print sequence needs a local server (see below)
 - All assets local: fonts in `fonts/`, scripts in `js/`, images in `webpics/`
 
 ## File Structure
 
 ```
 code/
-├── home.html              ← Main homepage (canvas lens + scroll phases)
-├── chapter1.html          ← Chapter 1: Research in Soft Error
-├── chapter2.html          ← Chapter 2: Point to Point
+├── index.html             ← Main homepage (canvas lens + scroll phases)
+├── chapter1.html          ← Chapter 1: Foundational Research
+├── chapter2.html          ← Chapter 2: Material Language + Interaction Studies
 ├── chapter3.html          ← Chapter 3: Scaling + Structural Test
-├── chapter4.html          ← Chapter 4: Production
-├── chapter5.html          ← Chapter 5: Future Development
+├── chapter4.html          ← Chapter 4: Digital Platform Development
+├── chapter5.html          ← Chapter 5: Large-Scale Prototype Production
+├── chapter6.html          ← Chapter 6: Future Development
+├── chapter4/              ← Chapter 4 isolated (editable independently of other chapters)
+│   ├── chapter4.css       ← Print-sequence styles (own stylesheet, not in style.css)
+│   ├── chapter4.js        ← Three.js print-sequence module
+│   └── models/            ← scene_web.glb, points.glb, fun.glb, schedule.json
 ├── css/
-│   ├── style.css          ← All styles (design system, homepage, chapters)
+│   ├── style.css          ← Shared styles (design system, homepage, chapters)
 │   └── fonts.css          ← Local @font-face declarations (Inter, JetBrains Mono)
 ├── js/
 │   ├── home.js            ← Homepage canvas lens, scroll effects, credits interactivity
 │   ├── lenis.min.js       ← Lenis smooth scroll v1.3.25 (local copy)
-│   └── main.js            ← Legacy (original SPA, not used)
+│   ├── main.js            ← Legacy (original SPA, not used)
+│   └── three/             ← three.js (shared: chapter1 oyster.glb + chapter4 print)
 ├── fonts/
 │   ├── LLDCL-1.ttf        ← Letterform Variations (Nigel Cottier) — custom stencil font
 │   └── *.ttf              ← Inter (400-900) + JetBrains Mono (400,500)
@@ -50,7 +57,7 @@ code/
 - Crosshair cursor (white SVG) on credits panel
 - All transitions use cubic-bezier easing
 
-## Homepage Architecture (home.html + home.js)
+## Homepage Architecture (index.html + home.js)
 
 ### Phase 0: Hero (scrollY = 0)
 - Full-screen canvas showing `cover.png`
@@ -86,16 +93,17 @@ code/
 - Top labels (BSA, SOFT ERROR, RC6) stay visible at z-index 6
 
 ### Phase 1 End (0.8vh) — Chapter Link State
-- Chapter links visible, clickable → navigate to chapter1-5.html
+- Chapter links visible, clickable → navigate to chapter1-6.html
 - Red overlay at full, BSA/RC6/SOFT ERROR all white
-- Chapter pages link back via `home.html#phase1`
+- Chapter pages link back via `index.html#phase1`
 
-## Chapter Pages (chapter1-5.html)
-- Header: "SOFT ERROR" logo (links to home.html#phase1) + chapter number
+## Chapter Pages (chapter1-6.html)
+- Header: "SOFT ERROR" logo (links to index.html#phase1) + chapter number
 - Hero section: chapter title in LLDCL font
-- Chapter content area (empty, ready for content)
-- Bottom nav: Previous/Next chapter links (Chapter 1: next only, Chapter 5: prev only)
+- Chapter content area (some chapters still empty, ready for content)
+- Bottom nav: Previous/Next chapter links (Chapter 1: next only, Chapter 6: prev only)
 - Each has independent Lenis instance
+- Chapter 4 is the exception: its print-sequence CSS/JS/models live in `chapter4/`, not the shared files
 
 ## Key Technical Details
 
@@ -121,6 +129,12 @@ code/
 - Transitions between names toggle overlay A/B for true crossfade
 - Mouseleave uses 150ms delay to prevent flicker between adjacent names
 
+### Chapter 4 Print Sequence (chapter4/)
+- `chapter4/chapter4.js`: scroll-driven Three.js build (deposition + formwork release)
+- Loads `chapter4/models/*.glb` + `chapter4/models/schedule.json`
+- Requires a local server (fetch() blocked over file://); rebuild the single-file offline version with `node tools/build_standalone.js .`
+- `chapter4/chapter4.css`: all print-sequence styles (isolated from shared style.css)
+
 ### Font Loading
 - Letterform Variations: `fonts/LLDCL-1.ttf` (@font-face in style.css)
 - Inter + JetBrains Mono: local files in `fonts/`, declared in `css/fonts.css`
@@ -128,15 +142,22 @@ code/
 
 ## Navigation Flow
 ```
-home.html (hero)
+index.html (hero)
   ↓ scroll
-home.html (phase 1 end — chapter links)
+index.html (phase 1 end — chapter links)
   ↓ click chapter
 chapterN.html
   ↓ click "SOFT ERROR" logo
-home.html#phase1 (back to chapter links state)
+index.html#phase1 (back to chapter links state)
   ↓ scroll further
-home.html (phase 2 — credits)
+index.html (phase 2 — credits)
   ↓ click "BACK TO CONTENT"
-home.html (phase 1 end)
+index.html (phase 1 end)
 ```
+
+## Collaboration Note (Chapter 4 isolation)
+Chapter 4's CSS, JS, and models are isolated in `chapter4/` so it can be edited
+independently of the other chapters. Editing Chapter 4 touches only
+`chapter4.html` + `chapter4/`; editing other chapters touches `chapter1-3,5,6.html`
++ `css/style.css` + `index.html`. The two sets of files don't overlap, so
+simultaneous GitHub pushes won't conflict.
