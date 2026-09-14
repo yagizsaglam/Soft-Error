@@ -351,11 +351,15 @@ img { display: block; max-width: 100%; height: auto; }
   transition: opacity 0.3s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   opacity: 0;
   pointer-events: none;
+  text-decoration: none;
 }
 
-.team-member:hover .team-email:not(:empty) {
+.team-member:hover .team-email:not(:empty),
+.team-email:hover {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 .team-member:hover .team-name {
