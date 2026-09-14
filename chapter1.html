@@ -41,6 +41,7 @@
         <span class="nav-arrow disabled">
           <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M8 1 L1 8 L8 15"/></svg>
         </span>
+        <a href="library.html" class="nav-library">Library</a>
         <a href="chapter2.html" class="nav-arrow">
           <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M24 1 L31 8 L24 15"/></svg>
         </a>
@@ -226,6 +227,13 @@
           deselect();
         }
       });
+
+      // Deep-link from Library: preselect the image named by #image=N
+      if (location.hash.indexOf('#image=') === 0) {
+        var idx = parseInt(location.hash.slice(7), 10);
+        var target = stack.querySelector('.stack-card[data-index="' + idx + '"]');
+        if (target) target.click();
+      }
     })();
   </script>
 

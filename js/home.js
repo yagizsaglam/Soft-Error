@@ -275,7 +275,7 @@
     scrollHint.classList.toggle('faded', p1 > 0.15);
 
     for (let i = 0; i < chapterLinks.length; i++) {
-      const start = 0.15 + i * 0.14;
+      const start = 0.15 + i * 0.07;
       const end   = start + 0.12;
       const p = Math.max(0, Math.min(1, (p1 - start) / (end - start)));
       chapterLinks[i].classList.toggle('visible', p > 0 && p2 < 0.8);

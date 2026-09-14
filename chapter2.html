@@ -31,6 +31,7 @@
         <a href="chapter1.html" class="nav-arrow">
           <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M8 1 L1 8 L8 15"/></svg>
         </a>
+        <a href="library.html" class="nav-library">Library</a>
         <a href="chapter3.html" class="nav-arrow">
           <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M24 1 L31 8 L24 15"/></svg>
         </a>
@@ -38,28 +39,155 @@
     </aside>
 
     <div class="chapter-main">
-    </div>
+      <div class="card-reference" id="cardReference" style="display:none;">
+        <span class="ref-label">text</span>
+        <p class="ref-text">text</p>
+      </div>
+      <div class="image-stack" id="imageStack">
+        <img src="webpics/C2d1.jpg" alt="Material study 1" class="stack-card" data-index="0">
+        <img src="webpics/C2d2.jpg" alt="Material study 2" class="stack-card" data-index="1">
+        <img src="webpics/C2d3.jpg" alt="Material study 3" class="stack-card" data-index="2">
+        <img src="webpics/C2d4.jpg" alt="Material study 4" class="stack-card" data-index="3">
+        <img src="webpics/C2d5.jpg" alt="Material study 5" class="stack-card" data-index="4">
+        <img src="webpics/C2d6.jpg" alt="Material study 6" class="stack-card" data-index="5">
+        <img src="webpics/C2d7.jpg" alt="Material study 7" class="stack-card" data-index="6">
+      </div>
+    </div><!-- .chapter-main -->
 
-  </div>
+  </div><!-- .chapter-content -->
 
   <script>
+    // Lenis smooth scroll
     const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
 
+    // --- Scroll to Top ---
     document.getElementById('scrollTopBtn').addEventListener('click', function() {
       lenis.scrollTo(0);
     });
 
+    // --- View Toggle (with FLIP animation) ---
     (function() {
       const toggle = document.getElementById('viewToggle');
       const buttons = toggle.querySelectorAll('.view-btn:not(.scroll-top-btn)');
+      const stack = document.getElementById('imageStack');
+      const cards = stack.querySelectorAll('.stack-card');
+
       buttons.forEach(function(btn) {
         btn.addEventListener('click', function() {
+          // --- FLIP: First — record current positions ---
+          var first = [];
+          cards.forEach(function(card) {
+            var rect = card.getBoundingClientRect();
+            first.push(rect);
+          });
+
+          // Disable CSS transitions during FLIP to prevent conflicts
+          cards.forEach(function(c) { c.style.transition = 'none'; });
+
+          // Update active button
           buttons.forEach(function(b) { b.classList.remove('active'); });
           btn.classList.add('active');
+
+          // Switch view class (LAST — layout engine switches here)
+          var view = btn.getAttribute('data-view');
+          var main = document.querySelector('.chapter-main');
+          if (view === 'traditional') {
+            stack.classList.add('traditional');
+            main.classList.add('view-traditional');
+          } else {
+            stack.classList.remove('traditional');
+            main.classList.remove('view-traditional');
+          }
+
+          // --- FLIP: Invert + Play — animate delta to zero ---
+          cards.forEach(function(card, i) {
+            var last = card.getBoundingClientRect();
+            var dx = first[i].left - last.left;
+            var dy = first[i].top - last.top;
+
+            // Re-enable CSS transitions
+            card.style.transition = '';
+
+            if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+              card.animate([
+                { transform: 'translate(' + dx + 'px, ' + dy + 'px)' },
+                { transform: 'translate(0, 0)' }
+              ], {
+                duration: 800,
+                easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+                composite: 'add'
+              });
+            }
+          });
         });
       });
+    })();
+
+    // --- Image Stack Interaction ---
+    (function() {
+      const stack = document.getElementById('imageStack');
+      const cards = stack.querySelectorAll('.stack-card');
+      const refBox = document.getElementById('cardReference');
+      let activeIndex = -1;
+
+      function deselect() {
+        activeIndex = -1;
+        stack.classList.remove('selected');
+        cards.forEach(function(c) { c.classList.remove('active'); });
+        refBox.style.display = 'none';
+      }
+
+      cards.forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          var idx = parseInt(card.getAttribute('data-index'));
+
+          if (activeIndex === idx) {
+            deselect();
+          } else {
+            activeIndex = idx;
+            stack.classList.add('selected');
+            cards.forEach(function(c) { c.classList.remove('active'); });
+            card.classList.add('active');
+            // Show reference text per card (placeholder until copy.txt Chapter 2 is filled)
+            var refs = [
+              { label: 'text', text: 'text' },
+              { label: 'text', text: 'text' },
+              { label: 'text', text: 'text' },
+              { label: 'text', text: 'text' },
+              { label: 'text', text: 'text' },
+              { label: 'text', text: 'text' },
+              { label: 'text', text: 'text' }
+            ];
+            var ref = refs[idx];
+            refBox.querySelector('.ref-label').textContent = ref.label;
+            refBox.querySelector('.ref-text').textContent = ref.text;
+            refBox.style.display = 'block';
+          }
+        });
+      });
+
+      // Click on empty area inside the stack → deselect
+      stack.addEventListener('click', function(e) {
+        deselect();
+      });
+
+      // Click outside the stack → deselect
+      document.addEventListener('click', function(e) {
+        if (!stack.contains(e.target)) {
+          deselect();
+        }
+      });
+
+      // Deep-link from Library: preselect the image named by #image=N
+      if (location.hash.indexOf('#image=') === 0) {
+        var idx = parseInt(location.hash.slice(7), 10);
+        var target = stack.querySelector('.stack-card[data-index="' + idx + '"]');
+        if (target) target.click();
+      }
     })();
   </script>
 </body>

@@ -612,6 +612,40 @@ img { display: block; max-width: 100%; height: auto; }
   pointer-events: none;
 }
 
+.nav-library {
+  align-self: center;
+  font-family: var(--font-stencil);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: pointer;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.nav-library:hover {
+  color: var(--red);
+}
+
+.nav-numeral {
+  align-self: center;
+  font-family: var(--font-stencil);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.nav-numeral:hover {
+  color: var(--red);
+}
+
 /* Page arrows (chapters 2-5, fixed on left) */
 .page-arrows {
   position: fixed;
@@ -723,6 +757,7 @@ img { display: block; max-width: 100%; height: auto; }
 .stack-card[data-index="3"] { z-index: 3; --x: 120px;  --y: -90px;  }
 .stack-card[data-index="4"] { z-index: 2; --x: 160px;  --y: -120px; }
 .stack-card[data-index="5"] { z-index: 1; --x: 200px;  --y: -150px; }
+.stack-card[data-index="6"] { z-index: 0; --x: 240px;  --y: -180px; }
 
 /* Hover — rise up 80px, stay in own layer */
 .stack-card:hover {
@@ -731,7 +766,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* Selected: non-active cards dim */
 .image-stack.selected .stack-card {
-  opacity: 0.25;
+  opacity: 0.15;
 }
 
 .image-stack.selected .stack-card.active {
@@ -823,7 +858,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .image-stack.traditional.selected .stack-card {
-  opacity: 0.25;
+  opacity: 0.15;
 }
 
 .image-stack.traditional.selected .stack-card.active {
@@ -892,11 +927,59 @@ img { display: block; max-width: 100%; height: auto; }
   .stack-card[data-index="3"] { --x: 75px;   --y: -60px;  }
   .stack-card[data-index="4"] { --x: 100px;  --y: -80px;  }
   .stack-card[data-index="5"] { --x: 125px;  --y: -100px; }
+  .stack-card[data-index="6"] { --x: 150px;  --y: -120px; }
   .stack-card:hover,
   .image-stack.selected .stack-card.active,
   .image-stack.selected .stack-card:hover {
     --lift: -130px;
   }
+}
+
+/* --- Library Page --- */
+.library-main .image-stack:not(.traditional) {
+  min-height: 640px;
+  padding-top: 100px;
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.library-main .image-stack:not(.traditional) .stack-card {
+  cursor: grab;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.library-main .image-stack.dragging,
+.library-main .image-stack.dragging .stack-card {
+  cursor: grabbing;
+}
+
+/* --- Library Details button (stacked view) --- */
+.library-main .details-btn {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: inline-block;
+  padding: 12px 22px;
+  border: 1px solid var(--text);
+  color: var(--text);
+  background: transparent;
+  font-family: var(--font-stencil);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.library-main .details-btn:hover {
+  background: var(--text);
+  color: var(--bg);
 }
 
 /* --- Chapter Navigation --- */

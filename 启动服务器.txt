@@ -1,0 +1,38 @@
+启动本地服务器后访问：
+http://localhost:8888/chapter1.html
+
+启动命令（PowerShell）：
+$codeDir = "G:\RC6Term4\Term4\code"
+$listener = New-Object System.Net.HttpListener
+$listener.Prefixes.Add('http://localhost:8888/')
+try {
+  $listener.Start()
+  Write-Host "Server started on http://localhost:8888"
+  while ($listener.IsListening) {
+    $context = $listener.GetContext()
+    $request = $context.Request
+    $response = $context.Response
+    $path = $request.Url.LocalPath.TrimStart('/')
+    if ($path -eq '') { $path = 'chapter1.html' }
+    $filePath = Join-Path $codeDir $path
+    if (Test-Path $filePath) {
+      $content = [System.IO.File]::ReadAllBytes($filePath)
+      if ($path -like '*.glb') { $response.ContentType = 'model/gltf-binary' }
+      elseif ($path -like '*.html') { $response.ContentType = 'text/html; charset=utf-8' }
+      elseif ($path -like '*.js') { $response.ContentType = 'application/javascript' }
+      elseif ($path -like '*.css') { $response.ContentType = 'text/css' }
+      elseif ($path -like '*.png') { $response.ContentType = 'image/png' }
+      elseif ($path -like '*.otf' -or $path -like '*.ttf') { $response.ContentType = 'font/otf' }
+      $response.AddHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+      $response.ContentLength64 = $content.Length
+      $response.OutputStream.Write($content, 0, $content.Length)
+    } else {
+      $response.StatusCode = 404
+    }
+    $response.OutputStream.Close()
+  }
+} catch {
+  Write-Host "Error: $_"
+} finally {
+  $listener.Stop()
+}

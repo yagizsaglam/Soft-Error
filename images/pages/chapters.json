@@ -1,0 +1,32 @@
+{
+  "front": {
+    "start": 1,
+    "end": 5,
+    "label": "Front Matter — Cover & Introduction",
+    "coverPage": 1
+  },
+  "chapter1": {
+    "start": 6,
+    "end": 29,
+    "label": "CHAPTER 1: RESEARCH",
+    "coverPage": 6
+  },
+  "chapter2": {
+    "start": 30,
+    "end": 45,
+    "label": "CHAPTER 2: PRODUCTION",
+    "coverPage": 30
+  },
+  "chapter3": {
+    "start": 46,
+    "end": 52,
+    "label": "CHAPTER 3: DEVELOPMENT",
+    "coverPage": 46
+  },
+  "back": {
+    "start": 53,
+    "end": 53,
+    "label": "Back Cover",
+    "coverPage": 53
+  }
+}

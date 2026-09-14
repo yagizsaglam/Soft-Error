@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library — SOFT ERROR</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <script src="js/lenis.min.js"></script>
+</head>
+<body class="chapter-page">
+
+  <div class="chapter-content">
+
+    <aside class="chapter-sidebar">
+      <div class="sidebar-top-group">
+        <div class="sidebar-top">
+          <a href="index.html#phase1" class="sidebar-logo">SOFT ERROR</a>
+          <span class="sidebar-chap">Library</span>
+        </div>
+        <h1 class="chapter-title">Library</h1>
+      </div>
+      <div class="view-toggle" id="viewToggle">
+        <button class="view-btn active" data-view="stacked">STACKED VIEW</button>
+        <button class="view-btn" data-view="traditional">TRADITIONAL VIEW</button>
+        <button class="view-btn scroll-top-btn" id="scrollTopBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 11 L8 5 L13 11"/></svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="chapter1.html" class="nav-numeral">I</a>
+        <a href="chapter2.html" class="nav-numeral">II</a>
+        <a href="chapter3.html" class="nav-numeral">III</a>
+        <a href="chapter4.html" class="nav-numeral">IV</a>
+        <a href="chapter5.html" class="nav-numeral">V</a>
+        <a href="chapter6.html" class="nav-numeral">VI</a>
+      </nav>
+    </aside>
+
+    <div class="chapter-main library-main">
+      <a href="#" class="details-btn" id="detailsBtn" style="display:none;">Details</a>
+      <div class="image-stack" id="imageStack">
+        <!-- Chapter 1 -->
+        <img src="webpics/C1d1.png" alt="C1d1" class="stack-card" data-chapter="1" data-index="0">
+        <img src="webpics/C1d3.png" alt="C1d3" class="stack-card" data-chapter="1" data-index="1">
+        <img src="webpics/C1d4.png" alt="C1d4" class="stack-card" data-chapter="1" data-index="2">
+        <img src="webpics/C1d5.png" alt="C1d5" class="stack-card" data-chapter="1" data-index="3">
+        <img src="webpics/C1d6.png" alt="C1d6" class="stack-card" data-chapter="1" data-index="4">
+        <img src="webpics/C1d7.png" alt="C1d7" class="stack-card" data-chapter="1" data-index="5">
+        <!-- Chapter 2 -->
+        <img src="webpics/C2d1.jpg" alt="C2d1" class="stack-card" data-chapter="2" data-index="0">
+        <img src="webpics/C2d2.jpg" alt="C2d2" class="stack-card" data-chapter="2" data-index="1">
+        <img src="webpics/C2d3.jpg" alt="C2d3" class="stack-card" data-chapter="2" data-index="2">
+        <img src="webpics/C2d4.jpg" alt="C2d4" class="stack-card" data-chapter="2" data-index="3">
+        <img src="webpics/C2d5.jpg" alt="C2d5" class="stack-card" data-chapter="2" data-index="4">
+        <img src="webpics/C2d6.jpg" alt="C2d6" class="stack-card" data-chapter="2" data-index="5">
+        <img src="webpics/C2d7.jpg" alt="C2d7" class="stack-card" data-chapter="2" data-index="6">
+        <!-- Chapter 3 -->
+        <img src="webpics/C3d1.jpg" alt="C3d1" class="stack-card" data-chapter="3" data-index="0">
+        <img src="webpics/C3d2.jpg" alt="C3d2" class="stack-card" data-chapter="3" data-index="1">
+        <img src="webpics/C3d3.jpg" alt="C3d3" class="stack-card" data-chapter="3" data-index="2">
+        <img src="webpics/C3d4.jpg" alt="C3d4" class="stack-card" data-chapter="3" data-index="3">
+        <!-- Chapter 5 -->
+        <img src="webpics/C5d1.jpg" alt="C5d1" class="stack-card" data-chapter="5" data-index="0">
+        <img src="webpics/C5d2.jpg" alt="C5d2" class="stack-card" data-chapter="5" data-index="1">
+        <img src="webpics/C5d3.jpg" alt="C5d3" class="stack-card" data-chapter="5" data-index="2">
+        <img src="webpics/C5d4.jpg" alt="C5d4" class="stack-card" data-chapter="5" data-index="3">
+        <img src="webpics/C5d5.jpg" alt="C5d5" class="stack-card" data-chapter="5" data-index="4">
+        <!-- Chapter 6 -->
+        <img src="webpics/C6d1.jpg" alt="C6d1" class="stack-card" data-chapter="6" data-index="0">
+        <img src="webpics/C6d2.jpg" alt="C6d2" class="stack-card" data-chapter="6" data-index="1">
+        <img src="webpics/C6d3.jpg" alt="C6d3" class="stack-card" data-chapter="6" data-index="2">
+        <img src="webpics/C6d4.jpg" alt="C6d4" class="stack-card" data-chapter="6" data-index="3">
+        <img src="webpics/C6d5.jpg" alt="C6d5" class="stack-card" data-chapter="6" data-index="4">
+      </div>
+    </div><!-- .chapter-main -->
+
+  </div><!-- .chapter-content -->
+
+  <script>
+    // Lenis smooth scroll
+    const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // --- Scroll to Top ---
+    document.getElementById('scrollTopBtn').addEventListener('click', function() {
+      lenis.scrollTo(0);
+    });
+
+    const stack = document.getElementById('imageStack');
+    const cards = stack.querySelectorAll('.stack-card');
+    let stepX = 40, stepY = -30;
+
+    // --- Fan layout: spread all cards in one diagonal stack ---
+    function layoutFan() {
+      const mobile = window.innerWidth <= 768;
+      stepX = mobile ? 25 : 40;
+      stepY = mobile ? -20 : -30;
+      cards.forEach(function(card, i) {
+        card.style.setProperty('--x', (i * stepX) + 'px');
+        card.style.setProperty('--y', (i * stepY) + 'px');
+        card.style.zIndex = cards.length - i;   // first image on top
+      });
+      // Re-center the selected card if the step changed (e.g. on resize)
+      if (stack.classList.contains('selected')) {
+        const active = stack.querySelector('.stack-card.active');
+        if (active) centerOn(active);
+      }
+    }
+    layoutFan();
+    window.addEventListener('resize', layoutFan);
+
+    // --- Slide-to-center (stacked view only) ---
+    function cardIndex(card) {
+      return Array.prototype.indexOf.call(cards, card);
+    }
+
+    // Pan offset — moved by drag and by slide-to-center (stacked view only)
+    let panX = 0, panY = 0;
+
+    function setPan() {
+      stack.style.transform = 'translate(' + panX + 'px, ' + panY + 'px)';
+    }
+
+    function centerOn(card) {
+      if (stack.classList.contains('traditional')) return;
+      const i = cardIndex(card);
+      panX = -i * stepX;
+      panY = -i * stepY;
+      setPan();
+    }
+
+    function resetSlide(instant) {
+      panX = 0;
+      panY = 0;
+      if (instant) {
+        stack.style.transition = 'none';
+        setPan();
+        void stack.offsetWidth;
+        stack.style.transition = '';
+      } else {
+        setPan();
+      }
+    }
+
+    // --- Selection ---
+    const detailsBtn = document.getElementById('detailsBtn');
+    let selectedCard = null;
+
+    function showDetails(card) {
+      selectedCard = card;
+      detailsBtn.href = 'chapter' + card.getAttribute('data-chapter') + '.html#image=' + card.getAttribute('data-index');
+
+      if (stack.classList.contains('traditional')) {
+        // Traditional view: float the button over the neighbouring card's centre.
+        // Columns 2–4 → left neighbour; column 1 → right neighbour.
+        const idx = cardIndex(card);
+        const col = idx % 4;
+        let adjacent = col === 0 ? cards[idx + 1] : cards[idx - 1];
+        if (!adjacent) adjacent = card;   // fallback: no neighbour in the row
+
+        const mainRect = main.getBoundingClientRect();
+        const adjRect = adjacent.getBoundingClientRect();
+        detailsBtn.style.left = (adjRect.left - mainRect.left + adjRect.width / 2) + 'px';
+        detailsBtn.style.top  = (adjRect.top  - mainRect.top  + adjRect.height / 2) + 'px';
+        detailsBtn.style.transform = 'translate(-50%, -50%)';
+      } else {
+        // Stacked view: use the CSS default (left 60px, vertical centre)
+        detailsBtn.style.left = '';
+        detailsBtn.style.top = '';
+        detailsBtn.style.transform = '';
+      }
+
+      detailsBtn.style.display = 'inline-block';
+    }
+
+    function hideDetails() {
+      selectedCard = null;
+      detailsBtn.style.display = 'none';
+    }
+
+    function deselectAll(instant) {
+      stack.classList.remove('selected');
+      cards.forEach(function(c) { c.classList.remove('active'); });
+      resetSlide(instant);
+      hideDetails();
+    }
+
+    cards.forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        const wasActive = card.classList.contains('active');
+        if (wasActive) {
+          deselectAll();
+        } else {
+          stack.classList.add('selected');
+          cards.forEach(function(c) { c.classList.remove('active'); });
+          card.classList.add('active');
+          centerOn(card);
+          showDetails(card);
+        }
+      });
+    });
+
+    // Details button → jump to the image's chapter with it preselected.
+    // href is set in showDetails(); stopPropagation so the document click
+    // handler (deselect-on-outside) doesn't run before the browser navigates.
+    detailsBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Keep the floating button glued to its neighbour when the grid reflows
+    window.addEventListener('resize', function() {
+      if (selectedCard && stack.classList.contains('traditional')) showDetails(selectedCard);
+    });
+
+    // Click empty area inside the stack → deselect all
+    stack.addEventListener('click', function() {
+      deselectAll();
+    });
+
+    // Click outside the stack → deselect all
+    document.addEventListener('click', function(e) {
+      if (!stack.contains(e.target)) deselectAll();
+    });
+
+    // --- Drag to pan the fan (stacked view only) ---
+    cards.forEach(function(c) { c.draggable = false; });   // prevent native image drag
+    stack.addEventListener('dragstart', function(e) { e.preventDefault(); });
+    let dragState = null;
+    let suppressClick = false;
+
+    const main = stack.parentElement;   // stable hit area (doesn't translate with the fan)
+    main.addEventListener('pointerdown', function(e) {
+      if (stack.classList.contains('traditional')) return;
+      if (e.target.closest && e.target.closest('.details-btn')) return;  // let the Details link click normally
+      e.preventDefault();   // stop native image drag + text selection so the pointer stays ours
+      dragState = { startX: e.clientX, startY: e.clientY, startPanX: panX, startPanY: panY, moved: false };
+      stack.style.transition = 'none';
+      stack.classList.add('dragging');
+    });
+
+    window.addEventListener('pointermove', function(e) {
+      if (!dragState) return;
+      const dx = e.clientX - dragState.startX;
+      const dy = e.clientY - dragState.startY;
+      if (!dragState.moved && (Math.abs(dx) + Math.abs(dy)) > 4) {
+        dragState.moved = true;
+      }
+      if (dragState.moved) {
+        panX = dragState.startPanX + dx;
+        panY = dragState.startPanY + dy;
+        setPan();
+      }
+    });
+
+    function endDrag() {
+      if (!dragState) return;
+      if (dragState.moved) {
+        suppressClick = true;
+        setTimeout(function() { suppressClick = false; }, 120);
+      }
+      dragState = null;
+      stack.style.transition = '';
+      stack.classList.remove('dragging');
+    }
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+
+    // Safety net: if the pointer is released outside the window or focus is lost
+    // mid-drag, force-clear the drag state so the next drag always starts clean.
+    window.addEventListener('blur', function() {
+      dragState = null;
+      stack.style.transition = '';
+      stack.classList.remove('dragging');
+    });
+
+    // Suppress the click that follows a drag (so dragging doesn't select/deselect)
+    document.addEventListener('click', function(e) {
+      if (suppressClick) {
+        suppressClick = false;
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }, true);
+
+    // --- View Toggle (with FLIP animation) ---
+    (function() {
+      const toggle = document.getElementById('viewToggle');
+      const buttons = toggle.querySelectorAll('.view-btn:not(.scroll-top-btn)');
+
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          // Clear any selection + slide before switching layout
+          deselectAll(true);
+
+          // --- FLIP: First — record current positions ---
+          const first = [];
+          cards.forEach(function(card) { first.push(card.getBoundingClientRect()); });
+          cards.forEach(function(c) { c.style.transition = 'none'; });
+
+          buttons.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          const view = btn.getAttribute('data-view');
+          const main = document.querySelector('.chapter-main');
+          if (view === 'traditional') {
+            stack.classList.add('traditional');
+            main.classList.add('view-traditional');
+          } else {
+            stack.classList.remove('traditional');
+            main.classList.remove('view-traditional');
+          }
+
+          // --- FLIP: Invert + Play ---
+          cards.forEach(function(card, i) {
+            const last = card.getBoundingClientRect();
+            const dx = first[i].left - last.left;
+            const dy = first[i].top - last.top;
+            card.style.transition = '';
+            if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+              card.animate([
+                { transform: 'translate(' + dx + 'px, ' + dy + 'px)' },
+                { transform: 'translate(0, 0)' }
+              ], {
+                duration: 800,
+                easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+                composite: 'add'
+              });
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

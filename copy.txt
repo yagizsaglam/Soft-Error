@@ -45,12 +45,55 @@ Geometric error is reinterpreted as a spatial and generative condition rather th
 ══════════════════════════════════════════════════
 CHAPTER 2 — Material Language + Interaction Studies
 ══════════════════════════════════════════════════
-（待填）
+■ 图片1 — 文件：C2d1
+短标题：text
+短说明：text
+
+■ 图片2 — 文件：C2d2
+短标题：text
+短说明：text
+
+■ 图片3 — 文件：C2d3
+短标题：text
+短说明：text
+
+■ 图片4 — 文件：C2d4
+短标题：text
+短说明：text
+
+■ 图片5 — 文件：C2d5
+短标题：text
+短说明：text
+
+■ 图片6 — 文件：C2d6
+短标题：text
+短说明：text
+
+■ 图片7 — 文件：C2d7
+短标题：text
+短说明：text
+
 
 ══════════════════════════════════════════════════
 CHAPTER 3 — Scaling + Structural Test
 ══════════════════════════════════════════════════
-（待填）
+■ 图片1 — 文件：C3d1
+短标题：text
+短说明：text
+
+■ 图片2 — 文件：C3d2
+短标题：text
+短说明：text
+
+■ 图片3 — 文件：C3d3
+短标题：text
+短说明：text
+
+■ 图片4 — 文件：C3d4
+短标题：text
+短说明：text
+
+
 
 ══════════════════════════════════════════════════
 CHAPTER 4 — Digital Platform Development
@@ -62,9 +105,45 @@ The panel is not drawn and then made. It is deposited — the robot lays aggrega
 ══════════════════════════════════════════════════
 CHAPTER 5 — Large-Scale Prototype Production
 ══════════════════════════════════════════════════
-（待填）
+■ 图片1 — 文件：C5d1
+短标题：text
+短说明：text
+
+■ 图片2 — 文件：C5d2
+短标题：text
+短说明：text
+
+■ 图片3 — 文件：C5d3
+短标题：text
+短说明：text
+
+■ 图片4 — 文件：C5d4
+短标题：text
+短说明：text
+
+■ 图片5 — 文件：C5d5
+短标题：text
+短说明：text
 
 ══════════════════════════════════════════════════
 CHAPTER 6 — Future Development
 ══════════════════════════════════════════════════
-（待填）
+■ 图片1 — 文件：C6d1
+短标题：text
+短说明：text
+
+■ 图片2 — 文件：C6d2
+短标题：text
+短说明：text
+
+■ 图片3 — 文件：C6d3
+短标题：text
+短说明：text
+
+■ 图片4 — 文件：C6d4
+短标题：text
+短说明：text
+
+■ 图片5 — 文件：C6d5
+短标题：text
+短说明：text
