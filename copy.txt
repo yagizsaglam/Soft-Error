@@ -1,0 +1,70 @@
+SOFT ERROR — 文案（集中编辑）
+============================
+
+【怎么用】
+- 改完保存，告诉我“读 copy.txt”，我就把内容填回对应页面（chapter1.html 等）。
+- 「文件：」这一行是图片名，不要改；改「短标题」「短说明」「正文」后面的内容即可。
+- C1d2 已按你的要求删除，不再出现。
+- 第一章前几张图（C1d1/C1d3/C1d4/C1d5）更长的完整描述仍保留在 webpics/C1.txt，
+  目前页面只展示下面的「短标题 + 短说明」；如要展示长文，告诉我。
+
+══════════════════════════════════════════════════
+CHAPTER 1 — Foundational Research
+══════════════════════════════════════════════════
+
+■ 图片1 — 文件：C1d1
+短标题：Reference Research
+短说明：AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY
+
+■ 图片2 — 文件：C1d3
+短标题：Workflow of Process
+短说明：Design of the feedback control loop for scanning and printing systems
+
+■ 图片3 — 文件：C1d4
+短标题：Material Selection
+短说明：Using Controlled Variable Approach to Achieve More Diverse and Trustworthy Data
+
+■ 图片4 — 文件：C1d5
+短标题：Data Analysis
+短说明：Variance Analysis of Iterative Printing for Different Materials
+
+■ 图片5 — 文件：C1d6
+短标题：Computer Simulation
+短说明：Iterative Simulation in Houdini Based on Feedback-Loop Data
+正文（点击该图后，在 3D 模型面板显示）：
+Calculating the deformation factor begins with measuring local geometric deviation, defined as the magnitude of the displacement vector between the reference mesh and the target mesh at each point. These local deviations are then aggregated to produce a global value, representing the average displacement across the entire mesh.
+
+To visualise this dynamically, the VEX code applies the calculated deformation factor iteratively to each point along its normal vector. The system is further refined to compute distinct error vectors between models, differentiating between scan error and print error. These are accumulated across successive generations, producing a continuous cycle of distortion and approximation.
+
+Geometric error is reinterpreted as a spatial and generative condition rather than a static imperfection. By translating error into spatial configurations with architectural qualities, it becomes an active driver of form, capable of producing differentiated typologies and informing new modes of design.
+
+■ 图片6 — 文件：C1d7
+短标题：Scanned Point Cloud Model 
+短说明：Discrete scan points define and approximated field of geometry
+
+══════════════════════════════════════════════════
+CHAPTER 2 — Material Language + Interaction Studies
+══════════════════════════════════════════════════
+（待填）
+
+══════════════════════════════════════════════════
+CHAPTER 3 — Scaling + Structural Test
+══════════════════════════════════════════════════
+（待填）
+
+══════════════════════════════════════════════════
+CHAPTER 4 — Digital Platform Development
+══════════════════════════════════════════════════
+标题：Deposition
+正文：
+The panel is not drawn and then made. It is deposited — the robot lays aggregate into a perforated formwork, layer over layer, and the pattern that results is the record of that motion rather than a drawing of it.
+
+══════════════════════════════════════════════════
+CHAPTER 5 — Large-Scale Prototype Production
+══════════════════════════════════════════════════
+（待填）
+
+══════════════════════════════════════════════════
+CHAPTER 6 — Future Development
+══════════════════════════════════════════════════
+（待填）

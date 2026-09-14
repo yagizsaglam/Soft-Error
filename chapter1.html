@@ -54,11 +54,11 @@
       </div>
       <div class="image-stack" id="imageStack">
         <img src="webpics/C1d1.png" alt="Research image 1" class="stack-card" data-index="0">
-        <img src="webpics/C1d2.png" alt="Research image 2" class="stack-card" data-index="1">
-        <img src="webpics/C1d3.png" alt="Research image 3" class="stack-card" data-index="2">
-        <img src="webpics/C1d4.png" alt="Research image 4" class="stack-card" data-index="3">
-        <img src="webpics/C1d5.png" alt="Research image 5" class="stack-card" data-index="4">
-        <img src="webpics/C1d6.png" alt="Research image 6" class="stack-card" data-index="5">
+        <img src="webpics/C1d3.png" alt="Research image 2" class="stack-card" data-index="1">
+        <img src="webpics/C1d4.png" alt="Research image 3" class="stack-card" data-index="2">
+        <img src="webpics/C1d5.png" alt="Research image 4" class="stack-card" data-index="3">
+        <img src="webpics/C1d6.png" alt="Research image 5" class="stack-card" data-index="4">
+        <img src="webpics/C1d7.png" alt="Research image 6" class="stack-card" data-index="5">
       </div>
     </div><!-- .chapter-main -->
   </div><!-- .chapter-content -->
@@ -194,19 +194,19 @@
             // Show reference text per card
             var refs = [
               { label: 'Reference Research', text: 'AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY' },
-              { label: 'Research In Point Cloud Model', text: 'Understanding the working principle of Gaussian point clouds' },
               { label: 'Workflow of Process', text: 'Design of the feedback control loop for scanning and printing systems' },
               { label: 'Material Selection', text: 'Using Controlled Variable Approach to Achieve More Diverse and Trustworthy Data' },
               { label: 'Data Analysis', text: 'Variance Analysis of Iterative Printing for Different Materials' },
-              { label: 'Computer Simulation', text: 'Iterative Simulation in Houdini Based on Feedback-Loop Data' }
+              { label: 'Computer Simulation', text: 'Iterative Simulation in Houdini Based on Feedback-Loop Data' },
+              { label: 'Scanned Point Cloud Model', text: 'Discrete scan points define and approximated field of geometry' }
             ];
             var ref = refs[idx];
             refBox.querySelector('.ref-label').textContent = ref.label;
             refBox.querySelector('.ref-text').textContent = ref.text;
             refBox.style.display = 'block';
 
-            // Show 3D model for card 6 (index 5), hide for others
-            if (idx === 5) {
+            // Show 3D model for C1d6 (index 4), hide for others
+            if (idx === 4) {
               showModel();
             } else {
               hideModel();
