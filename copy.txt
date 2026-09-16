@@ -7,26 +7,43 @@ SOFT ERROR — 文案（集中编辑）
 - C1d2 已按你的要求删除，不再出现。
 - 第一章前几张图（C1d1/C1d3/C1d4/C1d5）更长的完整描述仍保留在 webpics/C1.txt，
   目前页面只展示下面的「短标题 + 短说明」；如要展示长文，告诉我。
+- 「小节图片」条目格式：`C1d1-1（右小）：图片描述`，括号里是排版简写。六种版式：
+
+| 简写 | 文字 | 图片 |
+|------|------|------|
+| 右大 | 2-8 列 | 11-23 列 |
+| 右小 | 2-14 列 | 17-23 列 |
+| 左大 | 17-23 列 | 2-14 列 |
+| 左小 | 11-23 列 | 2-8 列 |
+| 中大 | 图片下方（右对齐） | 2-23 列 |
+| 中小 | 图片下方（右对齐） | 4-21 列 |
 
 ══════════════════════════════════════════════════
-CHAPTER 1 — Foundational Research
+CHAPTER 1 — Core Research
 ══════════════════════════════════════════════════
 
 ■ 图片1 — 文件：C1d1
 短标题：Reference Research
 短说明：AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY
+小节图片：
+    C1d1-1（右小）：
+    C1d1-2（右小）：
 
 ■ 图片2 — 文件：C1d3
 短标题：Workflow of Process
 短说明：Design of the feedback control loop for scanning and printing systems
+小节图片：
+    C1d2-1（右大）：
 
 ■ 图片3 — 文件：C1d4
 短标题：Material Selection
 短说明：Using Controlled Variable Approach to Achieve More Diverse and Trustworthy Data
+小节图片：
 
 ■ 图片4 — 文件：C1d5
 短标题：Data Analysis
 短说明：Variance Analysis of Iterative Printing for Different Materials
+小节图片：
 
 ■ 图片5 — 文件：C1d6
 短标题：Computer Simulation
@@ -37,20 +54,22 @@ Calculating the deformation factor begins with measuring local geometric deviati
 To visualise this dynamically, the VEX code applies the calculated deformation factor iteratively to each point along its normal vector. The system is further refined to compute distinct error vectors between models, differentiating between scan error and print error. These are accumulated across successive generations, producing a continuous cycle of distortion and approximation.
 
 Geometric error is reinterpreted as a spatial and generative condition rather than a static imperfection. By translating error into spatial configurations with architectural qualities, it becomes an active driver of form, capable of producing differentiated typologies and informing new modes of design.
+小节图片：
 
 ■ 图片6 — 文件：C1d7
-短标题：Scanned Point Cloud Model 
+短标题：Scanned Point Cloud Model
 短说明：Discrete scan points define and approximated field of geometry
+小节图片：
 
 ══════════════════════════════════════════════════
 CHAPTER 2 — Material Language + Interaction Studies
 ══════════════════════════════════════════════════
 ■ 图片1 — 文件：C2d1
-短标题：text
-短说明：text
+短标题：Volumizing The Point
+短说明：Experiment Methodology Development For Further Study
 
 ■ 图片2 — 文件：C2d2
-短标题：text
+短标题：Point Extrusion Tests
 短说明：text
 
 ■ 图片3 — 文件：C2d3
@@ -92,8 +111,6 @@ CHAPTER 3 — Scaling + Structural Test
 ■ 图片4 — 文件：C3d4
 短标题：text
 短说明：text
-
-
 
 ══════════════════════════════════════════════════
 CHAPTER 4 — Digital Platform Development

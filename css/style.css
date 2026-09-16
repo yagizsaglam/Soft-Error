@@ -820,6 +820,61 @@ img { display: block; max-width: 100%; height: auto; }
   color: #666;
 }
 
+/* --- Detail Section (det images, shown below a selected card) --- */
+.detail-section {
+  display: none;
+  width: 100%;
+  padding-left: 460px;
+  background: #fff;
+  box-sizing: border-box;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.detail-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+}
+
+.detail-block {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  align-items: start;
+}
+
+.detail-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  min-width: 0;
+}
+
+/* --- Detail layout templates (24-column grid; cols 1 & 24 are the symmetric outer gutters) --- */
+/* right-small: text cols 2-14, image cols 17-23 */
+.layout-right-small .detail-text { grid-column: 2 / 15; }
+.layout-right-small .detail-img   { grid-column: 17 / 24; }
+
+/* right-large: text cols 2-8, image cols 11-23 */
+.layout-right-large .detail-text { grid-column: 2 / 9; }
+.layout-right-large .detail-img   { grid-column: 11 / 24; }
+
+/* left-small: image cols 2-8, text cols 11-23 */
+.layout-left-small .detail-img   { grid-column: 2 / 9; }
+.layout-left-small .detail-text { grid-column: 11 / 24; }
+
+/* left-large: image cols 2-14, text cols 17-23 */
+.layout-left-large .detail-img   { grid-column: 2 / 15; }
+.layout-left-large .detail-text { grid-column: 17 / 24; }
+
+/* center-small: image cols 4-21, text below (one empty row), right-aligned */
+.layout-center-small .detail-img   { grid-column: 4 / 22; }
+.layout-center-small .detail-text { grid-column: 4 / 22; text-align: right; margin-top: 50px; }
+
+/* center-large: image cols 2-23, text below, right-aligned */
+.layout-center-large .detail-img   { grid-column: 2 / 24; }
+.layout-center-large .detail-text { grid-column: 2 / 24; text-align: right; margin-top: 50px; }
+
 /* --- Traditional View (grid, max 4 per row) --- */
 .image-stack.traditional {
   position: static;
@@ -876,19 +931,27 @@ img { display: block; max-width: 100%; height: auto; }
     flex-direction: column;
     padding: 0;
   }
+  body.chapter-page {
+    padding-bottom: 100px;
+  }
   .chapter-sidebar {
     position: relative;
     top: auto;
     left: auto;
     width: 100%;
     height: auto;
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    padding: 24px 24px 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 24px 24px 20px;
     border-right: none;
     border-bottom: 1px solid #d0d0d0;
     background: #fff;
+  }
+  .sidebar-top-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
   .sidebar-top {
     width: 100%;
@@ -901,11 +964,24 @@ img { display: block; max-width: 100%; height: auto; }
     font-size: 0.65rem;
   }
   .chapter-title {
+    text-align: center;
     margin-bottom: 24px;
   }
   .view-toggle {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 48px;
+    z-index: 20;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 8px;
+    width: 100%;
+    margin: 0;
+    padding: 12px 24px 0;
+    background: #fff;
+    border-top: 1px solid #d0d0d0;
   }
   .view-btn {
     min-width: auto;
@@ -913,13 +989,29 @@ img { display: block; max-width: 100%; height: auto; }
     font-size: 0.6rem;
     padding: 6px 10px;
   }
+  .sidebar-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    margin-top: 0;
+    padding: 12px 24px 12px;
+    width: 100%;
+    background: #fff;
+  }
   .image-stack {
-    min-height: 500px;
+    min-height: 340px;
     padding-top: 60px;
     width: 100%;
+    flex: none;
+    order: 1;
   }
   .stack-card {
     width: clamp(120px, 30vw, 180px);
+  }
+  .image-stack.traditional {
+    grid-template-columns: repeat(2, auto);
   }
   .stack-card[data-index="0"] { --x: 0px;    --y: 0px;    }
   .stack-card[data-index="1"] { --x: 25px;   --y: -20px;  }
@@ -931,7 +1023,37 @@ img { display: block; max-width: 100%; height: auto; }
   .stack-card:hover,
   .image-stack.selected .stack-card.active,
   .image-stack.selected .stack-card:hover {
-    --lift: -130px;
+    --lift: -70px;
+  }
+
+  .chapter-main {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 70px;
+  }
+  .card-reference {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+    max-width: none;
+    text-align: center;
+    margin-top: 8px;
+    order: 2;
+    width: 100%;
+  }
+
+  .detail-section,
+  .model-section {
+    padding-left: 0;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .detail-grid {
+    gap: 56px;
   }
 }
 

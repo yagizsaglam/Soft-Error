@@ -54,15 +54,19 @@
         <p class="ref-text">AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY</p>
       </div>
       <div class="image-stack" id="imageStack">
-        <img src="webpics/C1d1.jpg" alt="Research image 1" class="stack-card" data-index="0">
-        <img src="webpics/C1d3.jpg" alt="Research image 2" class="stack-card" data-index="1">
-        <img src="webpics/C1d4.jpg" alt="Research image 3" class="stack-card" data-index="2">
-        <img src="webpics/C1d5.jpg" alt="Research image 4" class="stack-card" data-index="3">
-        <img src="webpics/C1d6.jpg" alt="Research image 5" class="stack-card" data-index="4">
-        <img src="webpics/C1d7.jpg" alt="Research image 6" class="stack-card" data-index="5">
+        <img src="webpics/C1d1.jpg" alt="Research image 1" class="stack-card" data-index="0" data-section="C1d1">
+        <img src="webpics/C1d3.jpg" alt="Research image 2" class="stack-card" data-index="1" data-section="C1d3">
+        <img src="webpics/C1d4.jpg" alt="Research image 3" class="stack-card" data-index="2" data-section="C1d4">
+        <img src="webpics/C1d5.jpg" alt="Research image 4" class="stack-card" data-index="3" data-section="C1d5">
+        <img src="webpics/C1d6.jpg" alt="Research image 5" class="stack-card" data-index="4" data-section="C1d6">
+        <img src="webpics/C1d7.jpg" alt="Research image 6" class="stack-card" data-index="5" data-section="C1d7">
       </div>
     </div><!-- .chapter-main -->
   </div><!-- .chapter-content -->
+
+  <div class="detail-section" id="detailSection" style="display:none;">
+    <div class="detail-grid" id="detailGrid"></div>
+  </div>
 
   <div class="model-section" id="modelSection" style="display:none;">
     <div class="model-viewer" id="modelViewer">
@@ -171,12 +175,77 @@
         }, 200);
       }
 
+      // --- Detail images (webpics/det/) ---
+      const detailSection = document.getElementById('detailSection');
+      const detailGrid = document.getElementById('detailGrid');
+      // Section → title + description (shared by the card reference text and the detail text boxes).
+      const SECTION_TEXT = {
+        'C1d1': { title: 'Reference Research', text: 'AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY' },
+        'C1d3': { title: 'Workflow of Process', text: 'Design of the feedback control loop for scanning and printing systems' },
+        'C1d4': { title: 'Material Selection', text: 'Using Controlled Variable Approach to Achieve More Diverse and Trustworthy Data' },
+        'C1d5': { title: 'Data Analysis', text: 'Variance Analysis of Iterative Printing for Different Materials' },
+        'C1d6': { title: 'Computer Simulation', text: 'Iterative Simulation in Houdini Based on Feedback-Loop Data' },
+        'C1d7': { title: 'Scanned Point Cloud Model', text: 'Discrete scan points define and approximated field of geometry' }
+      };
+      // Section → detail image blocks (each image has a src + layout template).
+      // Note: the file named C1d2-1.jpg maps to the page's second section C1d3.
+      const DETAILS = {
+        'C1d1': [
+          { src: 'webpics/det/C1/C1d1-1.jpg', layout: 'right-small' },
+          { src: 'webpics/det/C1/C1d1-2.jpg', layout: 'right-small' }
+        ],
+        'C1d3': [
+          { src: 'webpics/det/C1/C1d2-1.jpg', layout: 'right-large' }
+        ]
+      };
+      function hideDetail() {
+        detailSection.style.display = 'none';
+        detailGrid.innerHTML = '';
+        detailGrid.style.display = '';
+      }
+
+      function showDetail(section) {
+        var blocks = DETAILS[section];
+        if (!blocks || blocks.length === 0) {
+          hideDetail();
+          return;
+        }
+        detailGrid.style.display = '';
+        detailGrid.innerHTML = '';
+        blocks.forEach(function(block) {
+          var wrap = document.createElement('div');
+          wrap.className = 'detail-block layout-' + block.layout;
+
+          var txt = document.createElement('div');
+          txt.className = 'detail-text';
+          var body = document.createElement('p');
+          body.className = 'ref-text';
+          body.textContent = 'place holder place holder place holder place holder place holder place holder place holder place holder place holder place holder';
+          txt.appendChild(body);
+
+          var img = document.createElement('img');
+          img.className = 'detail-img';
+          img.src = block.src;
+          img.alt = section + ' detail';
+          img.loading = 'lazy';
+
+          wrap.appendChild(txt);
+          wrap.appendChild(img);
+          detailGrid.appendChild(wrap);
+        });
+        detailSection.style.display = 'block';
+        setTimeout(function() {
+          lenis.scrollTo(detailSection, { offset: -100 });
+        }, 200);
+      }
+
       function deselect() {
         activeIndex = -1;
         stack.classList.remove('selected');
         cards.forEach(function(c) { c.classList.remove('active'); });
         refBox.style.display = 'none';
         hideModel();
+        hideDetail();
       }
 
       cards.forEach(function(card) {
@@ -193,24 +262,19 @@
             cards.forEach(function(c) { c.classList.remove('active'); });
             card.classList.add('active');
             // Show reference text per card
-            var refs = [
-              { label: 'Reference Research', text: 'AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY' },
-              { label: 'Workflow of Process', text: 'Design of the feedback control loop for scanning and printing systems' },
-              { label: 'Material Selection', text: 'Using Controlled Variable Approach to Achieve More Diverse and Trustworthy Data' },
-              { label: 'Data Analysis', text: 'Variance Analysis of Iterative Printing for Different Materials' },
-              { label: 'Computer Simulation', text: 'Iterative Simulation in Houdini Based on Feedback-Loop Data' },
-              { label: 'Scanned Point Cloud Model', text: 'Discrete scan points define and approximated field of geometry' }
-            ];
-            var ref = refs[idx];
-            refBox.querySelector('.ref-label').textContent = ref.label;
+            var section = card.getAttribute('data-section');
+            var ref = SECTION_TEXT[section];
+            refBox.querySelector('.ref-label').textContent = ref.title;
             refBox.querySelector('.ref-text').textContent = ref.text;
             refBox.style.display = 'block';
 
-            // Show 3D model for C1d6 (index 4), hide for others
+            // Show detail images for the selected section; 3D model only for C1d6 (index 4)
             if (idx === 4) {
+              hideDetail();
               showModel();
             } else {
               hideModel();
+              showDetail(section);
             }
           }
         });
