@@ -39,7 +39,8 @@ code/
 │   ├── homepld.png        ← Default credits panel image
 │   ├── homepld1-5.png     ← Per-team-member hover images
 │   ├── homepld.psd        ← Source PSD
-│   └── font.jpg           ← Font specimen reference
+│   ├── font.jpg           ← Font specimen reference
+│   └── icon.png           ← Site favicon/logo (referenced by all pages' <head>)
 └── images/pages/          ← 53 WebP pages (page_001.webp to page_053.webp) from original project
 ```
 
