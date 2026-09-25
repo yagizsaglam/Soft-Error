@@ -1107,11 +1107,14 @@ img { display: block; max-width: 100%; height: auto; }
     padding-top: 24px;
   }
 
-  .library-main .details-btn {
+  body.chapter-page .library-main .details-btn {
+    position: fixed;
     left: 50%;
     top: auto;
-    bottom: 12px;
+    bottom: 96px; /* above the fixed bottom bars */
     transform: translateX(-50%);
+    z-index: 30;
+    padding: 8px 16px;
   }
 }
 
