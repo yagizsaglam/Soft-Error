@@ -1017,7 +1017,7 @@ img { display: block; max-width: 100%; height: auto; }
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 36px;
+    bottom: 36px; /* sits flush above the Library's 36px numeral nav */
     z-index: 20;
     flex-direction: row;
     justify-content: center;
@@ -1028,6 +1028,11 @@ img { display: block; max-width: 100%; height: auto; }
     padding: 12px 24px 0;
     background: #fff;
     border-top: 1px solid #d0d0d0;
+  }
+  /* Chapter pages: the nav shows 48px-tall arrows (not numerals), so lift the
+     toggle to clear it and stop the two fixed bars from overlapping. */
+  .chapter-sidebar:has(.nav-arrow) .view-toggle {
+    bottom: 48px;
   }
   .view-btn {
     min-width: auto;
