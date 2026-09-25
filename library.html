@@ -169,19 +169,24 @@
 
       if (stack.classList.contains('traditional')) {
         // Traditional view: float the button over the neighbouring card's centre.
-        // Columns 2–4 → left neighbour; column 1 → right neighbour.
+        // Leftmost column → right neighbour; every other column → left neighbour.
         const idx = cardIndex(card);
-        const col = idx % 4;
+        const cols = window.innerWidth <= 768 ? 2 : 4;
+        const col = idx % cols;
         let adjacent = col === 0 ? cards[idx + 1] : cards[idx - 1];
         if (!adjacent) adjacent = card;   // fallback: no neighbour in the row
 
         const mainRect = main.getBoundingClientRect();
         const adjRect = adjacent.getBoundingClientRect();
+        detailsBtn.style.position = 'absolute';
+        detailsBtn.style.bottom = 'auto';
         detailsBtn.style.left = (adjRect.left - mainRect.left + adjRect.width / 2) + 'px';
         detailsBtn.style.top  = (adjRect.top  - mainRect.top  + adjRect.height / 2) + 'px';
         detailsBtn.style.transform = 'translate(-50%, -50%)';
       } else {
-        // Stacked view: use the CSS default (left 60px, vertical centre)
+        // Stacked view: use the CSS default (fixed above the bottom bars on mobile, left 60px on desktop)
+        detailsBtn.style.position = '';
+        detailsBtn.style.bottom = '';
         detailsBtn.style.left = '';
         detailsBtn.style.top = '';
         detailsBtn.style.transform = '';

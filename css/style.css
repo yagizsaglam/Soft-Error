@@ -1107,7 +1107,7 @@ img { display: block; max-width: 100%; height: auto; }
     padding-top: 24px;
   }
 
-  body.chapter-page .library-main .details-btn {
+  body.chapter-page .library-main:not(.view-traditional) .details-btn {
     position: fixed;
     left: 50%;
     top: auto;
