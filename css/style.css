@@ -230,6 +230,14 @@ img { display: block; max-width: 100%; height: auto; }
   color: #ffd500;
 }
 
+.chapter-num {
+  white-space: nowrap;
+}
+
+.chapter-name {
+  font-size: 0.8em;
+}
+
 /* --- Scroll Hint --- */
 .scroll-hint {
   position: fixed;
@@ -426,6 +434,13 @@ img { display: block; max-width: 100%; height: auto; }
   color: #fff;
 }
 
+/* --- Responsive: tablet --- */
+@media (max-width: 1024px) {
+  .hero-title { font-size: clamp(3rem, 11vw, 7rem); }
+  .credits-panel { gap: 40px; padding: 32px; }
+  .credits-img { max-height: 52vh; }
+}
+
 /* --- Responsive: stack on mobile --- */
 @media (max-width: 768px) {
   .credits-panel {
@@ -443,6 +458,33 @@ img { display: block; max-width: 100%; height: auto; }
   }
   .credits-img {
     max-height: 30vh;
+  }
+  .credits-img-wrap {
+    transform: none;
+  }
+  .team-member {
+    white-space: normal;
+  }
+  .team-email {
+    position: static;
+    display: block;
+    left: auto;
+    top: auto;
+    transform: none;
+    padding-left: 0;
+    opacity: 1;
+    pointer-events: auto;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.6);
+  }
+  .team-member:hover .team-email:not(:empty),
+  .team-email:hover {
+    transform: none;
+    opacity: 1;
+  }
+  .team-member:hover .team-name {
+    background: transparent;
+    color: inherit;
   }
 }
 
@@ -943,10 +985,11 @@ img { display: block; max-width: 100%; height: auto; }
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 24px 24px 20px;
+    padding: 20px 16px 20px;
     border-right: none;
     border-bottom: 1px solid #d0d0d0;
     background: #fff;
+    z-index: 1000;
   }
   .sidebar-top-group {
     display: flex;
@@ -1055,6 +1098,18 @@ img { display: block; max-width: 100%; height: auto; }
   .detail-grid {
     gap: 56px;
   }
+
+  .library-main .image-stack:not(.traditional) {
+    min-height: 420px;
+    padding-top: 24px;
+  }
+
+  .library-main .details-btn {
+    left: 50%;
+    top: auto;
+    bottom: 12px;
+    transform: translateX(-50%);
+  }
 }
 
 /* --- Library Page --- */
@@ -1065,6 +1120,7 @@ img { display: block; max-width: 100%; height: auto; }
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
+  touch-action: none;
 }
 
 .library-main .image-stack:not(.traditional) .stack-card {
@@ -1164,6 +1220,10 @@ img { display: block; max-width: 100%; height: auto; }
   .chapter-link {
     font-size: clamp(1rem, 4vw, 1.5rem);
     gap: 8px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+    max-width: 94vw;
   }
 
   .chapter-list { bottom: 10%; }
@@ -1173,6 +1233,42 @@ img { display: block; max-width: 100%; height: auto; }
   }
 
   .chapter-title {
-    font-size: clamp(1.4rem, 5vw, 2rem);
+    font-size: clamp(1rem, 4vw, 1.4rem);
+  }
+
+  .corner-label { font-size: 0.9rem; }
+  .corner-tl { top: 20px; left: 20px; }
+  .corner-tr { top: 20px; right: 20px; }
+  .corner-tc { top: 20px; }
+}
+
+/* --- Responsive: small phone --- */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(1.9rem, 12vw, 3rem);
+  }
+
+  .corner-label { font-size: 0.8rem; }
+  .corner-tl { top: 14px; left: 14px; }
+  .corner-tr { top: 14px; right: 14px; }
+  .corner-tc { top: 14px; }
+
+  .chapter-list { bottom: 8%; }
+
+  .chapter-link {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+    max-width: 94vw;
+    font-size: clamp(0.95rem, 4.5vw, 1.3rem);
+  }
+
+  .credits-panel {
+    gap: 24px;
+    padding: 16px;
+  }
+
+  .credits-img {
+    max-height: 26vh;
   }
 }

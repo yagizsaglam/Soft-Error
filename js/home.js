@@ -124,6 +124,22 @@
       return;
     }
 
+    // Touch: crossfade cover <-> coverun (tap toggles revealTarget)
+    if (touchDevice) {
+      revealAmount += (revealTarget - revealAmount) * 0.12;
+      if (Math.abs(revealTarget - revealAmount) < 0.002) revealAmount = revealTarget;
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = canvasOpacity;
+      ctx.drawImage(offCover, 0, 0);
+      if (revealAmount > 0.002) {
+        ctx.globalAlpha = canvasOpacity * revealAmount;
+        ctx.drawImage(offCoverUn, 0, 0);
+      }
+      ctx.globalAlpha = 1;
+      return;
+    }
+
     // 1. Decay the persistence mask: erase a fraction each frame
     persistCtx.globalCompositeOperation = 'destination-out';
     persistCtx.fillStyle = `rgba(0,0,0,${DECAY_RATE})`;
@@ -177,8 +193,14 @@
   }
 
   // =========================================================================
-  // 3. MOUSE / TOUCH — boundary check via coordinates
+  // 3. MOUSE LENS (desktop) / TAP-TOGGLE REVEAL (touch)
   // =========================================================================
+  const touchDevice = window.matchMedia('(hover: none)').matches;
+
+  // Tap-to-toggle state (touch only): 0 = cover, 1 = coverun
+  let revealTarget = 0;
+  let revealAmount = 0;
+
   function isOverCanvas(e) {
     const r = canvas.getBoundingClientRect();
     return (
@@ -187,34 +209,30 @@
     );
   }
 
-  document.addEventListener('mousemove', (e) => {
-    // Don't activate lens once canvas is fading out (phase 2)
-    if (parseFloat(canvas.style.opacity) < 0.3) {
-      lensActive = false;
-      canvas.style.cursor = 'crosshair';
-      return;
-    }
-    if (isOverCanvas(e)) {
-      lensX = e.clientX;
-      lensY = e.clientY;
-      lensActive = true;
-      canvas.style.cursor = 'none';
-    } else {
-      lensActive = false;
-      canvas.style.cursor = 'crosshair';
-    }
-  });
-
-  canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    lensX = e.touches[0].clientX;
-    lensY = e.touches[0].clientY;
-    lensActive = true;
-  }, { passive: false });
-
-  canvas.addEventListener('touchend', () => {
-    lensActive = false;
-  });
+  if (!touchDevice) {
+    document.addEventListener('mousemove', (e) => {
+      // Don't activate lens once canvas is fading out (phase 2)
+      if (parseFloat(canvas.style.opacity) < 0.3) {
+        lensActive = false;
+        canvas.style.cursor = 'crosshair';
+        return;
+      }
+      if (isOverCanvas(e)) {
+        lensX = e.clientX;
+        lensY = e.clientY;
+        lensActive = true;
+        canvas.style.cursor = 'none';
+      } else {
+        lensActive = false;
+        canvas.style.cursor = 'crosshair';
+      }
+    });
+  } else {
+    // Touch: tap toggles cover <-> coverun (no blob-follow, so scrolling is free)
+    canvas.addEventListener('click', () => {
+      revealTarget = revealTarget === 0 ? 1 : 0;
+    });
+  }
 
   window.addEventListener('resize', () => {
     sizeCanvas();
@@ -353,36 +371,39 @@
     requestAnimationFrame(() => { el.style.transition = ''; });
   }
 
+  function crossfadeTo(idx) {
+    clearTimeout(leaveTimer);
+    if (activeOverlay === null) {
+      overlayA.src = hoverImages[idx].src;
+      overlayA.style.opacity = '1';
+      activeOverlay = 'A';
+    } else if (activeOverlay === 'A') {
+      overlayB.src = hoverImages[idx].src;
+      overlayB.style.opacity = '1';
+      setTimeout(() => hideOld(overlayA), 300);
+      activeOverlay = 'B';
+    } else {
+      overlayA.src = hoverImages[idx].src;
+      overlayA.style.opacity = '1';
+      setTimeout(() => hideOld(overlayB), 300);
+      activeOverlay = 'A';
+    }
+  }
+
   document.querySelectorAll('.team-member[data-img]').forEach((member) => {
     const idx = member.dataset.img;
-    member.addEventListener('mouseenter', () => {
-      clearTimeout(leaveTimer);
-
-      if (activeOverlay === null) {
-        // First hover: fade in overlayA
-        overlayA.src = hoverImages[idx].src;
-        overlayA.style.opacity = '1';
-        activeOverlay = 'A';
-      } else if (activeOverlay === 'A') {
-        // Fade new in on top, then instantly hide old underneath
-        overlayB.src = hoverImages[idx].src;
-        overlayB.style.opacity = '1';
-        setTimeout(() => hideOld(overlayA), 300);
-        activeOverlay = 'B';
-      } else {
-        overlayA.src = hoverImages[idx].src;
-        overlayA.style.opacity = '1';
-        setTimeout(() => hideOld(overlayB), 300);
-        activeOverlay = 'A';
-      }
-    });
-    member.addEventListener('mouseleave', () => {
-      leaveTimer = setTimeout(() => {
-        if (activeOverlay === 'A') overlayA.style.opacity = '0';
-        if (activeOverlay === 'B') overlayB.style.opacity = '0';
-        activeOverlay = null;
-      }, 150);
-    });
+    if (touchDevice) {
+      member.addEventListener('click', () => crossfadeTo(idx));
+    } else {
+      member.addEventListener('mouseenter', () => crossfadeTo(idx));
+      member.addEventListener('mouseleave', () => {
+        leaveTimer = setTimeout(() => {
+          if (activeOverlay === 'A') overlayA.style.opacity = '0';
+          if (activeOverlay === 'B') overlayB.style.opacity = '0';
+          activeOverlay = null;
+        }, 150);
+      });
+    }
   });
 
   // =========================================================================
