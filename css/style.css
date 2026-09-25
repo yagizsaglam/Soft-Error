@@ -78,7 +78,6 @@ body {
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
-  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -979,8 +978,8 @@ img { display: block; max-width: 100%; height: auto; }
     padding-bottom: 100px;
   }
   .chapter-sidebar {
-    position: relative;
-    top: auto;
+    position: sticky;
+    top: 0;
     left: auto;
     width: 100%;
     height: auto;
