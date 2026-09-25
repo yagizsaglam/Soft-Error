@@ -979,9 +979,10 @@ img { display: block; max-width: 100%; height: auto; }
     padding-bottom: 100px;
   }
   .chapter-sidebar {
-    position: relative;
-    top: auto;
-    left: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     height: auto;
     flex-direction: column;
@@ -1075,7 +1076,7 @@ img { display: block; max-width: 100%; height: auto; }
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 70px;
+    padding-top: 100px; /* fallback; refined to header height by inline JS */
   }
   .card-reference {
     position: relative;

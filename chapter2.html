@@ -63,6 +63,20 @@
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
 
+    // Offset content below the fixed mobile header (cleared on desktop)
+    (function () {
+      var sb = document.querySelector('.chapter-sidebar');
+      var main = document.querySelector('.chapter-main');
+      var mq = window.matchMedia('(max-width: 768px)');
+      function fitHeader() {
+        if (!sb || !main) return;
+        main.style.paddingTop = mq.matches ? (sb.offsetHeight + 20) + 'px' : '';
+      }
+      fitHeader();
+      window.addEventListener('resize', fitHeader);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeader);
+    })();
+
     // --- Scroll to Top ---
     document.getElementById('scrollTopBtn').addEventListener('click', function() {
       lenis.scrollTo(0);
