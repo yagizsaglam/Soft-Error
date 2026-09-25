@@ -1280,3 +1280,119 @@ img { display: block; max-width: 100%; height: auto; }
     max-height: 26vh;
   }
 }
+
+/* ==========================================================================
+   IMAGE ZOOM (chapter pages)
+   ========================================================================== */
+.zoom-btn {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--text);
+  background: #fff;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 60;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.zoom-btn svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+.zoom-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.zoom-btn:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.zoom-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 460px; /* exclude the fixed sidebar */
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.zoom-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.zoom-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+}
+.zoom-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.zoom-close svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.zoom-close:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* Lock background scroll while the overlay is open */
+html.zoom-open,
+html.zoom-open body {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .zoom-btn {
+    right: 16px;
+  }
+  .zoom-overlay {
+    left: 0; /* no left sidebar on mobile */
+    padding: 24px;
+  }
+  .zoom-close {
+    top: 16px;
+    right: 16px;
+  }
+}
