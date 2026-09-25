@@ -974,6 +974,7 @@ img { display: block; max-width: 100%; height: auto; }
   .chapter-content {
     flex-direction: column;
     padding: 0;
+    min-height: 0; /* don't force full viewport — lets the detail section sit close below the card title */
   }
   body.chapter-page {
     padding-bottom: 100px;
