@@ -45,17 +45,21 @@
         <p class="ref-text">text</p>
       </div>
       <div class="image-stack" id="imageStack">
-        <img src="webpics/C2d1.jpg" alt="Material study 1" class="stack-card" data-index="0">
-        <img src="webpics/C2d2.jpg" alt="Material study 2" class="stack-card" data-index="1">
-        <img src="webpics/C2d3.jpg" alt="Material study 3" class="stack-card" data-index="2">
-        <img src="webpics/C2d4.jpg" alt="Material study 4" class="stack-card" data-index="3">
-        <img src="webpics/C2d5.jpg" alt="Material study 5" class="stack-card" data-index="4">
-        <img src="webpics/C2d6.jpg" alt="Material study 6" class="stack-card" data-index="5">
-        <img src="webpics/C2d7.jpg" alt="Material study 7" class="stack-card" data-index="6">
+        <img src="webpics/C2d1.jpg" alt="Material study 1" class="stack-card" data-index="0" data-section="C2d1">
+        <img src="webpics/C2d2.jpg" alt="Material study 2" class="stack-card" data-index="1" data-section="C2d2">
+        <img src="webpics/C2d3.jpg" alt="Material study 3" class="stack-card" data-index="2" data-section="C2d3">
+        <img src="webpics/C2d4.jpg" alt="Material study 4" class="stack-card" data-index="3" data-section="C2d4">
+        <img src="webpics/C2d5.jpg" alt="Material study 5" class="stack-card" data-index="4" data-section="C2d5">
+        <img src="webpics/C2d6.jpg" alt="Material study 6" class="stack-card" data-index="5" data-section="C2d6">
+        <img src="webpics/C2d7.jpg" alt="Material study 7" class="stack-card" data-index="6" data-section="C2d7">
       </div>
     </div><!-- .chapter-main -->
 
   </div><!-- .chapter-content -->
+
+  <div class="detail-section" id="detailSection" style="display:none;">
+    <div class="detail-grid" id="detailGrid"></div>
+  </div>
 
   <script>
     // Lenis smooth scroll
@@ -145,13 +149,112 @@
       const stack = document.getElementById('imageStack');
       const cards = stack.querySelectorAll('.stack-card');
       const refBox = document.getElementById('cardReference');
+      const detailSection = document.getElementById('detailSection');
+      const detailGrid = document.getElementById('detailGrid');
       let activeIndex = -1;
+
+      // Section → title + description (placeholder until copy.txt Chapter 2 is filled).
+      const SECTION_TEXT = {
+        'C2d1': { title: 'text', text: 'text' },
+        'C2d2': { title: 'text', text: 'text' },
+        'C2d3': { title: 'text', text: 'text' },
+        'C2d4': { title: 'text', text: 'text' },
+        'C2d5': { title: 'text', text: 'text' },
+        'C2d6': { title: 'text', text: 'text' },
+        'C2d7': { title: 'text', text: 'text' }
+      };
+      // Section → detail image blocks (all laid out right-large).
+      const DETAILS = {
+        'C2d1': [
+          { src: 'webpics/det/C2/C2d1-1.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d1-2.jpg', layout: 'right-large' }
+        ],
+        'C2d2': [
+          { src: 'webpics/det/C2/C2d2-1.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d2-2.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d2-3.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d2-4.jpg', layout: 'right-large' }
+        ],
+        'C2d3': [
+          { src: 'webpics/det/C2/C2d3-1.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d3-2.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d3-3.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d3-4.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d3-5.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d3-6.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d3-7.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d3-8.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d3-9.jpg', layout: 'right-large' }
+        ],
+        'C2d4': [
+          { src: 'webpics/det/C2/C2d4-1.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d4-2.jpg', layout: 'right-large' }
+        ],
+        'C2d5': [
+          { src: 'webpics/det/C2/C2d5-1.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d5-2.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d5-3.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d5-4.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d5-5.jpg', layout: 'right-large' }
+        ],
+        'C2d6': [
+          { src: 'webpics/det/C2/C2d6-1.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d6-2.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d6-3.jpg', layout: 'right-large' }
+        ],
+        'C2d7': [
+          { src: 'webpics/det/C2/C2d7-1.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C2/C2d7-2.jpg', layout: 'right-large' }
+        ]
+      };
+
+      function hideDetail() {
+        detailSection.style.display = 'none';
+        detailGrid.innerHTML = '';
+        detailGrid.style.display = '';
+      }
+
+      function showDetail(section) {
+        var blocks = DETAILS[section];
+        if (!blocks || blocks.length === 0) {
+          hideDetail();
+          return;
+        }
+        detailGrid.style.display = '';
+        detailGrid.innerHTML = '';
+        blocks.forEach(function(block) {
+          var wrap = document.createElement('div');
+          wrap.className = 'detail-block layout-' + block.layout;
+
+          var txt = document.createElement('div');
+          txt.className = 'detail-text';
+          var body = document.createElement('p');
+          body.className = 'ref-text';
+          body.textContent = 'place holder place holder place holder place holder place holder place holder place holder place holder place holder place holder';
+          txt.appendChild(body);
+
+          var img = document.createElement('img');
+          img.className = 'detail-img';
+          img.src = block.src;
+          img.alt = section + ' detail';
+          img.loading = 'lazy';
+
+          wrap.appendChild(txt);
+          wrap.appendChild(img);
+          detailGrid.appendChild(wrap);
+        });
+        detailSection.style.display = 'block';
+        setTimeout(function() {
+          lenis.scrollTo(detailSection, { offset: -100 });
+        }, 200);
+      }
 
       function deselect() {
         activeIndex = -1;
         stack.classList.remove('selected');
         cards.forEach(function(c) { c.classList.remove('active'); });
         refBox.style.display = 'none';
+        hideDetail();
       }
 
       cards.forEach(function(card) {
@@ -167,20 +270,14 @@
             stack.classList.add('selected');
             cards.forEach(function(c) { c.classList.remove('active'); });
             card.classList.add('active');
-            // Show reference text per card (placeholder until copy.txt Chapter 2 is filled)
-            var refs = [
-              { label: 'text', text: 'text' },
-              { label: 'text', text: 'text' },
-              { label: 'text', text: 'text' },
-              { label: 'text', text: 'text' },
-              { label: 'text', text: 'text' },
-              { label: 'text', text: 'text' },
-              { label: 'text', text: 'text' }
-            ];
-            var ref = refs[idx];
-            refBox.querySelector('.ref-label').textContent = ref.label;
+            // Show reference text per card
+            var section = card.getAttribute('data-section');
+            var ref = SECTION_TEXT[section];
+            refBox.querySelector('.ref-label').textContent = ref.title;
             refBox.querySelector('.ref-text').textContent = ref.text;
             refBox.style.display = 'block';
+            // Show detail images for the selected section
+            showDetail(section);
           }
         });
       });
