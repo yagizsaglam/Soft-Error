@@ -751,12 +751,12 @@ img { display: block; max-width: 100%; height: auto; }
 .ref-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
-  line-height: 1.2;
+  line-height: 1.1;
   color: var(--text);
   font-weight: 600;
   text-transform: uppercase;
   display: block;
-  margin-bottom: 2px;
+  margin-bottom: 0;
 }
 
 .ref-text {
