@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="webpics/icon.png">
+  <title>Portfolio — SOFT ERROR</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <script src="js/page-flip.js"></script>
+</head>
+<body class="chapter-page">
+
+  <div class="chapter-content">
+
+    <aside class="chapter-sidebar">
+      <div class="sidebar-top-group">
+        <div class="sidebar-top">
+          <a href="index.html#phase1" class="sidebar-logo">SOFT ERROR</a>
+          <span class="sidebar-chap">Portfolio</span>
+        </div>
+        <h1 class="chapter-title">Portfolio</h1>
+      </div>
+      <a class="pdf-open-link" href="webpics/Portfolio_compressed.pdf" target="_blank" rel="noopener">Download PDF &nearr;</a>
+      <nav class="sidebar-nav">
+        <a href="chapter6.html" class="nav-arrow">
+          <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M8 1 L1 8 L8 15"/></svg>
+        </a>
+        <a href="library.html" class="nav-library">Library</a>
+        <span class="nav-arrow disabled">
+          <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M24 1 L31 8 L24 15"/></svg>
+        </span>
+      </nav>
+    </aside>
+
+    <div class="chapter-main portfolio-main">
+      <div class="flip-reader">
+        <div class="book-shell">
+          <button class="flip-nav flip-nav--prev" id="prev" aria-label="Previous page" title="Previous page">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <div class="book" id="book"></div>
+          <button class="flip-nav flip-nav--next" id="next" aria-label="Next page" title="Next page">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+        <div class="flip-pager">
+          <input type="range" id="slider" class="flip-pager__slider" min="1" max="222" step="1" value="1" aria-label="Jump to page">
+          <div class="flip-pager__jump">
+            <span class="flip-pager__label">Page</span>
+            <input type="number" id="jump" class="flip-pager__input" min="1" max="222" step="1" value="1" inputmode="numeric" aria-label="Page number">
+            <span class="flip-pager__label"> / of <span id="total">222</span></span>
+          </div>
+        </div>
+      </div>
+    </div><!-- .chapter-main -->
+
+  </div><!-- .chapter-content -->
+
+  <script>
+    (function () {
+      'use strict';
+
+      var TOTAL_PAGES = 222;
+      var MIN_WIDTH = 240; // StPageFlip minWidth; portrait (single page) when book < 2*minWidth
+
+      var book = document.getElementById('book');
+      var bookShell = book.parentElement;
+      var totalEl = document.getElementById('total');
+      var slider = document.getElementById('slider');
+      var jumpInput = document.getElementById('jump');
+      var prevBtn = document.getElementById('prev');
+      var nextBtn = document.getElementById('next');
+
+      // Module state — reassigned on each init/rebuild.
+      var pageFlip = null;
+      var render = null;
+      var ui = null;
+      var canvas = null;
+      var dpr = Math.max(1, window.devicePixelRatio || 1);
+
+      // Flip/scrub state (reset on rebuild).
+      var scrubbing = false;
+      var stepping = false;
+      var chasing = false;
+      var targetPage = 1;
+      var FLIP_NORMAL = 700;
+      var FLIP_FAST = 80;
+
+      var currentMode = null; // 'portrait' (single page) | 'landscape' (spread)
+
+      // Single-page ("portrait") when the book is narrower than 2*minWidth,
+      // mirroring StPageFlip's own stretch-mode orientation rule.
+      function detectMode() {
+        return book.clientWidth < 2 * MIN_WIDTH ? 'portrait' : 'landscape';
+      }
+
+      // Portrait mode (phone) drops the cover: page 1 is not shown, so the book
+      // opens directly on page 2. Landscape keeps the full spread, cover included.
+      function makePages() {
+        var start = detectMode() === 'portrait' ? 2 : 1;
+        var arr = [];
+        for (var i = start; i <= TOTAL_PAGES; i++) {
+          arr.push('webpics/portfolio/page_' + String(i).padStart(3, '0') + '.jpg');
+        }
+        return arr;
+      }
+
+      function currentPage() { return pageFlip.getCurrentPageIndex() + 1; }
+      function syncControls(page) { slider.value = String(page); jumpInput.value = String(page); }
+
+      function setFlipSpeed(fast) {
+        pageFlip.getSettings().flippingTime = fast ? FLIP_FAST : FLIP_NORMAL;
+      }
+
+      function updateStatus() {
+        if (scrubbing || chasing) return;
+        syncControls(currentPage());
+      }
+
+      // Turn one page toward targetPage; the flip event keeps it going until the
+      // book catches up, giving a page-by-page turning feel while dragging.
+      function stepTowardTarget() {
+        if (stepping) return;
+        var cur = currentPage();
+        if (targetPage === cur) {
+          chasing = false;
+          if (!scrubbing) setFlipSpeed(false);
+          return;
+        }
+        chasing = true;
+        stepping = true;
+        setFlipSpeed(true);
+        if (targetPage > cur) pageFlip.flipNext();
+        else pageFlip.flipPrev();
+      }
+
+      function clampPage(raw) {
+        var n = parseInt(raw, 10);
+        if (isNaN(n)) return NaN;
+        if (n < 1) n = 1;
+        if (n > pageFlip.getPageCount()) n = pageFlip.getPageCount();
+        return n;
+      }
+
+      // Jump to a 1-based page number instantly (used by the input box).
+      function jumpTo(raw) {
+        var n = clampPage(raw);
+        if (isNaN(n)) return;
+        targetPage = n;
+        pageFlip.turnToPage(n - 1);
+        syncControls(n);
+      }
+
+      // ---- Magnifier: a 2x circular lens that follows the cursor over the book ----
+      // (Created once; the source canvas is swapped on each rebuild.)
+      var LENS_SIZE = 300; // lens diameter in CSS px
+      var LENS_ZOOM = 2;   // magnification factor
+      var LENS_RING = 2;   // lens border thickness in CSS px
+
+      var magnifier = document.createElement('div');
+      magnifier.className = 'flip-magnifier';
+      var lensCanvas = document.createElement('canvas');
+      magnifier.appendChild(lensCanvas);
+      document.body.appendChild(magnifier);
+
+      var lensCtx = lensCanvas.getContext('2d');
+      var lensW = Math.round(LENS_SIZE * dpr);
+      lensCanvas.width = lensW;
+      lensCanvas.height = lensW;
+      lensCanvas.style.width = LENS_SIZE + 'px';
+      lensCanvas.style.height = LENS_SIZE + 'px';
+      magnifier.style.width = LENS_SIZE + 'px';
+      magnifier.style.height = LENS_SIZE + 'px';
+
+      var lensActive = false;
+      var lensX = 0;
+      var lensY = 0;
+      var lensViewX = 0;
+      var lensViewY = 0;
+      var srcRadiusCss = LENS_SIZE / (2 * LENS_ZOOM);
+      var lensRaf = null;
+
+      var narrowMq = window.matchMedia('(max-width: 640px)');
+      narrowMq.addEventListener('change', function () {
+        if (narrowMq.matches) lensActive = false;
+      });
+
+      function drawLens() {
+        var srcSide = srcRadiusCss * 2 * dpr;
+        var sx = lensX * dpr - srcSide / 2;
+        var sy = lensY * dpr - srcSide / 2;
+
+        lensCtx.clearRect(0, 0, lensW, lensW);
+        lensCtx.save();
+        lensCtx.beginPath();
+        lensCtx.arc(lensW / 2, lensW / 2, lensW / 2 - LENS_RING * dpr, 0, Math.PI * 2);
+        lensCtx.clip();
+        lensCtx.drawImage(canvas, sx, sy, srcSide, srcSide, 0, 0, lensW, lensW);
+        lensCtx.restore();
+
+        lensCtx.beginPath();
+        lensCtx.arc(lensW / 2, lensW / 2, lensW / 2 - LENS_RING * dpr / 2, 0, Math.PI * 2);
+        lensCtx.lineWidth = LENS_RING * dpr;
+        lensCtx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
+        lensCtx.stroke();
+
+        var half = LENS_SIZE / 2;
+        var cx = Math.min(Math.max(lensViewX, half), window.innerWidth - half);
+        var cy = Math.min(Math.max(lensViewY, half), window.innerHeight - half);
+        magnifier.style.left = Math.round(cx - half) + 'px';
+        magnifier.style.top = Math.round(cy - half) + 'px';
+      }
+
+      function lensLoop() {
+        if (!lensActive) {
+          magnifier.style.display = 'none';
+          lensRaf = null;
+          return;
+        }
+        magnifier.style.display = 'block';
+        drawLens();
+        lensRaf = requestAnimationFrame(lensLoop);
+      }
+
+      function requestLensFrame() {
+        if (lensRaf == null) lensRaf = requestAnimationFrame(lensLoop);
+      }
+
+      function onPointerMove(e) {
+        if (e.pointerType === 'touch' || narrowMq.matches) return;
+        var r = canvas.getBoundingClientRect();
+        var x = e.clientX - r.left;
+        var y = e.clientY - r.top;
+        if (x < 0 || y < 0 || x > r.width || y > r.height) {
+          lensActive = false;
+          return;
+        }
+        lensX = x;
+        lensY = y;
+        lensViewX = e.clientX;
+        lensViewY = e.clientY;
+        lensActive = true;
+        requestLensFrame();
+      }
+
+      function onPointerLeave() {
+        lensActive = false;
+      }
+
+      // ---- Flipbook init (re-runnable so the page set can change with layout) ----
+      function init() {
+        currentMode = detectMode();
+
+        pageFlip = new St.PageFlip(book, {
+          // Aspect ratio of a single page (1000 x 1125 = 8:9 — one half of the
+          // original 2000 x 1125 spreads).
+          width: 1000,
+          height: 1125,
+          size: 'stretch',
+          autoSize: true,
+          // Spread mode (as in the reference): two facing pages on wide screens,
+          // a single page on narrow ones. The book auto-sizes to 2*maxWidth wide
+          // by (maxWidth / ratio) tall; maxHeight is unused in stretch mode.
+          minWidth: MIN_WIDTH,
+          maxWidth: 560,
+          minHeight: 300,
+          maxHeight: 700,
+          usePortrait: true,
+          drawShadow: true,
+          maxShadowOpacity: 0.4,
+          flippingTime: 700,
+          swipeDistance: 30,
+          disableFlipByClick: false,
+          showPageCorners: false,
+          mobileScrollSupport: true
+        });
+
+        pageFlip.loadFromImages(makePages());
+
+        // ---- HiDPI (Retina) sharpness ----
+        render = pageFlip.getRender();
+        ui = pageFlip.getUI();
+        canvas = ui.getCanvas();
+
+        function sizeForDpr() {
+          var cssW = canvas.clientWidth;
+          var cssH = canvas.clientHeight;
+          if (!cssW || !cssH) return;
+          canvas.width = Math.round(cssW * dpr);
+          canvas.height = Math.round(cssH * dpr);
+          render.getContext().setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        ui.resizeCanvas = sizeForDpr;
+        render.resizeCanvas = sizeForDpr;
+        sizeForDpr();
+
+        var pageCount = pageFlip.getPageCount();
+        totalEl.textContent = String(pageCount);
+        slider.max = String(pageCount);
+        jumpInput.max = String(pageCount);
+
+        FLIP_NORMAL = pageFlip.getSettings().flippingTime;
+
+        // Reset flip/scrub state and controls to the first page.
+        scrubbing = false;
+        stepping = false;
+        chasing = false;
+        targetPage = 1;
+        syncControls(1);
+
+        pageFlip.on('flip', function () {
+          stepping = false;
+          updateStatus();
+          // Defer the next page turn: the flip event fires synchronously inside the
+          // previous flip's onEnd, before it calls reset(). Starting the next flip
+          // here would have its freshly-created calc/state wiped by that reset().
+          if (chasing) {
+            setTimeout(function () {
+              if (chasing) stepTowardTarget();
+            }, 0);
+          }
+        });
+        pageFlip.on('changeState', updateStatus);
+
+        canvas.addEventListener('pointermove', onPointerMove);
+        canvas.addEventListener('pointerleave', onPointerLeave);
+
+        lensActive = false;
+      }
+
+      function rebuild() {
+        if (!pageFlip) return;
+        pageFlip.destroy();            // detaches #book and removes its listeners
+        bookShell.insertBefore(book, nextBtn); // restore #book's position between the arrows
+        init();
+      }
+
+      // ---- One-time control wiring (reads the module-level pageFlip) ----
+
+      // Slider: scrub page-by-page with the flip animation.
+      slider.addEventListener('input', function () {
+        var n = clampPage(slider.value);
+        jumpInput.value = slider.value;
+        scrubbing = true;
+        if (isNaN(n)) return;
+        targetPage = n;
+        stepTowardTarget();
+      });
+      slider.addEventListener('change', function () {
+        scrubbing = false;
+        chasing = false;
+        stepping = false;
+        setFlipSpeed(false);
+        var n = clampPage(slider.value);
+        if (isNaN(n)) return;
+        var cur = currentPage();
+        if (n === cur) return;
+        pageFlip.flip(n - 1, n > cur ? 'bottom' : 'top');
+      });
+
+      // Jump input: Enter or leaving the field jumps to the typed page.
+      jumpInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          jumpTo(jumpInput.value);
+        }
+      });
+      jumpInput.addEventListener('change', function () {
+        jumpTo(jumpInput.value);
+      });
+
+      // Arrow buttons and keyboard: normal single-page turns.
+      nextBtn.addEventListener('click', function () {
+        chasing = false;
+        stepping = false;
+        pageFlip.flipNext();
+      });
+      prevBtn.addEventListener('click', function () {
+        chasing = false;
+        stepping = false;
+        pageFlip.flipPrev();
+      });
+
+      window.addEventListener('keydown', function (e) {
+        // Don't hijack arrow keys while typing in the jump field / moving the slider.
+        if (e.target === jumpInput || e.target === slider) return;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          chasing = false;
+          stepping = false;
+          pageFlip.flipNext();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          chasing = false;
+          stepping = false;
+          pageFlip.flipPrev();
+        }
+      });
+
+      // Offset content below the fixed mobile header (cleared on desktop).
+      var sb = document.querySelector('.chapter-sidebar');
+      var main = document.querySelector('.chapter-main');
+      var mq = window.matchMedia('(max-width: 768px)');
+      function fitHeader() {
+        if (!sb || !main) return;
+        main.style.paddingTop = mq.matches ? (sb.offsetHeight + 20) + 'px' : '';
+      }
+      fitHeader();
+      window.addEventListener('resize', fitHeader);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeader);
+
+      // Rebuild when the book flips between single-page and spread layout.
+      var resizeTimer = null;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          if (detectMode() !== currentMode) rebuild();
+        }, 150);
+      });
+
+      init();
+    })();
+
+</script>
+</body>
+</html>

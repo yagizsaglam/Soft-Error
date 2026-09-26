@@ -312,7 +312,7 @@
     // Credits panel fade in (0→0.25 p2 range — appears early)
     const creditsProgress = Math.max(0, Math.min(1, p2 / 0.25));
     creditsPanel.style.opacity = creditsProgress;
-    creditsPanel.classList.toggle('active', creditsProgress > 0.5);
+    creditsPanel.classList.toggle('active', creditsProgress > 0);
   }
 
   lenis.on('scroll', updateScrollEffects);

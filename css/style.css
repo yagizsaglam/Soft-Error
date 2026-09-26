@@ -240,6 +240,15 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 0.8em;
 }
 
+/* Portrait (phone): in the home directory, keep only "Chapter N" — hide the
+   em dash separator and the descriptive name. */
+@media (orientation: portrait) {
+  .chapter-link .chapter-sep,
+  .chapter-link .chapter-name {
+    display: none;
+  }
+}
+
 /* --- Scroll Hint --- */
 .scroll-hint {
   position: fixed;
@@ -285,6 +294,7 @@ img { display: block; max-width: 100%; height: auto; }
   gap: 60px;
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
   will-change: opacity;
   background: #000;
   padding: 40px;
@@ -384,6 +394,7 @@ img { display: block; max-width: 100%; height: auto; }
 /* --- Credits cursor --- */
 .credits-panel.active {
   pointer-events: auto;
+  visibility: visible;
   cursor: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cline x1='12' y1='2' x2='12' y2='22' stroke='white' stroke-width='1'/%3E%3Cline x1='2' y1='12' x2='22' y2='12' stroke='white' stroke-width='1'/%3E%3C/svg%3E") 12 12, crosshair;
 }
 
@@ -970,6 +981,220 @@ img { display: block; max-width: 100%; height: auto; }
   opacity: 1;
 }
 
+/* --- Portfolio Flipbook (StPageFlip) --- */
+.portfolio-main {
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  padding: 36px 44px 60px;
+}
+
+.flip-reader {
+  width: 100%;
+  max-width: 1180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.book-shell {
+  position: relative;
+  width: 100%;
+}
+
+/* The element StPageFlip mounts into (gets class .stf__parent). */
+.book {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 30px 60px -22px rgba(0, 0, 0, 0.28),
+    0 10px 20px -12px rgba(0, 0, 0, 0.14);
+}
+
+.stf__parent {
+  position: relative;
+  /* StPageFlip sets a large inline min-width to force single-page mode.
+     Override it so the book can still scale down on narrow screens. */
+  min-width: 0 !important;
+}
+
+.stf__wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- Flipbook prev/next arrows --- */
+.flip-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  background: transparent;
+  color: #b8b8b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.15s ease, transform 0.15s ease;
+  z-index: 10;
+}
+
+.flip-nav--prev { left: 0; }
+.flip-nav--next { right: 0; }
+
+.flip-nav:hover { color: var(--red); }
+
+.flip-nav--prev:hover { transform: translateY(-50%) translateX(-2px); }
+.flip-nav--next:hover { transform: translateY(-50%) translateX(2px); }
+
+.flip-nav:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+/* --- Pager: progress bar + jump input --- */
+.flip-pager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 560px;
+  padding: 0 1rem;
+}
+
+.flip-pager__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: #e6e6e6;
+  outline: none;
+  cursor: pointer;
+}
+
+.flip-pager__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+  transition: background 0.15s ease;
+}
+
+.flip-pager__slider::-webkit-slider-thumb:hover {
+  background: var(--red);
+}
+
+.flip-pager__slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+}
+
+.flip-pager__slider:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.flip-pager__jump {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.flip-pager__label {
+  font-family: var(--font-stencil);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.flip-pager__input {
+  width: 3.4rem;
+  padding: 0.2rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text);
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: var(--bg);
+  font-variant-numeric: tabular-nums;
+}
+
+.flip-pager__input:focus-visible {
+  outline: none;
+  border-color: var(--red);
+}
+
+/* Hide the number input's spin buttons for a cleaner look. */
+.flip-pager__input::-webkit-outer-spin-button,
+.flip-pager__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.flip-pager__input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.pdf-open-link {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 24px;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  font-family: var(--font-stencil);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.pdf-open-link:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+/* --- Magnifier (2x hover lens) --- */
+.flip-magnifier {
+  position: fixed;
+  z-index: 1000;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  display: none;
+  background: #fff;
+}
+
+.flip-magnifier canvas {
+  display: block;
+}
+
 /* Chapter Responsive */
 @media (max-width: 768px) {
   .chapter-content {
@@ -1158,6 +1383,21 @@ img { display: block; max-width: 100%; height: auto; }
     height: 60vh;
     min-height: 340px;
   }
+
+  /* Mobile: flipbook fills below the fixed header (top offset set by inline JS) */
+  .portfolio-main {
+    padding: 0 16px 40px;
+  }
+  .pdf-open-link {
+    display: none;
+  }
+  .flip-nav {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .flip-pager {
+    max-width: 100%;
+  }
 }
 
 /* --- Library Page --- */
@@ -1314,6 +1554,15 @@ img { display: block; max-width: 100%; height: auto; }
 
   .credits-img {
     max-height: 26vh;
+  }
+}
+
+/* --- Responsive: portrait orientation — center the chapter list vertically --- */
+@media (orientation: portrait) {
+  .chapter-list {
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
   }
 }
 

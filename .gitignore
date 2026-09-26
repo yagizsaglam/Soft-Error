@@ -30,3 +30,16 @@ chapter4_standalone.html
 webpics/box.png
 webpics/veni.glb
 webpics/finalrender1.png
+
+# Portfolio PDF source (257MB — exceeds GitHub 100MB limit; keep locally only)
+webpics/Portfolio.pdf
+
+# Backup of the original 2-page spreads (source kept locally only)
+webpics/portfolio_spreads/
+
+# Temporary working files (local only)
+暂存/
+
+# Claude Code local tooling
+.agents/
+skills-lock.json
