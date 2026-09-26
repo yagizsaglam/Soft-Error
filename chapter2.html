@@ -155,8 +155,8 @@
 
       // Section → title + description (placeholder until copy.txt Chapter 2 is filled).
       const SECTION_TEXT = {
-        'C2d1': { title: 'text', text: 'text' },
-        'C2d2': { title: 'text', text: 'text' },
+        'C2d1': { title: 'Volumizing The Point', text: 'Experiment Methodology Development For Further Study' },
+        'C2d2': { title: 'Point Extrusion Tests', text: 'text' },
         'C2d3': { title: 'text', text: 'text' },
         'C2d4': { title: 'text', text: 'text' },
         'C2d5': { title: 'text', text: 'text' },
@@ -166,45 +166,54 @@
       // Section → detail image blocks (all laid out right-large).
       const DETAILS = {
         'C2d1': [
-          { src: 'webpics/det/C2/C2d1-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d1-2.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C2/C2d1-1.jpg', layout: 'right-large', text: "This chapter documents the experimental development of the Soft Error fabrication methodology through a series of material and printing tests. Beginning with point extrusion, the research examines how individual extrusion events interact with substrates and how these binder-substrate relationships produce unpredictable material formations. Subsequent tests investigate the structural scalability of these interactions and the development of a multidirectional printing methodology, moving from isolated material behaviors towards a system capable of producing larger, spatially complex forms." },
+          { src: 'webpics/det/C2/C2d1-2.jpg', layout: 'right-small', text: "Cement was extruded through a perlite substrate at multiple points and along varying directions, allowing for a systematic exploration of the typological outcomes achievable through multi-directional printing techniques." }
         ],
         'C2d2': [
-          { src: 'webpics/det/C2/C2d2-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d2-2.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d2-3.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d2-4.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C2/C2d2-1.jpg', layout: 'right-large', text: `Building on the initial material vocabulary, these experiments introduced secondary substrates and container systems to examine how external constraints could redirect the behavior of extrusion. Wire, balloons, perlite, wood chips, foam, and containment, and displacement. These experiments demonstrate that form emerges through interactions between multiple material agents. Expanding the material system beyond a single binder revealed new opportunities for controlling local performance while At the scale of the material interface,the indeterminacy of the printing process becomes visible. The same extrusion binding material encounters substrates with different grain sizes, densities, porosities, and geometries. Rather than simply supporting the print, the substrate actively determines its resolution and material character. Fine granular beds allow the extrusion toretain a smoother and more continuous surface, while larger or irregular particles become embedded within the binder, producing rougher and less predictable boundaries. Material adheres, displaces, absorbs, and consolidates differently with each substrate.
+1. Wire 2.Balloon&Wire 3. Gel 4. Perlite 5. Wood Chip 6. Cement & Latex 7. Foam & Sand 8. Foam & Cement 9. Gel & Latex` },
+          { src: 'webpics/det/C2/C2d2-2.jpg', layout: 'right-large', text: `Single-point extrusions were deposited into substrates to establish systems. Rather than evaluating print fidelity, each binder was tested in isolation to examine how viscosity, curing behavior, substrate interaction, and gravity (or lack thereof) shaped the systematically varied to understand how individual parameters transformed the geometry of a single extrusion.
+Single-point extrusions were deposited into substrates to establish systems. Rather than evaluating print fidelity, each binder was tested in isolation to examine how viscosity, curing behavior, substrate interaction, and gravity (or lack thereof) shaped the systematically varied to understand how individual parameters transformed the geometry of a single extrusion. 〔图24〕
+1. Cement 2. Latex 3. Cement & Latex 4. Wax 5. Pure Gel 10mm Nozzle 6. Pure Gel 4mm Nozzle 7. Gel:Water 1:0.5 4mm Nozzle` },
+          { src: 'webpics/det/C2/C2d2-3.jpg', layout: 'right-large', text: "Wax in ultrasound gel" },
+          { src: 'webpics/det/C2/C2d2-4.jpg', layout: 'right-large', text: "Foam in perlite and ultrasound gel" }
         ],
         'C2d3': [
-          { src: 'webpics/det/C2/C2d3-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d3-2.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d3-3.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d3-4.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d3-5.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d3-6.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d3-7.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d3-8.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d3-9.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C2/C2d3-1.jpg', layout: 'right-small', noText: true },
+          { src: 'webpics/det/C2/C2d3-2.jpg', layout: 'right-large', text: `Materials: Substrate material: Perlite
+Extrusion material: Cement
+Cement was extruded through a perlite substrate at multiple points and along varying directions, allowing for a systematic exploration of the typological outcomes achievable through multi-directional printing techniques.` },
+          { src: 'webpics/det/C2/C2d3-3.jpg', layout: 'right-large', text: `Materials: Substrate material: Perlite
+Extrusion material: Resin
+We tested resins with varying work and cure times (5 min, 10 min, and 3 hour work times ) within a perlite substrate to evaluate control over extrusion and resulting typologies. The slowest-setting resin proved inefficient, while the fastest set too quickly, risking nozzle blockage and limiting workable time. The medium-setting resin offered the most effective balance between work ability and controlled extrusion.` },
+          { src: 'webpics/det/C2/C2d3-4.jpg', layout: 'right-large', text: "Resin was tested across varied substrates to evaluate how aggregate density and material properties affect its behaviour and resulting morphology. Recycled glass, due to its high density, restricted flow, making resin extrusion more difficult even under pressure. In contrast, the gel substrate caused the resin to reverse direction after extrusion, flowing upward and forming elongated, funnel-like geometries. Dense sand similarly limited extrusion, as closely packed grains reduced available void space. Sawdust, with its low density and porous structure, allowed greater dispersion, enabling the resin to move more freely within the substrate bed." },
+          { src: 'webpics/det/C2/C2d3-5.jpg', layout: 'right-large', noText: true },
+          { src: 'webpics/det/C2/C2d3-6.jpg', layout: 'right-large', text: "Cement was tested across varied substrate conditions to examine how material composition influences stochastic formation and resulting morphology. Both natural substrates, including wood and perlite, and recycled materials, such as shredded tire and foam, were evaluated to understand their impact on flow, binding, and structural behaviour. Differences in density, porosity, and particle distribution produced distinct formal outcomes, highlighting the role of substrate selection in shaping both the physical performance and visual language of the extruded material." },
+          { src: 'webpics/det/C2/C2d3-7.jpg', layout: 'right-large', noText: true },
+          { src: 'webpics/det/C2/C2d3-8.jpg', layout: 'right-large', text: "Texture details" },
+          { src: 'webpics/det/C2/C2d3-9.jpg', layout: 'right-large', text: "Texture details" }
         ],
         'C2d4': [
-          { src: 'webpics/det/C2/C2d4-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d4-2.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C2/C2d4-1.jpg', layout: 'right-large', text: "Building on the material vocabulary established through single-point extrusion, this experiment investigated how discrete deposition events could generate larger coherent structures through interaction. A large box was built with an internal wire frame that provided secondary support where neighboring extrusions failed to connect and then filled with perlite. The letters A, B, and C were abstracted into discrete point fields, with each point corresponding to a single foam extrusion deposited into the substrate. Rather than reproducing continuous geometry, the forms emerged through the local interaction and overlap of individual extrusions, testing whether complex structures could be constructed from a simple, repeatable system of material events. From was produced but not copied." },
+          { src: 'webpics/det/C2/C2d4-2.jpg', layout: 'right-large', noText: true }
         ],
         'C2d5': [
-          { src: 'webpics/det/C2/C2d5-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d5-2.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d5-3.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d5-4.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d5-5.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C2/C2d5-1.jpg', layout: 'right-large', text: "The extrusion methodology was adapted to explore new interactions between material and substrate across three-dimensional conditions. Testing focused on multi-directional deposition, expanding beyond top-down linear extrusion to investigate how varied orientations influence formation." },
+          { src: 'webpics/det/C2/C2d5-2.jpg', layout: 'right-large', text: "This phase initiated the development of a broader visual and material vocabulary, examining how differing substrate conditions inform the behaviour of the extruded material through their stochastic properties. The resulting formations reflect a negotiation between controlled input and material-driven variation." },
+          { src: 'webpics/det/C2/C2d5-3.jpg', layout: 'right-large', text: "Extrusion Substrate Interactions: We tested a range of extrusion materials within varying substrate beds using a bounding box setup. Extrusion was deployed from three directions at 5cm intervals, with each face organized as a 5x5 grid, where intersections defined the extrusion points." },
+          { src: 'webpics/det/C2/C2d5-4.jpg', layout: 'center-large', noText: true },
+          { src: 'webpics/det/C2/C2d5-5.jpg', layout: 'center-large', noText: true }
         ],
         'C2d6': [
-          { src: 'webpics/det/C2/C2d6-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d6-2.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d6-3.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C2/C2d6-1.jpg', layout: 'right-small', text: "Extrusion tests across multi-material substrate combinations cohesion across distinct material strata. Demediating the perlite and tire extrusion reveals that the external visual stratification directly reflects the object's internal material logic. Like geological strata formed through compression and consolidation, these material boundaries persist through the object regardless of its final geometry. The exterior pattern is not bound to the surface but is a visible consequence of its internal construction." },
+          { src: 'webpics/det/C2/C2d6-2.jpg', layout: 'center-large', noText: true },
+          { src: 'webpics/det/C2/C2d6-3.jpg', layout: 'center-large', noText: true }
         ],
         'C2d7': [
-          { src: 'webpics/det/C2/C2d7-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C2/C2d7-2.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C2/C2d7-1.jpg', layout: 'right-large', text: `Following initial experimentation, which focused on understanding individual substrate behaviours and binding capacities, the investigation began to explore how these material interactions could produce discrete components. Early extrusions moved beyond isolated tests, generating small-scale objects that suggested potential for aggregation, connection, and incremental growth. This phase marked a transition from material evaluation toward the formation of repeatable units, extending object-making beyond singular conditions and toward systems of assembly.
+Small-scale extrusions were combined to test their capacity for connection and object expansion. Evaluation focused on structural behaviour, formal compatibility, and the emergence of interlocking relationships between components. These initial assemblies established a foundation for later mid-scale investigations, demonstrating how discrete elements could begin to operate within a broader system of construction.` },
+          { src: 'webpics/det/C2/C2d7-2.jpg', layout: 'right-large', text: `Building on earlier investigations into component formation and jointing, mid-scale assemblies were developed to test the capacity of discrete extruded elements to operate as a cohesive system. Initial puzzle-like interlocking strategies proved unsuccessful, as material indeterminacy generated irregular geometries that resisted precise alignment and structural locking. In response, the investigation shifted toward a more tolerant assembly logic based on layered aggregation and surface contact. This approach enabled the established material language to extend into larger formations, balancing variation in individual components with overall formal coherence.
+Modular objects were produced through consistent resin extrusion across varied substrate conditions and evaluated after fabrication for their ability to stack and stabilize through layered contact. Assessment focused on visual continuity, structural stability, and the capacity of assembled elements to read as a unified object. Comparisons between different configurations demonstrated how varied substrate conditions could support both formal diversity and systemic consistency, establishing a scalable strategy for mid-scale construction.` }
         ]
       };
 
@@ -226,12 +235,15 @@
           var wrap = document.createElement('div');
           wrap.className = 'detail-block layout-' + block.layout;
 
-          var txt = document.createElement('div');
-          txt.className = 'detail-text';
-          var body = document.createElement('p');
-          body.className = 'ref-text';
-          body.textContent = 'place holder place holder place holder place holder place holder place holder place holder place holder place holder place holder';
-          txt.appendChild(body);
+          if (!block.noText) {
+            var txt = document.createElement('div');
+            txt.className = 'detail-text';
+            var body = document.createElement('p');
+            body.className = 'ref-text';
+            body.textContent = block.text || 'place holder place holder place holder place holder place holder place holder place holder place holder place holder place holder';
+            txt.appendChild(body);
+            wrap.appendChild(txt);
+          }
 
           var img = document.createElement('img');
           img.className = 'detail-img';
@@ -239,7 +251,6 @@
           img.alt = section + ' detail';
           img.loading = 'lazy';
 
-          wrap.appendChild(txt);
           wrap.appendChild(img);
           detailGrid.appendChild(wrap);
         });

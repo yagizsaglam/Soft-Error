@@ -26,35 +26,35 @@ CHAPTER 1 — Core Research
 短标题：Reference Research
 短说明：AUGMENTED MATERIALITY: MODELLING WITH MATERIAL INDETERMINACY
 小节图片：
-    C1d1-1（右小）：
-    C1d1-2（右小）：
-    C1d1-3（右小）：
+    C1d1-1（右小）：Drawing from Ryan Luke Johns' research on Material Indeterminacy (Johns, 2014), the project takes particular interest in his recursive wax-melting experiment, where scanning, simulation, robotic action, and material behaviour operate simultaneously. In this system, wax is selectively melted, while the designer intervenes in real time by adjusting from model to fabrication.
+    C1d1-2（右小）：Form emerges through the interaction of multiple agents: human, machine, and computation. Here, form is not preauthored but arises through the negotiation between stochastic material drivers in the production of architectural form.
+    C1d1-3（右小）：Johns' work also foregrounds the role of augmented digital interfaces in re-establishing a feedback loop between the designer, the machine, and the material system. By enabling real-time interaction with fabrication processes through live simulation, scanning, and projection, the design process becomes recursive rather than sequential, allowing continuous adjustment and intervention during production.
 
 ■ 图片2 — 文件：C1d3
 短标题：Workflow of Process
 短说明：Design of the feedback control loop for scanning and printing systems
 小节图片：
-    C1d2-1（右大）：
-    C1d2-2（右小）：
+    C1d2-1（右大）：Each oyster print was 3D scanned, producing a digital counterpart through which its material and geometric characteristics could be exact copy. The translation from physical object to digital model introduced small errors and approximations introduced by the scanning technology and by each material's ability to be digitally captured. To reproduce the object, this imperfect digital model must then become the source for a new print, a physicalisation of an already translated version of the original. Further deviations emerge as reflecting the information contained within the scan. The resulting sequence, physical object, digital scan, physical reproduction, therefore produces iterations rather than identical copies. This imperfect doubling reflects a broader condition of architectural production, where digital models operate as imperfect projections of physical instruction. The following analyses probe this digital to physical to digital of a new methodology.
+    C1d2-2（右大）：The process begins with 3D scanning oyster shells, translating complex organic geometries into point cloud data. Variations in lighting, resolution, and capture method (photogrammetry vs LiDAR) introduce scan error, producing noise and inconsistencies in the digital model. This data is converted into a mesh and optimised for fabrication, introducing further approximation. The model is then translated into layered toolpaths for 3D printing across multiple materials, where machine tolerances and material behaviour generate print error. This scan-to-print cycle is repeated across successive generations, allowing errors to accumulate with resulting outputs revealing a chain of approximations.
 
 ■ 图片3 — 文件：C1d4
 短标题：Material Selection
 短说明：Using Controlled Variable Approach to Achieve More Diverse and Trustworthy Data
 小节图片：
-    C1d3-1（右大）：
-    C1d3-2（右大）：
-    C1d3-3（右大）：
+    C1d3-1（右大）：PLA, Nylon Powder, Resin, Woodcomposite, Agilus, and Silicone were selected to represent a broad spectrum of 3D printable matter, from rigid structural plastics through fibrous composites to fully elastic elastomers. 1.FFF(Fused Filament Fabrication) PLA and 2.SLA (Stereolithography) Resin occupy the hard, high fidelity end, offering precise surface resolution but brittle behaviour. 3.SLS (Selective Laser Sintering) produces a granular, matte surface through nylon powder sintering, absorbing detail differently from resin processes. 4.FFF Wood composite introduces porosity and thermal expansion, generating macro deformations absent from the scan data. PolyJet Resin, operating at the finest resolution, still introduces systematic errors despite its proximityto the original. 5.Polyjet Agilus adds environmental unpredictability through its sensitivity to temperature and humidity. 
+    C1d3-2（中小）：无字
+    C1d3-3（中小）：无字
 
 ■ 图片4 — 文件：C1d5
 短标题：Data Analysis
 短说明：Variance Analysis of Iterative Printing for Different Materials
 小节图片：
-    C1d4-1（中大）：
-    C1d4-2（右小）：
-    C1d4-3（右小）：
-    C1d4-4（右大）：
-    C1d4-5（中大）：
-    C1d4-6（中大）：
+    C1d4-1（中小）：Each oyster print is scanned and compared to its preceding form to measure material displacement and geometric deviation across different fabrication processes. Through successive cycles of scanning and reprinting, the original geometry is not simply reproduced: information is lost, translated, and materially altered. These accumulating deviations begin to reveal the soft error as an emergent product of repetition between digital and physical states.
+    C1d4-2（中小）：无字
+    C1d4-3（中小）：无字
+    C1d4-4（中小）：无字
+    C1d4-5（中小）：无字
+    C1d4-6（中小）：无字
 
 ■ 图片5 — 文件：C1d6
 短标题：Computer Simulation
@@ -66,20 +66,24 @@ To visualise this dynamically, the VEX code applies the calculated deformation f
 
 Geometric error is reinterpreted as a spatial and generative condition rather than a static imperfection. By translating error into spatial configurations with architectural qualities, it becomes an active driver of form, capable of producing differentiated typologies and informing new modes of design.
 小节图片：
-    C1d5-1（右小）：
-    C1d5-2（右大）：
-    C1d5-3（右大）：
-    C1d5-4（右大）：
-    C1d5-5（右大）：
+    C1d5-1（右大）：The diagram outlines the simulation methodology developed to model and predict the occurring geometric errors across the full scan-print cycle. The process begins with the datafication of a single iteration, tracing the transformation from the original shell through 3D scanning to physical printing, and uses this as the basis for error quantification.
+At the core of the diagram is an “Approximation Error Analysis” that identifies two distinct layers of deviation. The first layer captures errors inherent to the scanning process itself: scanner resolution limits, operator handling inconsistencies, and surface noise. The second layer addresses errors introduced during printing: material accumulation, shrinkage, and printer tolerance. Each layer produces a geometric error vector, v@error_scan_vector and v@error_print_vector, which serve as the numerical inputs to the simulation.
+These vectors are fed into a Houdini Simulation Engine Solver, which sequentially applies scan distortion and print distortion to an input geometry, generating a dynamic error visualisation before producing an output. Critically, the solver operates within a feedback loop, allowing the distorted output of one iteration to inform the next, compounding errors across successive generations in the same way they accumulate in repeated physical scan-print cycles.
+The simulative output, the geometry resulting after N iterations, is then passed into an analysis stage. This final phase serves three purposes: predicting how material behaviour and form will shift across successive generations, identifying structural weak points and process constraints, and mapping potential future directions for the research.
+Rather than treating approximation error as a problem to be corrected, this diagram reflects instrumentalization of indeterminacy. By encoding the stochastic behaviour of the scan-print cycle into a computational framework, the work moves beyond the documentation of deviation toward its active integration, positioning approximation error as a generative agent within the design process.
+    C1d5-2（右大）：Geometric error is reinterpreted as a spatial and generative condition rather than a static imperfection. By translating error into spatial configurations with architectural typologies and informing new modes of design.
+    C1d5-3（右大）：Calculating the deformation factor begins with measuring local geometric deviation, defined as the magnitude of the displacement vector between the reference mesh and the target mesh at each point. These local deviations are then aggregated to produce a global value, representing the average displacement across the entire mesh. To visualize this dynamically, the VEX code applies the calculated deformation factor iteratively to each point along its normal vector. The system is further refined to compute distinct error vectors between models, differentiating between scan error and print error. These are accumulated across successive generations, producing a continuous cycle of distortion and approximation. 
+    C1d5-4（右大）：无字
+    C1d5-5（右大）：无字
 
 ■ 图片6 — 文件：C1d7
 短标题：Scanned Point Cloud Model
 短说明：Discrete scan points define and approximated field of geometry
 小节图片：
-    C1d6-1（右大）：
-    C1d6-2（右小）：
-    C1d6-3（中大）：
-    C1d6-4（右大）：
+    C1d6-1（右大）：Point cloud models describe geometry as a field of discrete coordinates, where each point carries a positional value but also implies a spatial tolerance or radius of occupation. This means that rather than defining a continuous surface, the scan produces a distributed approximation of space, dependent on resolution, density, and capture conditions.
+    C1d6-2（左小）：When converted into a mesh, these points are interpolated into continuous surfaces through triangulation; the mesh model is not a direct representation of the physical object, but a constructed interpretation based on approximated spatial relationships. This introduces a disconnect in the physical-to-digital translation of geometry, exposing the limitations of digital precision.
+    C1d6-3（中小）：the interaction of human intention, digital instruction, and material indeterminacy. Rather than assigning a fixed geometry to the point, these agents negotiate its volume through printing, producing unique material interactions that collectively transform digital information into physical form. 
+    C1d6-4（右大）：Traditional 3D printing translates a predefined mesh into physical form through sequential as instructions for volumetric deposition. Rather than reproducing a continuous surface, the physical object emerges through the collective materialization of discrete points.
 
 ══════════════════════════════════════════════════
 CHAPTER 2 — Material Language + Interaction Studies
@@ -88,63 +92,73 @@ CHAPTER 2 — Material Language + Interaction Studies
 短标题：Volumizing The Point
 短说明：Experiment Methodology Development For Further Study
 小节图片：
-    C2d1-1（右大）：
-    C2d1-2（右大）：
+    C2d1-1（右大）：This chapter documents the experimental development of the Soft Error fabrication methodology through a series of material and printing tests. Beginning with point extrusion, the research examines how individual extrusion events interact with substrates and how these binder-substrate relationships produce unpredictable material formations. Subsequent tests investigate the structural scalability of these interactions and the development of a multidirectional printing methodology, moving from isolated material behaviors towards a system capable of producing larger, spatially complex forms.
+    C2d1-2（右小）：Cement was extruded through a perlite substrate at multiple points and along varying directions, allowing for a systematic exploration of the typological outcomes achievable through multi-directional printing techniques. 
 
 ■ 图片2 — 文件：C2d2
 短标题：Point Extrusion Tests
 短说明：text
 小节图片：
-    C2d2-1（右大）：
-    C2d2-2（右大）：
-    C2d2-3（右大）：
-    C2d2-4（右大）：
+    C2d2-1（右大）：Building on the initial material vocabulary, these experiments introduced secondary substrates and container systems to examine how external constraints could redirect the behavior of extrusion. Wire, balloons, perlite, wood chips, foam, and containment, and displacement. These experiments demonstrate that form emerges through interactions between multiple material agents. Expanding the material system beyond a single binder revealed new opportunities for controlling local performance while At the scale of the material interface,the indeterminacy of the printing process becomes visible. The same extrusion binding material encounters substrates with different grain sizes, densities, porosities, and geometries. Rather than simply supporting the print, the substrate actively determines its resolution and material character. Fine granular beds allow the extrusion toretain a smoother and more continuous surface, while larger or irregular particles become embedded within the binder, producing rougher and less predictable boundaries. Material adheres, displaces, absorbs, and consolidates differently with each substrate.
+1. Wire 2.Balloon&Wire 3. Gel 4. Perlite 5. Wood Chip 6. Cement & Latex 7. Foam & Sand 8. Foam & Cement 9. Gel & Latex 
+    C2d2-2（右大）：Single-point extrusions were deposited into substrates to establish systems. Rather than evaluating print fidelity, each binder was tested in isolation to examine how viscosity, curing behavior, substrate interaction, and gravity (or lack thereof) shaped the systematically varied to understand how individual parameters transformed the geometry of a single extrusion. 
+Single-point extrusions were deposited into substrates to establish systems. Rather than evaluating print fidelity, each binder was tested in isolation to examine how viscosity, curing behavior, substrate interaction, and gravity (or lack thereof) shaped the systematically varied to understand how individual parameters transformed the geometry of a single extrusion. 〔图24〕
+1. Cement 2. Latex 3. Cement & Latex 4. Wax 5. Pure Gel 10mm Nozzle 6. Pure Gel 4mm Nozzle 7. Gel:Water 1:0.5 4mm Nozzle 
+    C2d2-3（右大）：Wax in ultrasound gel 
+    C2d2-4（右大）：Foam in perlite and ultrasound gel
 
 ■ 图片3 — 文件：C2d3
 短标题：text
 短说明：text
 小节图片：
-    C2d3-1（右大）：
-    C2d3-2（右大）：
-    C2d3-3（右大）：
-    C2d3-4（右大）：
-    C2d3-5（右大）：
-    C2d3-6（右大）：
-    C2d3-7（右大）：
-    C2d3-8（右大）：
-    C2d3-9（右大）：
+    C2d3-1（右小）：无字
+    C2d3-2（右大）：Materials: Substrate material: Perlite 
+Extrusion material: Cement 
+Cement was extruded through a perlite substrate at multiple points and along varying directions, allowing for a systematic exploration of the typological outcomes achievable through multi-directional printing techniques. 
+    C2d3-3（右大）：Materials: Substrate material: Perlite 
+Extrusion material: Resin 
+We tested resins with varying work and cure times (5 min, 10 min, and 3 hour work times ) within a perlite substrate to evaluate control over extrusion and resulting typologies. The slowest-setting resin proved inefficient, while the fastest set too quickly, risking nozzle blockage and limiting workable time. The medium-setting resin offered the most effective balance between work ability and controlled extrusion. 
+    C2d3-4（右大）：Resin was tested across varied substrates to evaluate how aggregate density and material properties affect its behaviour and resulting morphology. Recycled glass, due to its high density, restricted flow, making resin extrusion more difficult even under pressure. In contrast, the gel substrate caused the resin to reverse direction after extrusion, flowing upward and forming elongated, funnel-like geometries. Dense sand similarly limited extrusion, as closely packed grains reduced available void space. Sawdust, with its low density and porous structure, allowed greater dispersion, enabling the resin to move more freely within the substrate bed. 
+    C2d3-5（右大）：无字
+    C2d3-6（右大）：Cement was tested across varied substrate conditions to examine how material composition influences stochastic formation and resulting morphology. Both natural substrates, including wood and perlite, and recycled materials, such as shredded tire and foam, were evaluated to understand their impact on flow, binding, and structural behaviour. Differences in density, porosity, and particle distribution produced distinct formal outcomes, highlighting the role of substrate selection in shaping both the physical performance and visual language of the extruded material.
+    C2d3-7（右大）：无字
+    C2d3-8（右大）：Texture details
+    C2d3-9（右大）：Texture details
 
 ■ 图片4 — 文件：C2d4
 短标题：text
 短说明：text
 小节图片：
-    C2d4-1（右大）：
-    C2d4-2（右大）：
+    C2d4-1（右大）：Building on the material vocabulary established through single-point extrusion, this experiment investigated how discrete deposition events could generate larger coherent structures through interaction. A large box was built with an internal wire frame that provided secondary support where neighboring extrusions failed to connect and then filled with perlite. The letters A, B, and C were abstracted into discrete point fields, with each point corresponding to a single foam extrusion deposited into the substrate. Rather than reproducing continuous geometry, the forms emerged through the local interaction and overlap of individual extrusions, testing whether complex structures could be constructed from a simple, repeatable system of material events. From was produced but not copied. 
+    C2d4-2（右大）：无字
 
 ■ 图片5 — 文件：C2d5
 短标题：text
 短说明：text
 小节图片：
-    C2d5-1（右大）：
-    C2d5-2（右大）：
-    C2d5-3（右大）：
-    C2d5-4（右大）：
-    C2d5-5（右大）：
+    C2d5-1（右大）：The extrusion methodology was adapted to explore new interactions between material and substrate across three-dimensional conditions. Testing focused on multi-directional deposition, expanding beyond top-down linear extrusion to investigate how varied orientations influence formation.
+    C2d5-2（右大）：This phase initiated the development of a broader visual and material vocabulary, examining how differing substrate conditions inform the behaviour of the extruded material through their stochastic properties. The resulting formations reflect a negotiation between controlled input and material-driven variation.
+    C2d5-3（右大）：Extrusion Substrate Interactions: We tested a range of extrusion materials within varying substrate beds using a bounding box setup. Extrusion was deployed from three directions at 5cm intervals, with each face organized as a 5x5 grid, where intersections defined the extrusion points.
+    C2d5-4（中大）：无字
+    C2d5-5（中大）：无字
 
 ■ 图片6 — 文件：C2d6
 短标题：text
 短说明：text
 小节图片：
-    C2d6-1（右大）：
-    C2d6-2（右大）：
-    C2d6-3（右大）：
+    C2d6-1（右小）：Extrusion tests across multi-material substrate combinations cohesion across distinct material strata. Demediating the perlite and tire extrusion reveals that the external visual stratification directly reflects the object's internal material logic. Like geological strata formed through compression and consolidation, these material boundaries persist through the object regardless of its final geometry. The exterior pattern is not bound to the surface but is a visible consequence of its internal construction. 
+    C2d6-2（中大）：无字
+    C2d6-3（中大）：无字
 
 ■ 图片7 — 文件：C2d7
 短标题：text
 短说明：text
 小节图片：
-    C2d7-1（右大）：
-    C2d7-2（右大）：
+    C2d7-1（右大）：Following initial experimentation, which focused on understanding individual substrate behaviours and binding capacities, the investigation began to explore how these material interactions could produce discrete components. Early extrusions moved beyond isolated tests, generating small-scale objects that suggested potential for aggregation, connection, and incremental growth. This phase marked a transition from material evaluation toward the formation of repeatable units, extending object-making beyond singular conditions and toward systems of assembly. 
+Small-scale extrusions were combined to test their capacity for connection and object expansion. Evaluation focused on structural behaviour, formal compatibility, and the emergence of interlocking relationships between components. These initial assemblies established a foundation for later mid-scale investigations, demonstrating how discrete elements could begin to operate within a broader system of construction. 
+    C2d7-2（右大）：Building on earlier investigations into component formation and jointing, mid-scale assemblies were developed to test the capacity of discrete extruded elements to operate as a cohesive system. Initial puzzle-like interlocking strategies proved unsuccessful, as material indeterminacy generated irregular geometries that resisted precise alignment and structural locking. In response, the investigation shifted toward a more tolerant assembly logic based on layered aggregation and surface contact. This approach enabled the established material language to extend into larger formations, balancing variation in individual components with overall formal coherence.
+Modular objects were produced through consistent resin extrusion across varied substrate conditions and evaluated after fabrication for their ability to stack and stabilize through layered contact. Assessment focused on visual continuity, structural stability, and the capacity of assembled elements to read as a unified object. Comparisons between different configurations demonstrated how varied substrate conditions could support both formal diversity and systemic consistency, establishing a scalable strategy for mid-scale construction.
+
 
 
 ══════════════════════════════════════════════════
@@ -164,7 +178,7 @@ CHAPTER 3 — Scaling + Structural Test
 短说明：text
 小节图片：
     C3d2-1（右大）：
-    C3d2-2（右大）：
+    C3d2-2（右小）：
     C3d2-3（右大）：
 
 ■ 图片3 — 文件：C3d3
@@ -211,7 +225,7 @@ CHAPTER 5 — Large-Scale Prototype Production
 短说明：text
 小节图片：
     C5d3-1（右大）：
-    C5d3-2（右大）：
+    C5d3-2（右小）：
     C5d3-3（右大）：
     C5d3-4（右大）：
     C5d3-5（右大）：
@@ -243,22 +257,22 @@ CHAPTER 6 — Future Development
     C6d1-1（右大）：
     C6d1-2（右大）：
     C6d1-3（右大）：
-    C6d1-4（右大）：
+    C6d1-4（右小）：
     C6d1-5（右大）：
 
 ■ 图片2 — 文件：C6d2
 短标题：text
 短说明：text
 小节图片：
-    C6d2-1（右大）：
+    C6d2-1（右小）：
     C6d2-2（右大）：
-    C6d2-3（右大）：
+    C6d2-3（中大）：
 
 ■ 图片3 — 文件：C6d3
 短标题：text
 短说明：text
 小节图片：
-    C6d3-1（右大）：
+    C6d3-1（右小）：
     C6d3-2（右大）：
     C6d3-3（右大）：
 
@@ -267,16 +281,16 @@ CHAPTER 6 — Future Development
 短说明：text
 小节图片：
     C6d4-1（右大）：
-    C6d4-2（右大）：
-    C6d4-3（右大）：
-    C6d4-4（右大）：
+    C6d4-2（中大）：
+    C6d4-3（中大）：
+    C6d4-4（中大）：
 
 ■ 图片5 — 文件：C6d5
 短标题：text
 短说明：text
 小节图片：
     C6d5-1（右大）：
-    C6d5-2（右大）：
-    C6d5-3（右大）：
-    C6d5-4（右大）：
-    C6d5-5（右大）：
+    C6d5-2（中大）：
+    C6d5-3（中大）：
+    C6d5-4（中大）：
+    C6d5-5（中大）：

@@ -767,6 +767,7 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--text-secondary);
   font-weight: 300;
   margin: 0;
+  white-space: pre-line;
 }
 
 /* --- Image Stack --- */
@@ -895,8 +896,8 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* --- Detail layout templates (24-column grid; cols 1 & 24 are the symmetric outer gutters) --- */
-/* right-small: text cols 2-14, image cols 17-23 */
-.layout-right-small .detail-text { grid-column: 2 / 15; }
+/* right-small: text cols 2-8 (same width as right-large), image cols 17-23 */
+.layout-right-small .detail-text { grid-column: 2 / 9; }
 .layout-right-small .detail-img   { grid-column: 17 / 24; }
 
 /* right-large: text cols 2-8, image cols 11-23 */

@@ -202,39 +202,43 @@
       // Note: det filenames are sequential (C1d1..C1d6) but map to the page's section codes, which skip C1d2: C1d2-* → C1d3, C1d3-* → C1d4, C1d4-* → C1d5, C1d5-* → C1d6, C1d6-* → C1d7.
       const DETAILS = {
         'C1d1': [
-          { src: 'webpics/det/C1/C1d1-1.jpg', layout: 'right-small' },
-          { src: 'webpics/det/C1/C1d1-2.jpg', layout: 'right-small' },
-          { src: 'webpics/det/C1/C1d1-3.jpg', layout: 'right-small' }
+          { src: 'webpics/det/C1/C1d1-1.jpg', layout: 'right-small', text: "Drawing from Ryan Luke Johns' research on Material Indeterminacy (Johns, 2014), the project takes particular interest in his recursive wax-melting experiment, where scanning, simulation, robotic action, and material behaviour operate simultaneously. In this system, wax is selectively melted, while the designer intervenes in real time by adjusting from model to fabrication." },
+          { src: 'webpics/det/C1/C1d1-2.jpg', layout: 'right-small', text: "Form emerges through the interaction of multiple agents: human, machine, and computation. Here, form is not preauthored but arises through the negotiation between stochastic material drivers in the production of architectural form." },
+          { src: 'webpics/det/C1/C1d1-3.jpg', layout: 'right-small', text: "Johns' work also foregrounds the role of augmented digital interfaces in re-establishing a feedback loop between the designer, the machine, and the material system. By enabling real-time interaction with fabrication processes through live simulation, scanning, and projection, the design process becomes recursive rather than sequential, allowing continuous adjustment and intervention during production." }
         ],
         'C1d3': [
-          { src: 'webpics/det/C1/C1d2-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C1/C1d2-2.jpg', layout: 'right-small' }
+          { src: 'webpics/det/C1/C1d2-1.jpg', layout: 'right-large', text: "Each oyster print was 3D scanned, producing a digital counterpart through which its material and geometric characteristics could be exact copy. The translation from physical object to digital model introduced small errors and approximations introduced by the scanning technology and by each material's ability to be digitally captured. To reproduce the object, this imperfect digital model must then become the source for a new print, a physicalisation of an already translated version of the original. Further deviations emerge as reflecting the information contained within the scan. The resulting sequence, physical object, digital scan, physical reproduction, therefore produces iterations rather than identical copies. This imperfect doubling reflects a broader condition of architectural production, where digital models operate as imperfect projections of physical instruction. The following analyses probe this digital to physical to digital of a new methodology." },
+          { src: 'webpics/det/C1/C1d2-2.jpg', layout: 'right-large', text: "The process begins with 3D scanning oyster shells, translating complex organic geometries into point cloud data. Variations in lighting, resolution, and capture method (photogrammetry vs LiDAR) introduce scan error, producing noise and inconsistencies in the digital model. This data is converted into a mesh and optimised for fabrication, introducing further approximation. The model is then translated into layered toolpaths for 3D printing across multiple materials, where machine tolerances and material behaviour generate print error. This scan-to-print cycle is repeated across successive generations, allowing errors to accumulate with resulting outputs revealing a chain of approximations." }
         ],
         'C1d4': [
-          { src: 'webpics/det/C1/C1d3-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C1/C1d3-2.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C1/C1d3-3.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C1/C1d3-1.jpg', layout: 'right-large', text: "PLA, Nylon Powder, Resin, Woodcomposite, Agilus, and Silicone were selected to represent a broad spectrum of 3D printable matter, from rigid structural plastics through fibrous composites to fully elastic elastomers. 1.FFF(Fused Filament Fabrication) PLA and 2.SLA (Stereolithography) Resin occupy the hard, high fidelity end, offering precise surface resolution but brittle behaviour. 3.SLS (Selective Laser Sintering) produces a granular, matte surface through nylon powder sintering, absorbing detail differently from resin processes. 4.FFF Wood composite introduces porosity and thermal expansion, generating macro deformations absent from the scan data. PolyJet Resin, operating at the finest resolution, still introduces systematic errors despite its proximityto the original. 5.Polyjet Agilus adds environmental unpredictability through its sensitivity to temperature and humidity." },
+          { src: 'webpics/det/C1/C1d3-2.jpg', layout: 'center-small', noText: true },
+          { src: 'webpics/det/C1/C1d3-3.jpg', layout: 'center-small', noText: true }
         ],
         'C1d5': [
-          { src: 'webpics/det/C1/C1d4-1.jpg', layout: 'center-large' },
-          { src: 'webpics/det/C1/C1d4-2.jpg', layout: 'right-small' },
-          { src: 'webpics/det/C1/C1d4-3.jpg', layout: 'right-small' },
-          { src: 'webpics/det/C1/C1d4-4.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C1/C1d4-5.jpg', layout: 'center-large' },
-          { src: 'webpics/det/C1/C1d4-6.jpg', layout: 'center-large' }
+          { src: 'webpics/det/C1/C1d4-1.jpg', layout: 'center-small', text: "Each oyster print is scanned and compared to its preceding form to measure material displacement and geometric deviation across different fabrication processes. Through successive cycles of scanning and reprinting, the original geometry is not simply reproduced: information is lost, translated, and materially altered. These accumulating deviations begin to reveal the soft error as an emergent product of repetition between digital and physical states." },
+          { src: 'webpics/det/C1/C1d4-2.jpg', layout: 'center-small', noText: true },
+          { src: 'webpics/det/C1/C1d4-3.jpg', layout: 'center-small', noText: true },
+          { src: 'webpics/det/C1/C1d4-4.jpg', layout: 'center-small', noText: true },
+          { src: 'webpics/det/C1/C1d4-5.jpg', layout: 'center-small', noText: true },
+          { src: 'webpics/det/C1/C1d4-6.jpg', layout: 'center-small', noText: true }
         ],
         'C1d6': [
-          { src: 'webpics/det/C1/C1d5-1.jpg', layout: 'right-small' },
-          { src: 'webpics/det/C1/C1d5-2.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C1/C1d5-3.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C1/C1d5-4.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C1/C1d5-5.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C1/C1d5-1.jpg', layout: 'right-large', text: `The diagram outlines the simulation methodology developed to model and predict the occurring geometric errors across the full scan-print cycle. The process begins with the datafication of a single iteration, tracing the transformation from the original shell through 3D scanning to physical printing, and uses this as the basis for error quantification.
+At the core of the diagram is an “Approximation Error Analysis” that identifies two distinct layers of deviation. The first layer captures errors inherent to the scanning process itself: scanner resolution limits, operator handling inconsistencies, and surface noise. The second layer addresses errors introduced during printing: material accumulation, shrinkage, and printer tolerance. Each layer produces a geometric error vector, v@error_scan_vector and v@error_print_vector, which serve as the numerical inputs to the simulation.
+These vectors are fed into a Houdini Simulation Engine Solver, which sequentially applies scan distortion and print distortion to an input geometry, generating a dynamic error visualisation before producing an output. Critically, the solver operates within a feedback loop, allowing the distorted output of one iteration to inform the next, compounding errors across successive generations in the same way they accumulate in repeated physical scan-print cycles.
+The simulative output, the geometry resulting after N iterations, is then passed into an analysis stage. This final phase serves three purposes: predicting how material behaviour and form will shift across successive generations, identifying structural weak points and process constraints, and mapping potential future directions for the research.
+Rather than treating approximation error as a problem to be corrected, this diagram reflects instrumentalization of indeterminacy. By encoding the stochastic behaviour of the scan-print cycle into a computational framework, the work moves beyond the documentation of deviation toward its active integration, positioning approximation error as a generative agent within the design process.` },
+          { src: 'webpics/det/C1/C1d5-2.jpg', layout: 'right-large', text: "Geometric error is reinterpreted as a spatial and generative condition rather than a static imperfection. By translating error into spatial configurations with architectural typologies and informing new modes of design." },
+          { src: 'webpics/det/C1/C1d5-3.jpg', layout: 'right-large', text: "Calculating the deformation factor begins with measuring local geometric deviation, defined as the magnitude of the displacement vector between the reference mesh and the target mesh at each point. These local deviations are then aggregated to produce a global value, representing the average displacement across the entire mesh. To visualize this dynamically, the VEX code applies the calculated deformation factor iteratively to each point along its normal vector. The system is further refined to compute distinct error vectors between models, differentiating between scan error and print error. These are accumulated across successive generations, producing a continuous cycle of distortion and approximation." },
+          { src: 'webpics/det/C1/C1d5-4.jpg', layout: 'right-large', noText: true },
+          { src: 'webpics/det/C1/C1d5-5.jpg', layout: 'right-large', noText: true }
         ],
         'C1d7': [
-          { src: 'webpics/det/C1/C1d6-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C1/C1d6-2.jpg', layout: 'right-small' },
-          { src: 'webpics/det/C1/C1d6-3.jpg', layout: 'center-large' },
-          { src: 'webpics/det/C1/C1d6-4.jpg', layout: 'right-large' }
+          { src: 'webpics/det/C1/C1d6-1.jpg', layout: 'right-large', text: "Point cloud models describe geometry as a field of discrete coordinates, where each point carries a positional value but also implies a spatial tolerance or radius of occupation. This means that rather than defining a continuous surface, the scan produces a distributed approximation of space, dependent on resolution, density, and capture conditions." },
+          { src: 'webpics/det/C1/C1d6-2.jpg', layout: 'left-small', text: "When converted into a mesh, these points are interpolated into continuous surfaces through triangulation; the mesh model is not a direct representation of the physical object, but a constructed interpretation based on approximated spatial relationships. This introduces a disconnect in the physical-to-digital translation of geometry, exposing the limitations of digital precision." },
+          { src: 'webpics/det/C1/C1d6-3.jpg', layout: 'center-small', text: "the interaction of human intention, digital instruction, and material indeterminacy. Rather than assigning a fixed geometry to the point, these agents negotiate its volume through printing, producing unique material interactions that collectively transform digital information into physical form." },
+          { src: 'webpics/det/C1/C1d6-4.jpg', layout: 'right-large', text: "Traditional 3D printing translates a predefined mesh into physical form through sequential as instructions for volumetric deposition. Rather than reproducing a continuous surface, the physical object emerges through the collective materialization of discrete points." }
         ]
       };
       function hideDetail() {
@@ -255,12 +259,15 @@
           var wrap = document.createElement('div');
           wrap.className = 'detail-block layout-' + block.layout;
 
-          var txt = document.createElement('div');
-          txt.className = 'detail-text';
-          var body = document.createElement('p');
-          body.className = 'ref-text';
-          body.textContent = 'place holder place holder place holder place holder place holder place holder place holder place holder place holder place holder';
-          txt.appendChild(body);
+          if (!block.noText) {
+            var txt = document.createElement('div');
+            txt.className = 'detail-text';
+            var body = document.createElement('p');
+            body.className = 'ref-text';
+            body.textContent = block.text || 'place holder place holder place holder place holder place holder place holder place holder place holder place holder place holder';
+            txt.appendChild(body);
+            wrap.appendChild(txt);
+          }
 
           var img = document.createElement('img');
           img.className = 'detail-img';
@@ -268,7 +275,6 @@
           img.alt = section + ' detail';
           img.loading = 'lazy';
 
-          wrap.appendChild(txt);
           wrap.appendChild(img);
           detailGrid.appendChild(wrap);
         });

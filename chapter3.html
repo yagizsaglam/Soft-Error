@@ -167,7 +167,7 @@
         ],
         'C3d2': [
           { src: 'webpics/det/C3/C3d2-1.jpg', layout: 'right-large' },
-          { src: 'webpics/det/C3/C3d2-2.jpg', layout: 'right-large' },
+          { src: 'webpics/det/C3/C3d2-2.jpg', layout: 'right-small' },
           { src: 'webpics/det/C3/C3d2-3.jpg', layout: 'right-large' }
         ],
         'C3d3': [
@@ -198,12 +198,15 @@
           var wrap = document.createElement('div');
           wrap.className = 'detail-block layout-' + block.layout;
 
-          var txt = document.createElement('div');
-          txt.className = 'detail-text';
-          var body = document.createElement('p');
-          body.className = 'ref-text';
-          body.textContent = 'place holder place holder place holder place holder place holder place holder place holder place holder place holder place holder';
-          txt.appendChild(body);
+          if (!block.noText) {
+            var txt = document.createElement('div');
+            txt.className = 'detail-text';
+            var body = document.createElement('p');
+            body.className = 'ref-text';
+            body.textContent = block.text || 'place holder place holder place holder place holder place holder place holder place holder place holder place holder place holder';
+            txt.appendChild(body);
+            wrap.appendChild(txt);
+          }
 
           var img = document.createElement('img');
           img.className = 'detail-img';
@@ -211,7 +214,6 @@
           img.alt = section + ' detail';
           img.loading = 'lazy';
 
-          wrap.appendChild(txt);
           wrap.appendChild(img);
           detailGrid.appendChild(wrap);
         });
