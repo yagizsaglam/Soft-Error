@@ -910,11 +910,11 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* --- Detail layout templates (24-column grid; cols 1 & 24 are the symmetric outer gutters) --- */
 /* right-small: text cols 2-8 (same width as right-large), image cols 17-23 */
-.layout-right-small .detail-text { grid-column: 2 / 9; }
+.layout-right-small .detail-text { grid-column: 2 / 9; text-align: left; }
 .layout-right-small .detail-img   { grid-column: 17 / 24; }
 
 /* right-large: text cols 2-8, image cols 11-23 */
-.layout-right-large .detail-text { grid-column: 2 / 9; }
+.layout-right-large .detail-text { grid-column: 2 / 9; text-align: left; }
 .layout-right-large .detail-img   { grid-column: 11 / 24; }
 
 /* left-small: image cols 2-8, text cols 11-23 */
@@ -925,13 +925,13 @@ img { display: block; max-width: 100%; height: auto; }
 .layout-left-large .detail-img   { grid-column: 2 / 15; }
 .layout-left-large .detail-text { grid-column: 17 / 24; }
 
-/* center-small: image cols 4-21, text below (one empty row), right-aligned */
-.layout-center-small .detail-img   { grid-column: 4 / 22; }
-.layout-center-small .detail-text { grid-column: 4 / 22; text-align: right; margin-top: 50px; }
+/* center-small: image cols 4-21, text below, left-aligned */
+.layout-center-small .detail-img   { grid-column: 4 / 22; order: 1; }
+.layout-center-small .detail-text { grid-column: 4 / 22; text-align: left; margin-top: 50px; order: 2; }
 
-/* center-large: image cols 2-23, text below, right-aligned */
-.layout-center-large .detail-img   { grid-column: 2 / 24; }
-.layout-center-large .detail-text { grid-column: 2 / 24; text-align: right; margin-top: 50px; }
+/* center-large: image cols 2-23, text below, left-aligned */
+.layout-center-large .detail-img   { grid-column: 2 / 24; order: 1; }
+.layout-center-large .detail-text { grid-column: 2 / 24; text-align: left; margin-top: 50px; order: 2; }
 
 /* --- Traditional View (grid, max 4 per row) --- */
 .image-stack.traditional {
