@@ -29,6 +29,25 @@
     'aria-hidden="true"><path d="M3 5 L8 11 L13 5"/></svg>';
   document.body.appendChild(hint);
 
+  var cardSelected = false;
+  var atBottom = false;
+
+  function updateHint() {
+    hint.classList.toggle('is-visible', cardSelected && !atBottom);
+  }
+
+  // Hide the hint once the page is scrolled to (near) the bottom — the detail it
+  // points to is then in view, so the prompt is no longer needed.
+  function onScroll() {
+    var doc = document.scrollingElement || document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    atBottom = max > 0 && window.scrollY >= max - 40;
+    updateHint();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
   // --- Overlay (white, image contained, close button) ---
   var overlay = document.createElement('div');
   overlay.className = 'zoom-overlay';
@@ -53,15 +72,15 @@
 
   function sync() {
     var card = activeCard();
+    cardSelected = !!card;
     if (card) {
       btn.classList.add('is-visible');
       btn._src = card.currentSrc || card.src;
-      hint.classList.add('is-visible');
     } else {
       btn.classList.remove('is-visible');
       btn._src = null;
-      hint.classList.remove('is-visible');
     }
+    updateHint();
   }
 
   // Track selection no matter how it changes (click, Library deep-link #image=,
