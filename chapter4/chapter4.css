@@ -7,7 +7,7 @@
 
 .print-scroll {
   position: relative;
-  height: 39000vh;  /* scroll distance the build is spread across — raise to slow it down */
+  height: 9750vh;  /* scroll distance the build is spread across — raise to slow it down */
 }
 
 .print-sticky {
@@ -111,7 +111,7 @@
 }
 
 @media (max-width: 768px) {
-  .print-scroll { height: 33000vh; }
+  .print-scroll { height: 8250vh; }
 
   .print-hud {
     left: 24px;
