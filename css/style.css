@@ -1123,6 +1123,23 @@ img { display: block; max-width: 100%; height: auto; }
     z-index: 30;
     padding: 8px 16px;
   }
+
+  /* Mobile: force every detail block to stack image-on-top, text-below,
+     regardless of its desktop layout (left/right/center). */
+  .detail-block {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+  .detail-block .detail-img {
+    grid-column: 1 / -1;
+    order: 1;
+  }
+  .detail-block .detail-text {
+    grid-column: 1 / -1;
+    order: 2;
+    text-align: left;
+    margin-top: 20px;
+  }
 }
 
 /* --- Library Page --- */
