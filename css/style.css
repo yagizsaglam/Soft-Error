@@ -1161,26 +1161,6 @@ img { display: block; max-width: 100%; height: auto; }
   appearance: textfield;
 }
 
-.pdf-open-link {
-  display: inline-flex;
-  align-self: flex-start;
-  margin-top: 24px;
-  padding: 12px 16px;
-  border: 1px solid #ccc;
-  font-family: var(--font-stencil);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text);
-  text-decoration: none;
-  transition: color 0.2s, border-color 0.2s;
-}
-
-.pdf-open-link:hover {
-  color: var(--red);
-  border-color: var(--red);
-}
-
 /* --- Magnifier (2x hover lens) --- */
 .flip-magnifier {
   position: fixed;
@@ -1389,9 +1369,6 @@ img { display: block; max-width: 100%; height: auto; }
   /* Mobile: flipbook fills below the fixed header (top offset set by inline JS) */
   .portfolio-main {
     padding: 0 16px 40px;
-  }
-  .pdf-open-link {
-    display: none;
   }
   .flip-nav {
     width: 2.4rem;
