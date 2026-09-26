@@ -20,6 +20,15 @@
     'aria-hidden="true"><path d="M8 2.5v11M2.5 8h11"/></svg>';
   document.body.appendChild(btn);
 
+  // --- Scroll-down hint (thin bottom chevron, prompts to scroll to the detail) ---
+  var hint = document.createElement('div');
+  hint.className = 'scroll-down-hint';
+  hint.setAttribute('aria-hidden', 'true');
+  hint.innerHTML =
+    '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" ' +
+    'aria-hidden="true"><path d="M3 5 L8 11 L13 5"/></svg>';
+  document.body.appendChild(hint);
+
   // --- Overlay (white, image contained, close button) ---
   var overlay = document.createElement('div');
   overlay.className = 'zoom-overlay';
@@ -47,9 +56,11 @@
     if (card) {
       btn.classList.add('is-visible');
       btn._src = card.currentSrc || card.src;
+      hint.classList.add('is-visible');
     } else {
       btn.classList.remove('is-visible');
       btn._src = null;
+      hint.classList.remove('is-visible');
     }
   }
 

@@ -152,10 +152,10 @@
 
       // Section → title + description (placeholder until copy.txt Chapter 3 is filled).
       const SECTION_TEXT = {
-        'C3d1': { title: 'text', text: 'text' },
-        'C3d2': { title: 'text', text: 'text' },
-        'C3d3': { title: 'text', text: 'text' },
-        'C3d4': { title: 'text', text: 'text' }
+        'C3d1': { title: 'Mid-Scale Prototype', text: 'First Structural Column Where Soft Error Materializes' },
+        'C3d2': { title: 'Augmented Reality-Guided Fabrication', text: 'Projecting Digital Extrusion Points into the Physical Realm' },
+        'C3d3': { title: 'Mid-Scale Prototype Printing', text: 'Collaborative Extrusion, Excavation and Cleaning of the Cement Column' },
+        'C3d4': { title: 'Post-Production Analysis', text: 'Mapping Structural Failure Between Predicted and Printed Form' }
       };
       // Section → detail image blocks (each image has a src + layout template).
       const DETAILS = {
@@ -227,9 +227,6 @@ Process: Unwrapping 1.Clean the first layer to check the model 2.Remove perlite 
           detailGrid.appendChild(wrap);
         });
         detailSection.style.display = 'block';
-        setTimeout(function() {
-          lenis.scrollTo(detailSection, { offset: -100 });
-        }, 200);
       }
 
       function deselect() {

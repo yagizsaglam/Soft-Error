@@ -152,11 +152,11 @@
 
       // Section → title + description (placeholder until copy.txt Chapter 6 is filled).
       const SECTION_TEXT = {
-        'C6d1': { title: 'text', text: 'text' },
-        'C6d2': { title: 'text', text: 'text' },
-        'C6d3': { title: 'text', text: 'text' },
-        'C6d4': { title: 'text', text: 'text' },
-        'C6d5': { title: 'text', text: 'text' }
+        'C6d1': { title: 'Soft Error Fingerprint', text: 'A Volumetric Material Signature Distinct from Layer-Based Printing' },
+        'C6d2': { title: 'Offsite Fabrication', text: 'Architectural Scale Fabricated Offsite, Assembled Onsite' },
+        'C6d3': { title: 'Onsite Fabrication', text: 'Onsite Infill Using Flexible Substrate Bags and Robotic Extrusion' },
+        'C6d4': { title: 'Urban Context: Venice', text: 'Large-Scale Onsite Fabrication Around an Existing Building' },
+        'C6d5': { title: 'Future Projections', text: 'Soft Error' }
       };
       // Section → detail image blocks (each image has a src + layout template).
       const DETAILS = {
@@ -231,9 +231,6 @@ Substrate material is selected according to site-specific requirements: construc
           detailGrid.appendChild(wrap);
         });
         detailSection.style.display = 'block';
-        setTimeout(function() {
-          lenis.scrollTo(detailSection, { offset: -100 });
-        }, 200);
       }
 
       function deselect() {

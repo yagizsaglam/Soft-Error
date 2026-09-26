@@ -156,12 +156,12 @@
       // Section → title + description (placeholder until copy.txt Chapter 2 is filled).
       const SECTION_TEXT = {
         'C2d1': { title: 'Volumizing The Point', text: 'Experiment Methodology Development For Further Study' },
-        'C2d2': { title: 'Point Extrusion Tests', text: 'text' },
-        'C2d3': { title: 'text', text: 'text' },
-        'C2d4': { title: 'text', text: 'text' },
-        'C2d5': { title: 'text', text: 'text' },
-        'C2d6': { title: 'text', text: 'text' },
-        'C2d7': { title: 'text', text: 'text' }
+        'C2d2': { title: 'Point Extrusion Tests', text: 'Testing Material Pairings to Build a Vocabulary of Single-Point Extrusions' },
+        'C2d3': { title: 'Point Language', text: 'Substrate and Extrusion Combinations Producing Distinct Material Morphologies' },
+        'C2d4': { title: 'Point-Methodology Scalability', text: 'First Prototype Testing Coherent Aggregation Across a Grid of Points' },
+        'C2d5': { title: 'Extrusion Substrate Interactions', text: 'Revealing Printed Forms Shaped by the Material Substrate Indeterminacy' },
+        'C2d6': { title: 'Internal Material Logic', text: 'Resin in Multimaterial Substrate, Surface As Internal Design' },
+        'C2d7': { title: 'Component Formation', text: 'Small-Scale Tests of Connection Between Overlapping Extrusions' }
       };
       // Section → detail image blocks (all laid out right-large).
       const DETAILS = {
@@ -255,9 +255,6 @@ Modular objects were produced through consistent resin extrusion across varied s
           detailGrid.appendChild(wrap);
         });
         detailSection.style.display = 'block';
-        setTimeout(function() {
-          lenis.scrollTo(detailSection, { offset: -100 });
-        }, 200);
       }
 
       function deselect() {

@@ -97,7 +97,7 @@ CHAPTER 2 — Material Language + Interaction Studies
 
 ■ 图片2 — 文件：C2d2
 短标题：Point Extrusion Tests
-短说明：text
+短说明：Testing Material Pairings to Build a Vocabulary of Single-Point Extrusions
 小节图片：
     C2d2-1（右大）：Building on the initial material vocabulary, these experiments introduced secondary substrates and container systems to examine how external constraints could redirect the behavior of extrusion. Wire, balloons, perlite, wood chips, foam, and containment, and displacement. These experiments demonstrate that form emerges through interactions between multiple material agents. Expanding the material system beyond a single binder revealed new opportunities for controlling local performance while At the scale of the material interface,the indeterminacy of the printing process becomes visible. The same extrusion binding material encounters substrates with different grain sizes, densities, porosities, and geometries. Rather than simply supporting the print, the substrate actively determines its resolution and material character. Fine granular beds allow the extrusion toretain a smoother and more continuous surface, while larger or irregular particles become embedded within the binder, producing rougher and less predictable boundaries. Material adheres, displaces, absorbs, and consolidates differently with each substrate.
 1. Wire 2.Balloon&Wire 3. Gel 4. Perlite 5. Wood Chip 6. Cement & Latex 7. Foam & Sand 8. Foam & Cement 9. Gel & Latex 
@@ -108,8 +108,8 @@ Single-point extrusions were deposited into substrates to establish systems. Rat
     C2d2-4（右大）：Foam in perlite and ultrasound gel
 
 ■ 图片3 — 文件：C2d3
-短标题：text
-短说明：text
+短标题：Point Language
+短说明：Substrate and Extrusion Combinations Producing Distinct Material Morphologies
 小节图片：
     C2d3-1（右小）：无字
     C2d3-2（右大）：Materials: Substrate material: Perlite 
@@ -126,15 +126,15 @@ We tested resins with varying work and cure times (5 min, 10 min, and 3 hour wor
     C2d3-9（右大）：Texture details
 
 ■ 图片4 — 文件：C2d4
-短标题：text
-短说明：text
+短标题：Point-Methodology Scalability
+短说明：First Prototype Testing Coherent Aggregation Across a Grid of Points
 小节图片：
     C2d4-1（右大）：Building on the material vocabulary established through single-point extrusion, this experiment investigated how discrete deposition events could generate larger coherent structures through interaction. A large box was built with an internal wire frame that provided secondary support where neighboring extrusions failed to connect and then filled with perlite. The letters A, B, and C were abstracted into discrete point fields, with each point corresponding to a single foam extrusion deposited into the substrate. Rather than reproducing continuous geometry, the forms emerged through the local interaction and overlap of individual extrusions, testing whether complex structures could be constructed from a simple, repeatable system of material events. From was produced but not copied. 
     C2d4-2（右大）：无字
 
 ■ 图片5 — 文件：C2d5
-短标题：text
-短说明：text
+短标题：Extrusion Substrate Interactions
+短说明：Revealing Printed Forms Shaped by the Material Substrate Indeterminacy
 小节图片：
     C2d5-1（右大）：The extrusion methodology was adapted to explore new interactions between material and substrate across three-dimensional conditions. Testing focused on multi-directional deposition, expanding beyond top-down linear extrusion to investigate how varied orientations influence formation.
     C2d5-2（右大）：This phase initiated the development of a broader visual and material vocabulary, examining how differing substrate conditions inform the behaviour of the extruded material through their stochastic properties. The resulting formations reflect a negotiation between controlled input and material-driven variation.
@@ -143,16 +143,16 @@ We tested resins with varying work and cure times (5 min, 10 min, and 3 hour wor
     C2d5-5（中大）：无字
 
 ■ 图片6 — 文件：C2d6
-短标题：text
-短说明：text
+短标题：Internal Material Logic
+短说明：Resin in Multimaterial Substrate, Surface As Internal Design
 小节图片：
     C2d6-1（右小）：Extrusion tests across multi-material substrate combinations cohesion across distinct material strata. Demediating the perlite and tire extrusion reveals that the external visual stratification directly reflects the object's internal material logic. Like geological strata formed through compression and consolidation, these material boundaries persist through the object regardless of its final geometry. The exterior pattern is not bound to the surface but is a visible consequence of its internal construction. 
     C2d6-2（中大）：无字
     C2d6-3（中大）：无字
 
 ■ 图片7 — 文件：C2d7
-短标题：text
-短说明：text
+短标题：Component Formation
+短说明：Small-Scale Tests of Connection Between Overlapping Extrusions
 小节图片：
     C2d7-1（右大）：Following initial experimentation, which focused on understanding individual substrate behaviours and binding capacities, the investigation began to explore how these material interactions could produce discrete components. Early extrusions moved beyond isolated tests, generating small-scale objects that suggested potential for aggregation, connection, and incremental growth. This phase marked a transition from material evaluation toward the formation of repeatable units, extending object-making beyond singular conditions and toward systems of assembly. 
 Small-scale extrusions were combined to test their capacity for connection and object expansion. Evaluation focused on structural behaviour, formal compatibility, and the emergence of interlocking relationships between components. These initial assemblies established a foundation for later mid-scale investigations, demonstrating how discrete elements could begin to operate within a broader system of construction. 
@@ -165,8 +165,8 @@ Modular objects were produced through consistent resin extrusion across varied s
 CHAPTER 3 — Scaling + Structural Test
 ══════════════════════════════════════════════════
 ■ 图片1 — 文件：C3d1
-短标题：text
-短说明：text
+短标题：Mid-Scale Prototype
+短说明：First Structural Column Where Soft Error Materializes
 小节图片：
     C3d1-1（右大）：This chapter documents the production of a mid-scale cement prototype using the second iteration of the volumized point and connection methodology. Building on earlier digital-to-physical translations, the prototype introduces scale, structural capacity, and a new relationship between human, material, and digital instruction. Human fabrication, mediated through augmented reality, becomes an intermediary step toward eventual robotic production, testing how computational information can guide physical construction without predetermining its final form. The research asks how this human-led process might translate develop greater structural capacity while maintaining material indeterminacy as a generative condition.
 Volumization of point Digital extrusion coordinates of Digital reference field physical object and physical grid size coordinates The prototype begins with a linear grid that establishes a shared digital and physical framework within which points can be positioned to define the object. Each selected point is first given a simplified digital volume, then replaced with a material profile derived from previous cement-printing experiments. These accumulated material behaviors allow us to predict the object's texture and overall form before soft error produced as digital information becomes physical matter. 
@@ -176,8 +176,8 @@ The pre-production process then examined the model layer by layer to assess conn
     C3d1-4（中小）：无字
 
 ■ 图片2 — 文件：C3d2
-短标题：text
-短说明：text
+短标题：Augmented Reality-Guided Fabrication
+短说明：Projecting Digital Extrusion Points into the Physical Realm
 小节图片：
     C3d2-1（右大）：To enable large-scale extrusion within an enclosed substrate environment, the fabrication process was augmented through the interfacing with Grasshopper via Fologram. This system generated precise visual coordinates for extrusion, compensating for the limited visibility imposed by the bounding box and substrate conditions. By projecting target points directly into the user's field of view, execution. This approach establishes a foundation for more responsive and complex feedback systems within hybrid digital-physical fabrication workflows. 
     C3d2-2（右小）：Process: 
@@ -189,16 +189,16 @@ The pre-production process then examined the model layer by layer to assess conn
     C3d2-3（中小）：无字
 
 ■ 图片3 — 文件：C3d3
-短标题：text
-短说明：text
+短标题：Mid-Scale Prototype Printing
+短说明：Collaborative Extrusion, Excavation and Cleaning of the Cement Column
 小节图片：
     C3d3-1（右大）：A cement mixture (6:4 cement to water) was prepared to achieve an appropriate extrusion consistency and loaded into a syringe. The nozzle was calibrated using physical markers to control insertion depth within the substrate bed. Extrusion points were determined through cross-referencing with digital layer instructions, using labelled coordinates to guide precise deposition. Each extrusion was recorded as either “line' or 'dot', alongside the volume of material deposited. This process was repeated across successive layers, with continuous verification to ensure connectivity between neighboring extrusions, enabling the development of a cohesive, self-supporting structure. 
 Process: 1,2, 3: Preparation 1.Cement mixing 2.Syringe filling 3. 4,5: Extrusion 4.Check the extrusion point 5.Holding and extrusion 
     C3d3-2（右大）：A cement mixture (6:4 cement to water) was prepared to achieve an appropriate extrusion consistency and loaded into a syringe. The nozzle was calibrated using physical markers to control insertion depth within the substrate bed. Extrusion points were determined through cross-referencing with digital layer instructions, using labelled coordinates to guide precise deposition. Each extrusion was recorded as either ‘line' or'dot', alongside the volume of material deposited. This process was repeated across successive layers, with cohesive, self-supporting structure. 
 Process: Unwrapping 1.Clean the first layer to check the model 2.Remove perlite in the box 3.Clean perlite on surface 4.Flush away perlite not stuck to cement 5.Air-drying the model 
 ■ 图片4 — 文件：C3d4
-短标题：text
-短说明：text
+短标题：Post-Production Analysis
+短说明：Mapping Structural Failure Between Predicted and Printed Form
 小节图片：
     C3d4-1（右大）：The completed structure was evaluated to assess how the intended extrusion strategy translated into physical fabrication. Both point and line extrusions demonstrated a degree of control within the printing methodology, producing a largely stable and continuous structure.
     C3d4-2（右大）：This proposal explores the expansion of non-predictive extrusion methodologies toward spatial-scale production. Through multidirectional printing, form is partially controlled at the level of coordinate distribution and extrusion logic, while the final interaction. The resulting structures operate between digital intention and physical negotiation, suggesting a model for architectural growth that is guided rather than fully predetermined. 
@@ -214,22 +214,22 @@ The panel is not drawn and then made. It is deposited — the robot lays aggrega
 CHAPTER 5 — Large-Scale Prototype Production
 ══════════════════════════════════════════════════
 ■ 图片1 — 文件：C5d1
-短标题：text
-短说明：text
+短标题：Design Development
+短说明：From Hand Sketch to Mesh Model, Houdini and Extrusion Points
 小节图片：
     C5d1-1（右大）：Initial conceptual studies and freehand ideations for the subsequent prototype were formalized and rationalized. The intention was to design form before predetermining function, designing an achievable prototype capable of transitioning the researching into the next phase. Human imagination and intent ground the object and initiate the human, digital, and material co-authorship of the multidirectional methodology. 
     C5d1-2（右大）：Using the digital simulation platform, alternative binder substrate pairings were iteratively tested to reconcile structural integrity with aesthetic intent. 
 ■ 图片2 — 文件：C5d2
-短标题：text
-短说明：text
+短标题：Pattern Development
+短说明：Intersecting Volume Systems Tested Through Complex Point Patterns
 小节图片：
     C5d2-1（右大）：Using a consistent set of extrusion points, our computational algorithm generated multiple connection strategies by varying how neighboring points were linked. Rather than altering the quantity or position of deposition events, each iteration reorganized their relationships, producing distinct structural patterns and spatial behaviors from the same underlying dataset. 
     C5d2-2（右大）：Using an identical point and extrusion pattern, these studies isolate the influence of substrate material on the final printed form. While the computational logic and produce distinct spatial, structural, and surface conditions as individual extrusions interact with their surrounding material. The substrate becomes an connectivity, and geometric resolution. The resulting forms demonstrate that architectural outcomes emerge through negotiation.
     C5d2-3（右大）：The final point-based toolpath was evaluated through layer-by-layer simulation to guide the manual extrusion workflow and support structural continuity. By verifying inter-point connectivity and overlap across each layer prior to physical fabrication, the simulation provided an actionable framework for human execution while reducing the risk of localized bond failure.
 
 ■ 图片3 — 文件：C5d3
-短标题：text
-短说明：text
+短标题：F.U.N.C. Production
+短说明：Full-Scale Prototype Revealed
 小节图片：
     C5d3-1（中小）：无字
     C5d3-2（右小）：The material composition does not conform to the boundaries of the designed object. Perlite and shredded tire interact, overlap, and become bound beneath the surface, producing material territories independent of the printed geometry. Unlike conventional assemblies where materials remain discrete, here their interaction becomes part of the object itself. Extrusion spikes protrude from the surface as traces of fabrication, a mechanical ghost of the extrusion process and the beginnings of a visual language specific to the methodology. 
@@ -240,8 +240,8 @@ CHAPTER 5 — Large-Scale Prototype Production
     C5d3-7（右大）：Applying the completed FUNC geometry across multiple material systems demonstrates how a consistent computational framework produces distinct architectural outcomes. While the point distribution, connection logic, and extrusion sequence remain unchanged, each material translates the same construction methodology differently through its unique behavior and interaction with the surrounding substrate. Rather than reproducing identical objects, the methodology generates a family of related forms that preserve their organizational logic while adapting to material conditions. These studies position material selection not as a post-design decision, but as an active contributor to spatial, structural, and formal expression. 
 
 ■ 图片4 — 文件：C5d4
-短标题：text
-短说明：text
+短标题：Material Signatures
+短说明：3D Extrusion Methodology Fabrication Language
 小节图片：
     C5d4-1（中大）：无字
     C5d4-2（中大）：无字
@@ -249,8 +249,8 @@ CHAPTER 5 — Large-Scale Prototype Production
     C5d4-4（中大）：无字
 
 ■ 图片5 — 文件：C5d5
-短标题：text
-短说明：text
+短标题：Form and Function
+短说明：Human Interaction Negotiated with Emergent Material Form
 小节图片：
     C5d5-1（右大）：Soft Error questions the relationship between form and function. If architecture emerge rather than be assigned? Instead of designing spaces around fixed programmes, the methodology proposes that material formation and spatial organization precede or co-develop with functional definition. Human interaction opportunities and constraints produced by the built form. Rather than prescribing how architecture should be used, Soft Error suggests a framework in which alongside material and computational processes. 
 
@@ -258,8 +258,8 @@ CHAPTER 5 — Large-Scale Prototype Production
 CHAPTER 6 — Future Development
 ══════════════════════════════════════════════════
 ■ 图片1 — 文件：C6d1
-短标题：text
-短说明：text
+短标题：Soft Error Fingerprint
+短说明：A Volumetric Material Signature Distinct from Layer-Based Printing
 小节图片：
     C6d1-1（右大）：Fabrication processes leave traces of how architecture is made. Conventional large-scale 3D printing is characterized by the continuous horizontal lines produced through layer-by-layer extrusion, creating a recognizable visual language inseparable from its construction method. Soft Error produces its own material fingerprint that will identify spaces built through this methodology.
     C6d1-2（右大）：The current Soft Error methodology operates through a three-dimensional grid, volumizing points along defined perpendicular axes. Future development removes this constraint, allowing extrusion to approach and connect points from infinite directions. This expands the system toward more adaptive and organic printing patterns while retaining the fundamental logic of point-based volumization. As directional freedom increases, form can respond more directly to material behavior, structural requirements, and spatial conditions without losing the recognizable material signature of Soft Error. The transition from linear to organic toolpaths expands the geometric freedom of Soft Error while maintaining its characteristic accumulation of volumized points.
@@ -268,24 +268,24 @@ CHAPTER 6 — Future Development
     C6d1-5（中小）：无字
 
 ■ 图片2 — 文件：C6d2
-短标题：text
-短说明：text
+短标题：Offsite Fabrication
+短说明：Architectural Scale Fabricated Offsite, Assembled Onsite
 小节图片：
     C6d2-1（右小）：This new methodology begins to operate at an architectural scale as an adaptive infill system that builds around, supports, and supplements existing structures. Rather than replacing conventional construction, the methodology can repair, extend, or reshape existing spaces through material deposition. As infill accumulates across walls, floors, and ceilings, familiar geometric boundaries become less fixed, producing new spatial conditions within the existing architectural frame. Material selection further changes how these spaces are encourage touch, occupation, and bodily interaction, while rougher or more rigid recycled materials can constrict circulation, lower ceilings, and thicken boundaries. Material indeterminacy therefore becomes spatially productive, allowing the same methodology to generate different forms of inhabitation through the properties of the waste material available.
     C6d2-2（右大）：无字
     C6d2-3（中大）：无字
 
 ■ 图片3 — 文件：C6d3
-短标题：text
-短说明：text
+短标题：Onsite Fabrication
+短说明：Onsite Infill Using Flexible Substrate Bags and Robotic Extrusion
 小节图片：
     C6d3-1（右小）：At an architectural scale, the methodology becomes an adaptable on-site fabrication process. Granular material is contained and repositioned within flexible substrate bags while robotic systems extrude binding agents directly into the material bed. As each section is revealed, its resulting geometry informs the positioning and printing of subsequent sections. Construction therefore develops iteratively rather than toward a predetermined final form, allowing material behaviour, site conditions, and previous materializations to continuously inform what is built next.
     C6d3-2（右大）：Flexible substrate bags act as temporary formwork, containing granular material during robotic extrusion before being repositioned for subsequent prints. This enables the fabrication system to remain adaptable while responding to the indeterminate material formations produced during construction.
     C6d3-3（右大）：Soft Error can operate through a hybrid construction system combining on-site extrusion with prefabricated components. Elements requiring greater dimensional control, specific structural performance, or unique substrate materials can be produced in controlled off-site environments before being transported and installed as part of a larger assembly. This allows the methodology to move between indeterminate material formation and precise construction requirements, supporting modular, multi-material, and hybrid architectural systems. 
 
 ■ 图片4 — 文件：C6d4
-短标题：text
-短说明：text
+短标题：Urban Context: Venice
+短说明：Large-Scale Onsite Fabrication Around an Existing Building
 小节图片：
     C6d4-1（右大）：A gantry robot operates around the target site, extruding into substrate materials held alongside the existing architecture, allowing the site itself to become part of the substrate as the extrusion methodology adapts to the existing site condition. 
 Substrate material is selected according to site-specific requirements: construction cement waste provides structural support in load-bearing areas, while Murano glass serves decorative conditions and locally sourced marble combines aesthetic value with structural strength.
@@ -294,8 +294,8 @@ Substrate material is selected according to site-specific requirements: construc
     C6d4-4（中大）：无字
 
 ■ 图片5 — 文件：C6d5
-短标题：text
-短说明：text
+短标题：Future Projections
+短说明：Soft Error
 小节图片：
     C6d5-1（右大）：can and should be open to error, that design should allow for material behavior to be an active participant in the creation of form. The research has developed a methodology in which space emerges through negotiation between human intention, digital instruction, and material indeterminacy. Rather than asking fabrication to reproduce predetermined form, Soft Error works through the differences between what is designed, what is instructed, and what indeterminate material ultimately creates. The resulting architecture is therefore produced through a shifting negotiation of co-authorship. These speculative architectures project Soft Error's methodology into our future. The fingerprint of Soft Error remains visible through extrusion toolpaths, material interactions, and irregular forms. At this scale, however, the methodology also demands new technological and material developments: robotic systems capable of multidirectional construction at such large scale, further investigation into environmental and structural binding agents, and precise material scanning technologies. Soft Error ultimately proposes one path towards a posthuman approach to architectural design, in which authorship is distributed, human judgement remains but operates alongside here, becomes less the execution of a fixed image and more the cultivation of conditions from which innovative spatial typologies can emerge. 
     C6d5-2（中大）：无字

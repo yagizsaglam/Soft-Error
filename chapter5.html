@@ -153,11 +153,11 @@
 
       // Section → title + description (placeholder until copy.txt Chapter 5 is filled).
       const SECTION_TEXT = {
-        'C5d1': { title: 'text', text: 'text' },
-        'C5d2': { title: 'text', text: 'text' },
-        'C5d3': { title: 'text', text: 'text' },
-        'C5d4': { title: 'text', text: 'text' },
-        'C5d5': { title: 'text', text: 'text' }
+        'C5d1': { title: 'Design Development', text: 'From Hand Sketch to Mesh Model, Houdini and Extrusion Points' },
+        'C5d2': { title: 'Pattern Development', text: 'Intersecting Volume Systems Tested Through Complex Point Patterns' },
+        'C5d3': { title: 'F.U.N.C. Production', text: 'Full-Scale Prototype Revealed' },
+        'C5d4': { title: 'Material Signatures', text: '3D Extrusion Methodology Fabrication Language' },
+        'C5d5': { title: 'Form and Function', text: 'Human Interaction Negotiated with Emergent Material Form' }
       };
       // Section → detail image blocks (each image has a src + layout template).
       const DETAILS = {
@@ -228,9 +228,6 @@
           detailGrid.appendChild(wrap);
         });
         detailSection.style.display = 'block';
-        setTimeout(function() {
-          lenis.scrollTo(detailSection, { offset: -100 });
-        }, 200);
       }
 
       function deselect() {
