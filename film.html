@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="webpics/icon.png">
+  <title>Film — SOFT ERROR</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <script src="js/lenis.min.js"></script>
+  <style>
+    .film-main {
+      padding: 48px;
+      padding-top: 48px;
+    }
+    .film-player {
+      display: block;
+      width: 100%;
+      max-width: 1400px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      outline: none;
+    }
+    @media (max-width: 768px) {
+      .film-main {
+        padding: 24px 16px;
+        padding-top: 120px; /* fallback; refined to header height by inline JS */
+      }
+    }
+  </style>
+</head>
+<body class="chapter-page">
+
+  <div class="chapter-content">
+
+    <aside class="chapter-sidebar">
+      <div class="sidebar-top-group">
+        <div class="sidebar-top">
+          <a href="index.html#phase1" class="sidebar-logo">SOFT ERROR</a>
+          <span class="sidebar-chap">Film</span>
+        </div>
+        <h1 class="chapter-title">Film</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="chapter6.html" class="nav-arrow">
+          <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M8 1 L1 8 L8 15"/></svg>
+        </a>
+        <a href="library.html" class="nav-library">Library</a>
+        <span class="nav-arrow disabled">
+          <svg width="48" height="24" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M24 1 L31 8 L24 15"/></svg>
+        </span>
+      </nav>
+    </aside>
+
+    <div class="chapter-main film-main">
+      <video class="film-player" controls preload="metadata" playsinline
+             poster="webpics/soft-error-film-poster.jpg">
+        <source src="webpics/soft-error-film.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+  </div><!-- .chapter-content -->
+
+  <script>
+    // Lenis smooth scroll
+    const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // Offset content below the fixed mobile header (cleared on desktop)
+    (function () {
+      var sb = document.querySelector('.chapter-sidebar');
+      var main = document.querySelector('.chapter-main');
+      var mq = window.matchMedia('(max-width: 768px)');
+      function fitHeader() {
+        if (!sb || !main) return;
+        main.style.paddingTop = mq.matches ? (sb.offsetHeight + 20) + 'px' : '';
+      }
+      fitHeader();
+      window.addEventListener('resize', fitHeader);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeader);
+    })();
+  </script>
+</body>
+</html>
